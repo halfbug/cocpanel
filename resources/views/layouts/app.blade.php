@@ -61,7 +61,7 @@
                                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <!--<li><a href="{{ route('register') }}">Register</a></li>-->
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -155,7 +155,7 @@
                 <!-- /.row -->
                 
                 <div class="row">
-                    <div class="col-lg-6"> 
+                    <div class="col-lg-12"> 
                         
 @yield('content')
                     </div>
@@ -175,6 +175,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <!-- Scripts -->
+     <script src="{{asset('js/config.js')}}"></script>
     @yield('script')
 </body>
 </html>

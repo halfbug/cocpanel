@@ -72,14 +72,14 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
+                        <!--<a href="{{ url('/register') }}">Register</a>-->
                     @endif
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    CoC Panel
+                    <b>Co</b>ach and <b>C</b>lient Panel
                 </div>
 
 <!--                <div class="links">

@@ -13,7 +13,7 @@ class ModuleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $modules = Module::all();
+        $modules = module::all();
         return view('module.index')->with('modules', $modules);
     }
 

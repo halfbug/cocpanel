@@ -26,15 +26,15 @@ Route::get('/modules', 'ModuleController@index');
 //Route::get('/modules/add', 'ModuleController@create');
 
 Route::get('modules/{module_id?}',function($module_id){
-    $module = App\Module::find($module_id);
+    $module = App\module::find($module_id);
     return response()->json($module);
 });
 Route::post('modules',function(Request $request){   
-    $module = App\Module::create($request->all());
+    $module = App\module::create($request->all());
     return response()->json($module);
 });
 Route::put('modules/{module_id?}',function(Request $request,$module_id){
-    $module = App\Module::find($module_id);
+    $module = App\module::find($module_id);
     $module->title = $request->title;
     $module->description = $request->description;
     $module->content = $request->content;
@@ -42,6 +42,10 @@ Route::put('modules/{module_id?}',function(Request $request,$module_id){
     return response()->json($module);
 });
 Route::delete('modules/{module_id?}',function($module_id){
-    $module = App\Module::destroy($module_id);
+    $module = App\module::destroy($module_id);
     return response()->json($module);
 });
+
+Route::post('/documents/upload', 'DocumentController@docUploadPost');
+Route::get('/documents/list/{module_id?}', 'DocumentController@listModuleDoc');
+Route::delete('/documents/{doc_id?}', 'DocumentController@destroy');
