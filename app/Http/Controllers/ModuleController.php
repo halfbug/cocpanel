@@ -13,8 +13,10 @@ class ModuleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $modules = module::all();
-        return view('module.index')->with('modules', $modules);
+        $modules = module::all()->where('is_live',false);
+        $live_modules = module::all()->where('is_live',true);
+        return view('module.index')->with('modules', $modules)
+                ->with('live_modules',$live_modules);
     }
 
     /**
@@ -23,7 +25,7 @@ class ModuleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view ('module.create');
+        return view('module.create');
     }
 
     /**
@@ -33,7 +35,8 @@ class ModuleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $module = module::create($request->all());
+        return response()->json($module);
     }
 
     /**
@@ -52,8 +55,9 @@ class ModuleController extends Controller {
      * @param  \App\module  $module
      * @return \Illuminate\Http\Response
      */
-    public function edit(module $module) {
-        //
+    public function edit($module_id) {
+        $module = module::find($module_id);
+        return response()->json($module);
     }
 
     /**
@@ -63,8 +67,13 @@ class ModuleController extends Controller {
      * @param  \App\module  $module
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, module $module) {
-        //
+    public function update(Request $request, $module_id) {
+        $module = module::find($module_id);
+        $module->title = $request->title;
+        $module->description = $request->description;
+        $module->content = $request->content;
+        $module->save();
+        return response()->json($module);
     }
 
     /**
@@ -73,8 +82,23 @@ class ModuleController extends Controller {
      * @param  \App\module  $module
      * @return \Illuminate\Http\Response
      */
-    public function destroy(module $module) {
-        //
+    public function destroy($module_id) {
+        $module = module::destroy($module_id);
+        return response()->json($module);
+    }
+    
+    
+     /**
+     * update to live module.
+     *
+     * @param  \App\module  $module
+     * @return \Illuminate\Http\Response
+     */
+    public function makeLive($module_id) {
+        $module = module::find($module_id);
+        $module->is_live = true;
+        $module->save();
+        return response()->json($module);
     }
 
 }

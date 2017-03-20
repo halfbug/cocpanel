@@ -32,6 +32,8 @@ class DocumentController extends Controller {
     }
 
     public function destroy($doc_id) {
+        $doc_file = document::where('id', $doc_id)->first();
+        unlink(public_path('documents/'.$doc_file->filename));
         $doc = document::destroy($doc_id);
         return response()->json($doc);
     }
@@ -39,6 +41,7 @@ class DocumentController extends Controller {
     public function listModuleDoc($module_id) {
         $documents = module::find($module_id)->documents()->get();
         return response()->json($documents);
+                        
     }
 
 }

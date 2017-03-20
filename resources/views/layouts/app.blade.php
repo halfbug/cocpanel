@@ -175,7 +175,10 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <!-- Scripts -->
+    <script src="{{asset('js/bootstrap-notify.min.js')}}"></script>
      <script src="{{asset('js/config.js')}}"></script>
+      <script src="{{asset('js/bootbox.min.js')}}"></script>
+      
     @yield('script')
 </body>
 </html>

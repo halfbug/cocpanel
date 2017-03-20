@@ -28,8 +28,10 @@
                             </div>
 
                         </form>
+                        
+                        <div class="frmModule-footer"></div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer ">
                         <button type="button" class="btn btn-primary" id="btn-save" value="add">Save changes</button>
                         <input type="hidden" id="module_id" name="module_id" value="0">
                     </div>

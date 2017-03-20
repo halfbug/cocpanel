@@ -9,12 +9,12 @@ $(document).on('click', '.open_doc', function () {
         $.each(documents, function (i, doc) {
             console.log(doc.filename);
             $('#doc-list').append(
-                    '<tr id="doc_'+doc.id+'">'
-                    + '  <td>'+doc.description+'</td>'
-                    + '  <td>'+doc.filename+'</td>'
+                    '<tr id="doc_' + doc.id + '">'
+                    + '  <td>' + doc.description + '</td>'
+                    + '  <td>' + doc.filename + '</td>'
                     + '  <td>'
-                    + '     <a href="'+app.base_url+'/documents/'+doc.filename+'" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>'
-                    + '     <button class="btn btn-danger doc_delete" value="'+doc.id+'" title="Delete"><i class="fa fa-remove" ></i></button>'
+                    + '     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>'
+                    + '     <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
                     + '  </td>'
                     + '</tr>'
                     );
@@ -26,4 +26,49 @@ $(document).on('click', '.open_doc', function () {
 
     $('#doc_module_id').val(module_id);
     $('#documentModel').modal('show');
+});
+
+$(document).on('click', '.doc_delete', function () {
+    var doc_id = $(this).val();
+    bootbox.confirm({
+        title: "Delete document?",
+        message: "Do you want to delete document? This cannot be undone.",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Yes'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+                $.ajax({
+                    type: "DELETE",
+                    url: docUrl + '/' + doc_id,
+                    success: function (data) {
+                        console.log(data);
+                        $("#doc_" + doc_id).remove();
+                        $.notify("Document deleted successfully.");
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
+        }
+    });
+
+});
+
+$( document ).ready(function() {
+    if ($('.success-notification').length){
+        $.notify($( '.success-notification' ).attr( "message" ));
+    }
+
 });

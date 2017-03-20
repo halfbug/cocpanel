@@ -7,11 +7,9 @@
             </div>
             <div class="modal-body">
                 @if ($message = Session::get('success'))
-		<div class="alert alert-success alert-block">
-			<button type="button" class="close" data-dismiss="alert">×</button>
-		        <strong>{{ $message }}</strong>
+		<div class="success-notification" message="{{ $message }}">
 		</div>
-<!--		<img src="/images/{{ Session::get('path') }}">-->
+		
 		@endif
 
                 <div id="doc_tab" >	

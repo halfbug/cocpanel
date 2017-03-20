@@ -12,66 +12,64 @@ $(document).on('click', '.open_modal', function () {
 //             $('#content').val(data.content);
         tinymce.get('content').setContent(data.content);
         $('#btn-save').val("update");
+         $('.frmModule-footer').append('<div class="panel panel-success"> <div class="panel-heading">More with module</div>'
+  +' <div class="panel-body">  <button class="btn btn-primary btn-detail left open_doc" value="' + module_id + '" title="Documents"><i class="fa fa-file-text-o" ></i> Documents</button>'
+                    + ' <button class="btn btn-warning left" value="' + module_id + '"  title="Questions"><i class="fa fa-question-circle"></i> Questions</button></div></div>');
+    
         $('#myModal').modal('show');
-    })
+    });
 });
 //display modal form for creating new module
 $('#btn_add').click(function () {
     $('#btn-save').val("add");
     $('#frmModules').trigger("reset");
+    $('.frmModule-footer').html("");
     $('#myModal').modal('show');
+     
 });
 //delete module and remove it from list
 $(document).on('click', '.delete-module', function () {
     var module_id = $(this).val();
-    if (!$('#dataConfirmModal').length) {
-        $('body').append('<div class="modal fade " id="confirmModel" tabindex="-1" role="dialog" aria-labelledby="add_documentLabel" aria-hidden="true">'
-                + ' <div class="modal-dialog ">'
-                + '     <div class="modal-content">'
-                + '         <div class="modal-header">'
-                + '             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>'
-                + '             <h4 class="modal-title" id="add_documentLabel"> Please Confirm</h4>'
-                + '         </div>'
-                + '         <div class="modal-body">'
-                + ' Are you sure to delete entire Module'
-                + '</div>'
-                + '<div class="modal-footer">'
-                + '            <button type="button" class="btn btn-secondry" id="btn-cancel" value="cancel">Cancel</button>'
-                + '            <button type="button" class="btn btn-primary" id="btn-ok" value="ok">Ok</button>'
 
-                + '</div>'
-                + '  </div>'
-                + ' </div>'
-                + '</div>'
-                );
-    }
-//		$('#confirmModel').find('.modal-body').text("Are you sure to delete module");
-//                        .text($(this).attr('data-confirm'));
-//		$('#dataConfirmOK').attr('href', href);
-    $('#confirmModel').modal('show');
-    $(document).on('click', '#btn-cancel', function () {
-        $('#confirmModel').modal('hide');
-    });
-    $(document).on('click', '#btn-ok', function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        })
-        $.ajax({
-            type: "DELETE",
-            url: url + '/' + module_id,
-            success: function (data) {
-                console.log(data);
-                $("#module" + module_id).remove();
-                $('#confirmModel').modal('hide');
+    bootbox.confirm({
+        title: "Delete Module?",
+        message: "Do you want to delete module? This cannot be undone.",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
             },
-            error: function (data) {
-                console.log('Error:', data);
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
             }
-        });
+        },
+        callback: function (result) {
+            if (result) {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+                $.ajax({
+                    type: "DELETE",
+                    url: url + '/' + module_id,
+                    success: function (data) {
+                        console.log(data);
+                        $("#module" + module_id).remove();
+                        $.notify("Module have been deleted successfully.");
+
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
+
+        }
     });
+
 });
+//});
 //create new module / update existing module
 $("#btn-save").click(function (e) {
     // alert($('meta[name="_token"]').attr('content'));
@@ -95,7 +93,7 @@ $("#btn-save").click(function (e) {
     if (state == "update") {
         type = "PUT"; //for updating existing resource
         my_url += '/' + module_id;
-    }
+       }
     console.log(formData);
     $.ajax({
         type: type,
@@ -111,21 +109,65 @@ $("#btn-save").click(function (e) {
                     + ' <button class="btn btn-primary btn-detail open_doc" value="' + data.id + '" title="Documents"><i class="fa fa-file-text-o" ></i></button>'
                     + ' <button class="btn btn-warning " value="' + data.id + '"  title="Questions"><i class="fa fa-question-circle"></i></button>'
                     + ' | '
-                    + ' <button class="btn btn-success " value="' + data.id + '" title="Make Live"><i class="fa fa-plus-square-o" ></i></button>'
+                    + ' <button class="btn btn-success make_live " value="' + data.id + '" title="Make Live"><i class="fa fa-plus-square-o" ></i></button>'
                     + ' <button class="btn btn-danger btn-delete delete-module" value="' + data.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
                     + '</td>'
                     + '</tr>'
 
             if (state == "add") { //if user added a new record
                 $('#modules-list').append(module);
+                $.notify("Module have been added successfully.");
             } else { //if user updated an existing record
                 $("#module" + module_id).replaceWith(module);
+                $.notify("Module have been updated successfully.");
             }
             $('#frmModules').trigger("reset");
-            $('#myModal').modal('hide')
+            $('#myModal').modal('hide');
+             $('.nav-tabs a[href="#1"]').tab('show');
         },
         error: function (data) {
             console.log('Error:', data);
+        }
+    });
+});
+
+
+$(document).on('click', '.make_live', function () {
+    var module_id = $(this).val();
+    bootbox.confirm({
+        title: "Make Live?",
+        message: "Do you want to make live this module?<br> Any client who buy packages containg this module in future will buy this.",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                })
+                $.ajax({
+                    type: "PUT",
+                    url: url + '/make_live/' + module_id,
+                    success: function (data) {
+                        console.log(data);
+                        $("#module" + module_id).remove();
+                        $('.nav-tabs a[href="#2"]').tab('show');
+                        $.notify("Module is live now.");
+
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            }
         }
     });
 });

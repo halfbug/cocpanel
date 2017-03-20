@@ -34,3 +34,19 @@ app.config("development");
 //app.config("production");
 
 console.log(app.base_url);
+
+
+$.notifyDefaults({
+	placement: {
+		from: "top",
+                align: 'right'
+	},
+	animate:{
+		enter: "animated fadeInUp",
+		exit: "animated fadeOutDown"
+	}
+});
+
+setTimeout(function() {
+	$.notifyClose();
+}, 5000);
