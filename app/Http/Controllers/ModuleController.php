@@ -27,6 +27,16 @@ class ModuleController extends Controller {
     public function create() {
         return view('module.create');
     }
+    /**
+     * Available modules.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return json
+     */
+    public function getLive() {
+        $module = module::all()->where('is_live',true);
+        return response()->json($module);
+    }
 
     /**
      * Store a newly created resource in storage.

@@ -84,10 +84,6 @@
                             </li>
                         @endif
 
-                
-                
-                
-                
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -98,16 +94,16 @@
                     <li>
                         <a href="{{ url('/modules') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Modules</a>
                     </li>
-<!--                    <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
+                    <li>
+                        <a href="{{ url('/packages') }}"><i class="fa fa-fw fa-table"></i> Packages</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                        <a href="#"><i class="fa fa-fw fa-users"></i> Clients</a>
                     </li>
                     <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                        <a href="#"><i class="fa fa-fw fa-user-md"></i> Coaches</a>
                     </li>
-                    <li>
+        <!--            <li>
                         <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
                     </li>
                     <li>

@@ -6,7 +6,7 @@
 <div class="">
     <div class="row">
         <div class="col-md-11 ">
-            <button id="btn_add" name="btn_add" class="btn btn-default pull-right">Add New Module</button>
+            <button id="btn_add" name="btn_add" class="btn btn-secondary pull-right">New Module</button>
 
 
 
@@ -14,16 +14,16 @@
             <div id="exTab2" >	
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a  href="#1" data-toggle="tab">Draft </a>
+                        <a  href="#draft" data-toggle="tab">Draft </a>
                     </li>
                     <li>
-                        <a href="#2" data-toggle="tab">Live</a>
+                        <a href="#live" data-toggle="tab">Live</a>
                     </li>
 
                 </ul>
 
                 <div class="tab-content ">
-                    <div class="tab-pane active" id="1">
+                    <div class="tab-pane active" id="draft">
                         <h3>Draft Modules</h3>
                         <div class="panel-body"> 
 
@@ -59,7 +59,7 @@
 
 
                     </div>
-                    <div class="tab-pane" id="2">
+                    <div class="tab-pane" id="live">
                         <h3>Live Modules</h3>
 
                         <div class="panel-body"> 
@@ -74,7 +74,7 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody id="modules-list" name="modules-list">
+                                <tbody id="live-modules-list" name="live-modules-list">
                                     @foreach ($live_modules as $module)
                                     <tr id="module{{$module->id}}">
 <!--                                        <td>{{$module->id}}</td>-->
@@ -103,9 +103,9 @@
 
 
         </div>
-        @include('models.add_module')
-        @include('models.document')
-        @include('question.document') 
+        @include('modals.add_module')
+        @include('modals.document')
+        @include('modals.question') 
     </div>
 
 

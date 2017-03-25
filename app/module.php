@@ -18,4 +18,23 @@ class module extends Model
         return $this->hasMany('App\document');
     
     }
+    
+    /**
+     * Get the associated questions
+     *
+     * @var array
+     */
+    public function questions(){
+     
+        return $this->hasMany('App\question');
+    
+    }
+    
+    /**
+     * The packages that belong to the module.
+     */
+    public function packages()
+    {
+        return $this->belongsToMany('App\package', 'package_module');
+    }
 }

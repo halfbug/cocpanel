@@ -1,4 +1,57 @@
 var url = app.base_url + "/modules";
+
+function addModuleHtml(type, data)
+{
+    var module;
+    switch (type) {
+        case 'live':
+            module = '<tr id="module' + data.id + '">'
+                    + '<td>' + data.title + '</td>'
+                    + '<td>'
+                    + '  <button class="btn btn-secondary btn-detail open_modal" value="' + data.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
+                    + '  <button class="btn btn-primary btn-detail copy_module" value="' + data.id + '" title="Copy"><i class="fa fa-copy" ></i></button>'
+                    + '  <button class="btn btn-warning btn-detail preview_module" value="' + data.id + '+" title="Preview"><i class="fa fa-search" ></i></button>'
+                    + '  <button class="btn btn-danger btn-delete delete-module" value="' + data.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
+                    + '</td>'
+                    + '</tr>';
+            break;
+        case 'draft':
+        default:
+
+            module = '<tr id="module' + data.id + '">'
+                    + '<td>' + data.title + '</td>'
+                    + '<td>'
+                    + '<button class="btn btn-secondary btn-detail open_modal" value="' + data.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
+                    + ' <button class="btn btn-primary btn-detail open_doc" value="' + data.id + '" title="Documents"><i class="fa fa-file-text-o" ></i></button>'
+                    + ' <button class="btn btn-warning open_ques" value="' + data.id + '"  title="Questions"><i class="fa fa-question-circle"></i></button>'
+                    + ' | '
+                    + ' <button class="btn btn-success make_live " value="' + data.id + '" title="Make Live"><i class="fa fa-plus-square-o" ></i></button>'
+                    + ' <button class="btn btn-danger btn-delete delete-module" value="' + data.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
+                    + '</td>'
+                    + '</tr>';
+
+            break;
+
+
+    }
+
+    return module;
+
+}
+
+function getModuleType(id){
+     var $wrapper = $('#live-modules-list'),
+            $target = $('#module' + id);
+    if ($.contains($wrapper[0], $target[0])) {
+            return('live');
+        } else
+        {
+            return('draft');
+        }
+}
+
+
+
 //display modal form for module editing
 $(document).on('click', '.open_modal', function () {
     var module_id = $(this).val();
@@ -9,13 +62,13 @@ $(document).on('click', '.open_modal', function () {
         $('#module_id').val(data.id);
         $('#title').val(data.title);
         $('#description').val(data.description);
-//             $('#content').val(data.content);
+//        $('#content').val(data.content);
         tinymce.get('content').setContent(data.content);
         $('#btn-save').val("update");
-         $('.frmModule-footer').append('<div class="panel panel-success"> <div class="panel-heading">More with module</div>'
-  +' <div class="panel-body">  <button class="btn btn-primary btn-detail left open_doc" value="' + module_id + '" title="Documents"><i class="fa fa-file-text-o" ></i> Documents</button>'
-                    + ' <button class="btn btn-warning left" value="' + module_id + '"  title="Questions"><i class="fa fa-question-circle"></i> Questions</button></div></div>');
-    
+        $('.frmModule-footer').html('').append('<div class="panel panel-success"> <div class="panel-heading">More with module</div>'
+                + ' <div class="panel-body">  <button class="btn btn-primary btn-detail left open_doc" value="' + module_id + '" title="Documents"><i class="fa fa-file-text-o" ></i> Documents</button>'
+                + ' <button class="btn btn-warning open_ques" value="' + module_id + '"  title="Questions"><i class="fa fa-question-circle"></i> Questions</button></div></div>');
+
         $('#myModal').modal('show');
     });
 });
@@ -25,7 +78,7 @@ $('#btn_add').click(function () {
     $('#frmModules').trigger("reset");
     $('.frmModule-footer').html("");
     $('#myModal').modal('show');
-     
+
 });
 //delete module and remove it from list
 $(document).on('click', '.delete-module', function () {
@@ -93,7 +146,7 @@ $("#btn-save").click(function (e) {
     if (state == "update") {
         type = "PUT"; //for updating existing resource
         my_url += '/' + module_id;
-       }
+    }
     console.log(formData);
     $.ajax({
         type: type,
@@ -102,28 +155,18 @@ $("#btn-save").click(function (e) {
         dataType: 'json',
         success: function (data) {
             console.log(data);
-            var module = '<tr id="module' + data.id + '">'
-                    + '<td>' + data.title + '</td>'
-                    + '<td>'
-                    + '<button class="btn btn-secondary btn-detail open_modal" value="' + data.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
-                    + ' <button class="btn btn-primary btn-detail open_doc" value="' + data.id + '" title="Documents"><i class="fa fa-file-text-o" ></i></button>'
-                    + ' <button class="btn btn-warning " value="' + data.id + '"  title="Questions"><i class="fa fa-question-circle"></i></button>'
-                    + ' | '
-                    + ' <button class="btn btn-success make_live " value="' + data.id + '" title="Make Live"><i class="fa fa-plus-square-o" ></i></button>'
-                    + ' <button class="btn btn-danger btn-delete delete-module" value="' + data.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
-                    + '</td>'
-                    + '</tr>'
 
+            var module_type =getModuleType(data.id);
             if (state == "add") { //if user added a new record
-                $('#modules-list').append(module);
+                $('#modules-list').append(addModuleHtml(module_type, data));
                 $.notify("Module have been added successfully.");
             } else { //if user updated an existing record
-                $("#module" + module_id).replaceWith(module);
+                $("#module" + module_id).replaceWith(addModuleHtml(module_type, data));
                 $.notify("Module have been updated successfully.");
             }
             $('#frmModules').trigger("reset");
             $('#myModal').modal('hide');
-             $('.nav-tabs a[href="#1"]').tab('show');
+            $('.nav-tabs a[href="#'+module_type+'"]').tab('show');
         },
         error: function (data) {
             console.log('Error:', data);
@@ -159,7 +202,8 @@ $(document).on('click', '.make_live', function () {
                     success: function (data) {
                         console.log(data);
                         $("#module" + module_id).remove();
-                        $('.nav-tabs a[href="#2"]').tab('show');
+                        $('#live-modules-list').append(addModuleHtml('live', data));
+                        $('.nav-tabs a[href="#live"]').tab('show');
                         $.notify("Module is live now.");
 
                     },

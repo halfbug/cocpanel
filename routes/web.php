@@ -30,8 +30,26 @@ Route::post('modules','ModuleController@store');
 Route::put('modules/{module_id?}','ModuleController@update');
 Route::delete('modules/{module_id?}','ModuleController@destroy');
 Route::put('modules/make_live/{module_id?}','ModuleController@makeLive');
+Route::get('modules/live','ModuleController@getLive');
 
 
 Route::post('/documents/upload', 'DocumentController@docUploadPost');
 Route::get('/documents/list/{module_id?}', 'DocumentController@listModuleDoc');
 Route::delete('/documents/{doc_id?}', 'DocumentController@destroy');
+
+
+Route::group(['prefix' => 'questions'], function () {
+    Route::get('list/{module_id?}', 'QuestionController@grid');
+    Route::post('/','QuestionController@store');
+    Route::put('{question_id}','QuestionController@update');
+    Route::get('{question_id}','QuestionController@show');
+    Route::delete('{question_id}','QuestionController@destroy');
+});
+
+Route::group(['prefix' => 'packages'], function () {
+    Route::get('/', 'PackageController@index');
+    Route::post('/','PackageController@store');
+    Route::put('{package_id}','PackageController@update');
+    Route::get('{package_id}','PackageController@show');
+    Route::delete('{package_id}','PackageController@destroy');
+});
