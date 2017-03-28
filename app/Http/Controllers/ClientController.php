@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use App\User;
 
 class ClientController extends Controller {
 
@@ -30,9 +34,9 @@ class ClientController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
-        //
-    }
+//    public function create() {
+//        //
+//    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,15 +44,18 @@ class ClientController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    use RegistersUsers;
     public function store(Request $request) {
         $pack_id = $request->package_id;
         $request->password=bcrypt($request->password);
-        $user = \App\User::create([
-            'name'=>$request->name, 
-            'email' => $request->email, 
-            'password' => bcrypt($request->password),
-          
-        ]);
+//        $user = \App\User::create([
+//            'name'=>$request->name, 
+//            'email' => $request->email, 
+//            'password' => bcrypt($request->password),
+//          
+//        ]);
+        event(new Registered($user = $this->create($request->all())));
+        
         $clientRole = \App\role::client();
         $client = new \App\assign();
         $client->role_id = $clientRole;
@@ -58,6 +65,14 @@ class ClientController extends Controller {
         return response()->json($client);
     }
 
+     protected function create(array $data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
