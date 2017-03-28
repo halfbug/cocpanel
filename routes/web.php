@@ -53,3 +53,12 @@ Route::group(['prefix' => 'packages'], function () {
     Route::get('{package_id}','PackageController@show');
     Route::delete('{package_id}','PackageController@destroy');
 });
+
+Route::group(['prefix' => 'clients'], function () {
+    Route::get('/', 'ClientController@index');
+    Route::post('/','ClientController@store');
+    Route::post('/addExisting','ClientController@storeExisting');
+    Route::put('{package_id}','ClientController@update');
+    Route::get('{package_id}','ClientController@show');
+    Route::delete('{package_id}','ClientController@destroy');
+});

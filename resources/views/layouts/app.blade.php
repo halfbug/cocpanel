@@ -98,10 +98,10 @@
                         <a href="{{ url('/packages') }}"><i class="fa fa-fw fa-table"></i> Packages</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-users"></i> Clients</a>
+                        <a href="{{ url('/clients') }}"><i class="fa fa-fw fa-users"></i> Clients</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-fw fa-user-md"></i> Coaches</a>
+                        <a href="{{ url('/coaches') }}"><i class="fa fa-fw fa-user-md"></i> Coaches</a>
                     </li>
         <!--            <li>
                         <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>

@@ -41,6 +41,10 @@ class PackageController extends Controller
     {
           $package = package::create($request->all());
           $package->modules()->attach($request->selected_modules);
+          // auto set coache
+          $assign = new \App\assign();
+          $assign->coache(auth()->user()->id,$package->id);
+          
         return response()->json($package);
     }
 

@@ -118,3 +118,89 @@ $(document).on('click', '.edit_package', function (e) {
     $('#addPackageModal').modal('show');
     });
 });
+
+$(document).on('click', '.new_client', function (e) {
+    var package_id = $(this).data('value');
+    $('#package_id').val(package_id);
+    $('#newClientModal').modal('show');
+    
+});
+
+$(document).on('click', '#btn-save-client', function (e) {
+   
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+    var formData = {
+        name: $('#name').val(),
+        password: $('#password').val(),
+        email: $('#email').val(),
+        package_id : $('#package_id').val()
+    };
+        
+    
+    console.log(formData);
+    $.ajax({
+        type: "POST",
+        url: app.base_url+"/clients",
+        data: formData,
+        dataType: 'json',
+        success: function (client) {
+                $.notify("Client have been added successfully.");
+            console.log(client);
+            $('#frmClient').trigger("reset");
+            $('#newClientModal').modal('hide');
+
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+
+
+});
+
+$(document).on('click', '.add_client', function (e) {
+    var package_id = $(this).data('value');
+    $('#package_id').val(package_id);
+    $('#addClientModal').modal('show');
+    
+});
+
+$(document).on('click', '#btn-save-addclient', function (e) {
+   
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+    var formData = {
+        emails: $('#emails').val(),
+        package_id : $('#package_id').val()
+    };
+        
+    
+    console.log(formData);
+    $.ajax({
+        type: "POST",
+        url: app.base_url+"/clients/addExisting",
+        data: formData,
+        dataType: 'json',
+        success: function (totoalclints) {
+                $.notify(totoalclints+" Clients have been added successfully.");
+            console.log(totoalclints);
+            $('#frmAddClient').trigger("reset");
+            $('#addClientModal').modal('hide');
+
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+
+
+});
