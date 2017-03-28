@@ -83,5 +83,5 @@ Coaches
 
 @section('script')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="{{asset('js/coaches.js')}}"></script>
+<!--<script src="{{asset('js/coaches.js')}}"></script>-->
 @endsection
