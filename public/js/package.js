@@ -157,9 +157,10 @@ $(document).on('click', '#btn-save-client', function (e) {
         url: app.base_url+"/clients",
         data: formData,
         dataType: 'json',
-        success: function (client) {
+        success: function (data) {
                 $.notify("Client have been added successfully.");
-            console.log(client);
+            console.log(data);
+            $('#clients_'+data.client.package_id).html(data.totalclients);
             $('#frmClient').trigger("reset");
             $('#newClientModal').modal('hide');
 
@@ -199,9 +200,10 @@ $(document).on('click', '#btn-save-addclient', function (e) {
         url: app.base_url+"/clients/addExisting",
         data: formData,
         dataType: 'json',
-        success: function (totoalclints) {
-                $.notify(totoalclints+" Clients have been added successfully.");
-            console.log(totoalclints);
+        success: function (data) {
+                $.notify(data.clients+" Clients have been added successfully.");
+            console.log(data);
+             $('#clients_'+$('#package_id').val()).html(data.totalclients);
             $('#frmAddClient').trigger("reset");
             $('#addClientModal').modal('hide');
 

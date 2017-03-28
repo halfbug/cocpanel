@@ -16,17 +16,17 @@ class ClientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        
-        
+
+
         $collection = \App\assign::all();
         $users = \App\User::all();
         $coaches = $collection->where('role_id', \App\role::coache())->unique("user_id");
 //        return $coaches;
-        
-       
-        
-         return view('client.index')->with('collection', $collection)
-                ->with('users',$users)->with("coaches",$coaches);
+
+
+
+        return view('client.index')->with('collection', $collection)
+                        ->with('users', $users)->with("coaches", $coaches);
     }
 
     /**
@@ -38,16 +38,17 @@ class ClientController extends Controller {
 //        //
 //    }
 
-    /**
+/**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     use RegistersUsers;
+
     public function store(Request $request) {
         $pack_id = $request->package_id;
-        $request->password=bcrypt($request->password);
+        $request->password = bcrypt($request->password);
 //        $user = \App\User::create([
 //            'name'=>$request->name, 
 //            'email' => $request->email, 
@@ -55,24 +56,30 @@ class ClientController extends Controller {
 //          
 //        ]);
         event(new Registered($user = $this->create($request->all())));
-        
-        $clientRole = \App\role::client();
-        $client = new \App\assign();
-        $client->role_id = $clientRole;
-        $client->user_id = $user->id;
-        $client->package_id = $request->package_id;
-        $client->save();
-        return response()->json($client);
-    }
 
-     protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+//        $clientRole = \App\role::client();
+        $assign = new \App\assign();
+        $client = $assign->client($user->id, $request->package_id);
+//        $client->role_id = $clientRole;
+//        $client->user_id = $user->id;
+//        $client->package_id = $request->package_id;
+//        $client->save();
+        $package_clients = \App\package::find($request->package_id)->linked_clients;
+
+        return response()->json([
+                    'client' => $client,
+                    'totalclients' => $package_clients->count()
         ]);
     }
+
+    protected function create(array $data) {
+        return User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => bcrypt($data['password']),
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -84,16 +91,21 @@ class ClientController extends Controller {
         $emails = $request->emails;
         $emails = preg_replace('/\s+/', '', $emails);
         $users = \App\User::whereIn('email', explode(",", $emails))->get();
-        
+
         $clients = [];
         foreach ($users as $user) {
 
             $assign = new \App\assign();
             $assign->client($user->id, $request->package_id);
-            
-            $clients[]=$user->email;
+
+            $clients[] = $user->email;
         }
-        return response()->json(implode(", ", $clients));
+        
+        $package_clients = \App\package::find($request->package_id)->linked_clients;
+        return response()->json([
+        'clients' => implode(", ", $clients),
+        'totalclients' => $package_clients->count()
+        ]);
     }
 
     /**

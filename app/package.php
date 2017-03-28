@@ -10,11 +10,16 @@ class package extends Model {
     public $fillable = ['id', 'title', 'description', 'price', 'currency', 'paymnent_frequency', 'facebook_group', 'release_schedule'];
     protected $payment_frequencies = ['One Off', 'monthly', 'weekly', 'yearly'];
     protected $release_schedule = ['delivere immediately', 'rolling launch', 'one off launch', 'on completion of previous'];
-    protected $appends = array('selected_modules');
+    protected $appends = array('selected_modules','linked_clients');
 //    protected $clients;
 
     public function getSelectedModulesAttribute() {
         return $this->modules()->get();
+    }
+    
+    public function getLinkedClientsAttribute() {
+        $l_clients=\App\assign::where('package_id',$this->id)->where('role_id',\App\role::client())->get();
+        return $l_clients;
     }
     
     public function setSelectedModulesAttribute($value) {
