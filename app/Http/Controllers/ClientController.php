@@ -42,7 +42,13 @@ class ClientController extends Controller {
      */
     public function store(Request $request) {
         $pack_id = $request->package_id;
-        $user = \App\User::create($request->all());
+        $request->password=bcrypt($request->password);
+        $user = \App\User::create([
+            'name'=>$request->name, 
+            'email' => $request->email, 
+            'password' => bcrypt($request->password),
+          
+        ]);
         $clientRole = \App\role::client();
         $client = new \App\assign();
         $client->role_id = $clientRole;

@@ -48,5 +48,13 @@ class assign extends Model {
         
 //        return "yes";
     }
+    
+    public function getPackages($users,$collection) {
+        $pack = $collection->where("user_id",  $this->user_id)->unique("package_id")->pluck("package_id");
+        $pacakages= \App\package::whereIn("id",$pack)->get();
+        return $pacakages;
+        
+//        return "yes";
+    }
 
 }

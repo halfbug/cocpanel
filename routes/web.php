@@ -62,3 +62,12 @@ Route::group(['prefix' => 'clients'], function () {
     Route::get('{package_id}','ClientController@show');
     Route::delete('{package_id}','ClientController@destroy');
 });
+
+Route::group(['prefix' => 'coaches'], function () {
+    Route::get('/', 'CoacheController@index');
+    Route::post('/','CoacheController@store');
+    Route::post('/addExisting','CoacheController@storeExisting');
+    Route::put('{package_id}','CoacheController@update');
+    Route::get('{package_id}','CoacheController@show');
+    Route::delete('{package_id}','CoacheController@destroy');
+});
