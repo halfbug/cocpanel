@@ -55,8 +55,9 @@ class ModuleController extends Controller {
      * @param  \App\module  $module
      * @return \Illuminate\Http\Response
      */
-    public function show(module $module) {
-        //
+    public function show($module_id) {
+        $module = module::find($module_id);
+        return view('module.preview')->with('module',$module);
     }
 
     /**

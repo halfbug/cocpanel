@@ -19,7 +19,7 @@ class CreateDocumentsTable extends Migration
             $table->text('description')->nullable();
             $table->integer('uploaded_by');
             $table->timestamp('uploaded_at')->useCurrent();
-            $table->integer('module_id');
+//            $table->integer('module_id');
             $table->timestamps();
         });
     }

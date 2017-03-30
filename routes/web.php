@@ -31,6 +31,7 @@ Route::put('modules/{module_id?}','ModuleController@update');
 Route::delete('modules/{module_id?}','ModuleController@destroy');
 Route::put('modules/make_live/{module_id?}','ModuleController@makeLive');
 Route::get('modules/live','ModuleController@getLive');
+Route::get('modules/preview/{module_id?}','ModuleController@show');
 
 
 Route::post('/documents/upload', 'DocumentController@docUploadPost');
@@ -55,12 +56,15 @@ Route::group(['prefix' => 'packages'], function () {
 });
 
 Route::group(['prefix' => 'clients'], function () {
+    Route::get('/active_packages','ClientController@activePackages');
     Route::get('/', 'ClientController@index');
     Route::post('/','ClientController@store');
     Route::post('/addExisting','ClientController@storeExisting');
     Route::put('{package_id}','ClientController@update');
-    Route::get('{package_id}','ClientController@show');
+//    Route::get('{package_id}','ClientController@show');
     Route::delete('{package_id}','ClientController@destroy');
+    
+    
 });
 
 Route::group(['prefix' => 'coaches'], function () {

@@ -11,7 +11,7 @@ class assign extends Model {
      *
      * @var string
      */
-    protected $table = 'role_user_package';
+    protected $table = 'assignments';
 
     public function client($auser_id, $apackage_id) {
 

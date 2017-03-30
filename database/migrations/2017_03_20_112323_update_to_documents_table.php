@@ -13,6 +13,7 @@ class UpdateToDocumentsTable extends Migration
      */
     public function up() {
         Schema::table('documents', function($table) {
+            $table->integer("module_id")->unsigned()->index();
             $table->foreign("module_id")->references('id')->on('modules')->onDelete('cascade')->change();
 
         });

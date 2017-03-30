@@ -148,5 +148,20 @@ class ClientController extends Controller {
     public function destroy($id) {
         //
     }
+    
+     /**
+     * Display a listing of the active packages.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function activePackages() {
+//return "yesr";
+
+        $pack = \App\assign::where('role_id', \App\role::client())->where("user_id",\Auth::user()->id)->pluck("package_id")->all();
+       
+        $packages= \App\package::whereIn("id",$pack)->get();
+       
+        return view('client.activepack')->with('packages', $packages);
+    }
 
 }

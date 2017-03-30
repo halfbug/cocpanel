@@ -22,7 +22,7 @@ class CreatePackagesTable extends Migration
             $table->char('currency', 4);
             $table->enum('paymnent_frequency', ['One Off', 'monthly', 'weekly', 'yearly']);
             $table->string('facebook_group');
-            $table->enum('release_schedule', ['delivere immediately', 'rolling launch', 'one of launch', 'on completion of previous']);
+            $table->enum('release_schedule', ['delivere immediately', 'rolling launch', 'one off launch', 'on completion of previous']);
             
             $table->timestamps();
         });

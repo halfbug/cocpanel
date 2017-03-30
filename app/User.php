@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','status'
     ];
 
     /**
@@ -26,4 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function isAdmin(){
+        return $this->status == 1;
+    }
+    
+    public function isClient(){
+        
+//        $l_clients=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->pluck("package_id")->get();
+        $client=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->count();
+        return $client > 0;
+    
+    }
 }
