@@ -44,6 +44,28 @@ class package extends Model {
     }
     
     /**
+     * Get the associated discussions
+     *
+     * @var array
+     */
+    public function discussions(){
+     
+        return $this->hasMany('App\discussion');
+    
+    }
+    
+    /**
+     * Get the associated assignments
+     *
+     * @var array
+     */
+    public function assignments(){
+     
+        return $this->hasMany('App\assignment');
+    
+    }
+    
+    /**
      * Get all of the clients that are assigned to this package.
      */
 //    public function getClientsAttribute()

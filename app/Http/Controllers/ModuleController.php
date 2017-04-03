@@ -57,6 +57,7 @@ class ModuleController extends Controller {
      */
     public function show($module_id) {
         $module = module::find($module_id);
+//        $assignment = \App\assignment::where('user_id',Auth::user()->id)->where('package_id',$module->package())
         return view('module.preview')->with('module',$module);
     }
 

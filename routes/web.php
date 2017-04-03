@@ -70,8 +70,11 @@ Route::group(['prefix' => 'clients'], function () {
 Route::group(['prefix' => 'coaches'], function () {
     Route::get('/', 'CoacheController@index');
     Route::post('/','CoacheController@store');
-    Route::post('/addExisting','CoacheController@storeExisting');
-    Route::put('{package_id}','CoacheController@update');
-    Route::get('{package_id}','CoacheController@show');
-    Route::delete('{package_id}','CoacheController@destroy');
+    Route::get('/active_packages','CoacheController@activePackages');
+});
+
+Route::group(['prefix' => 'assigned'], function () {
+    Route::get('/{package_id}/{module_id}', 'AassignmentController@show');
+    Route::post('/{package_id}/{module_id}', 'AassignmentController@store');
+    
 });

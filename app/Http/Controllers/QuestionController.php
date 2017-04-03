@@ -80,8 +80,9 @@ class QuestionController extends Controller {
      * @param  \App\question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(question $question) {
-        //
+    public function destroy($question_id) {
+        $doc = \App\question::destroy($question_id);
+        return response()->json($doc);
     }
 
 }

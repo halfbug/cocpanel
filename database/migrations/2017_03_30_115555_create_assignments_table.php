@@ -30,7 +30,7 @@ class CreateAssignmentsTable extends Migration {
              * 2 for in progress module
              * 3 for in pending module
              * 4 for completion of module
-             ');
+             ')->default(3);
         });
     }
 

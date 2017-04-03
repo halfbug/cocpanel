@@ -4,24 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CoacheController extends Controller
-{
+class CoacheController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $collection = \App\assign::all();
         $users = \App\User::all();
         $coaches = $collection->where('role_id', \App\role::coache())->unique("user_id");
 //        return $coaches;
-        
-       
-        
-         return view('coache.index')->with('collection', $collection)
-                ->with('users',$users)->with("coaches",$coaches);
+
+
+
+        return view('coache.index')->with('collection', $collection)
+                        ->with('users', $users)->with("coaches", $coaches);
+    }
+
+    /**
+     * Display a listing of the active packages.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function activePackages(Request $request) {
+        session(['role' => 'coache']);
+        $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();
+
+        return view('client.activepack')->with('assignments', $assignments->unique("package_id"))->with('role',"Coache");
     }
 
     /**
@@ -29,8 +40,7 @@ class CoacheController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -40,8 +50,7 @@ class CoacheController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -51,8 +60,7 @@ class CoacheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -62,8 +70,7 @@ class CoacheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -74,8 +81,7 @@ class CoacheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -85,8 +91,8 @@ class CoacheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

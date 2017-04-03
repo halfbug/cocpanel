@@ -110,6 +110,7 @@
                         <!--                        <li role="separator" class="divider">
                         
                                                 </li>-->
+                        
                         <li>
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-power-off"></i> Administration <i class="fa fa-fw fa-caret-down"></i></a>
                             <ul id="demo" class="collapse">
@@ -121,10 +122,17 @@
                                                             </li>-->
                             </ul>
                         </li>
-                        @elseif(Auth::user()->isClient())
+                        @endif
+                        @if(Auth::user()->isClient() )
                         <li>
                             <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
                         </li>
+                        @endif
+                        @if(Auth::user()->isCoache() )
+                        <li>
+                            <a href="{{ url('/coaches/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
+                        </li>
+                        @endif
                         <!--
                         <li class="active">
                             <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
@@ -132,7 +140,7 @@
                         <!--                    <li>
                                                 <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> Amin</a>
                                             </li>-->
-                        @endif
+                        
                         @endif
                     </ul>
                 </div>

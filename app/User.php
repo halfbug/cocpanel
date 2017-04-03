@@ -38,4 +38,22 @@ class User extends Authenticatable
         return $client > 0;
     
     }
+    
+    public function isCoache(){
+        
+//        $l_clients=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->pluck("package_id")->get();
+        $client=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::coache())->count();
+        return $client > 0;
+    
+    }
+    /**
+     * Get the associated discussions
+     *
+     * @var array
+     */
+    public function discussions(){
+     
+        return $this->hasMany('App\discussion');
+    
+    }
 }

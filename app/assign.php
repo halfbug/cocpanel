@@ -15,12 +15,19 @@ class assign extends Model {
 
     public function client($auser_id, $apackage_id) {
 
-        $this->role_id = \App\role::client();
-        $this->user_id = $auser_id;
-        $this->package_id = $apackage_id;
-        $this->save();
+        $role_id = \App\role::client();
+       
+        $pack= $this->getPackage($apackage_id);
+        foreach($pack->selected_modules as $module)
+        {
+            \App\assignment::create(['role_id' => $role_id, 'user_id' => $auser_id, 'package_id' =>$apackage_id, 'module_id'=> $module->id]);
+        }
 
         return $this;
+    }
+    
+    public function getPackage($package_id){
+        return \App\package::where('id',$package_id)->first();
     }
 
     public function coache($auser_id, $apackage_id) {
@@ -28,6 +35,8 @@ class assign extends Model {
         $this->role_id = \App\role::coache();
         $this->user_id = $auser_id;
         $this->package_id = $apackage_id;
+        $this->module_id = $this->getPackage($apackage_id)->selected_modules->first()->id;
+            
         $this->save();
 
         return $this;

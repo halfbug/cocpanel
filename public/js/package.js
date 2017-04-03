@@ -160,7 +160,7 @@ $(document).on('click', '#btn-save-client', function (e) {
         success: function (data) {
                 $.notify("Client have been added successfully.");
             console.log(data);
-            $('#clients_'+data.client.package_id).html(data.totalclients);
+            $('#clients_'+$('#package_id').val()).html(data.totalclients);
             $('#frmClient').trigger("reset");
             $('#newClientModal').modal('hide');
 

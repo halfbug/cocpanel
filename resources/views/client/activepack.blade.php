@@ -24,7 +24,8 @@
                         </tr>
                     </thead>
                     <tbody id="clients-list" name="clients-list">
-                        @foreach ($packages as $package)
+                       @foreach ($assignments as $assigned)
+                        @foreach ($assigned->package()->get() as $package)
                         <tr id="package_{{$package->id}}">
                             <td>+</td>
                             <td>{{$package->title}}</td>
@@ -32,16 +33,18 @@
                             <td><button class="btn btn-success viewmodules" value="{{$package->id}}" title="Show Modules"><i class="fa fa-arrow-circle-o-down" ></i></button></td>
 
                         </tr>
-
-                        @foreach ($package->selected_modules as $module)
+                    
+                        @foreach($package->selected_modules as $module)
                         <tr colspan="3" class="warning" id="packmodule_{{$package->id}}">
-                        <td style="width: 40px;">--</td>
-                        <td>{{$module->title}}</td>  
-                        <td><button class="btn btn-warning btn-detail preview_module" value="{{$module->id}}" title="Preview"><i class="fa fa-search" ></i></button></td>
+                            <td style="width: 40px;">--</td>
+                            <td>{{$module->title}}</td>  
+                            <td><a class="btn btn-warning btn-detail preview_module" href="{{ url('assigned/'.$package->id.'/'.$module->id) }}" title="Preview"><i class="fa fa-search" ></i></a></td>
+
+                        </tr>
+                        @endforeach
                         
-                    </tr>
-                    @endforeach
-                    @endforeach
+                        @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -67,24 +70,24 @@
 @endsection
 
 @section('heading')
-Clients <small>management</small>
+{{$role}} <small>management</small>
 @endsection
 
 @section('title')
-Clients
+$role
 @endsection
 
 @section('script')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!--<script src="{{asset('js/client.js')}}"></script>-->
 <script>
-$(document).ready(function() {
-    console.log( "ready!" );
-    $('[id^=packmodule_]').hide();
-});    
-$(document).on('click', '.viewmodules', function (e) {
-    var package_id = $(this).val();
-    $("#packmodule_"+package_id).toggle();
-});
+    $(document).ready(function () {
+        console.log("ready!");
+        $('[id^=packmodule_]').hide();
+    });
+    $(document).on('click', '.viewmodules', function (e) {
+        var package_id = $(this).val();
+        $("#packmodule_" + package_id).toggle();
+    });
 </script>
 @endsection

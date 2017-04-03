@@ -32,7 +32,7 @@ class CreatePackagesTable extends Migration
             $table->foreign("module_id")->references('id')->on('modules')->onDelete('cascade');
             $table->integer("package_id")->unsigned()->index();
             $table->foreign("package_id")->references('id')->on('packages')->onDelete('cascade');
-            $table->integer('parent_id');
+            $table->integer('parent_id')->default(0);
             
             $table->timestamps();
         });
