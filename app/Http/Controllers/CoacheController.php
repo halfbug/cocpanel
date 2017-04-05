@@ -31,8 +31,11 @@ class CoacheController extends Controller {
     public function activePackages(Request $request) {
         session(['role' => 'coache']);
         $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();
+        $collection = \App\assignment::all();
+        $users = \App\User::all();
 
-        return view('client.activepack')->with('assignments', $assignments->unique("package_id"))->with('role',"Coache");
+        return view('coache.activepack')->with('assignments', $assignments->unique("package_id"))
+                ->with('collection',$collection)->with('users', $users);
     }
 
     /**

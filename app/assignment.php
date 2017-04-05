@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class assignment extends Model
 {
-     public $fillable = ['role_id','user_id','package_id','module_id','status'];
+     public $fillable = ['role_id','user_id','package_id','module_id','status','coache_id'];
     
     /**
      * Get the module .
@@ -33,5 +33,13 @@ class assignment extends Model
     public function package()
     {
         return $this->belongsTo('App\package');
+    }
+    
+    /**
+     * Get the package .
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

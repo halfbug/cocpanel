@@ -14,7 +14,7 @@ class UpdateToUsersTable extends Migration
     public function up() {
         Schema::table('users', function($table) {
              $table->string('avatar')->default('default.jpg');
-             $table->text('description');
+             $table->text('description')->nullable();
              $table->boolean('status')->defaule(true);
         });
     }

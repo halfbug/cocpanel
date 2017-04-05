@@ -65,5 +65,9 @@ class assign extends Model {
         
 //        return "yes";
     }
+    
+    public function getCoache($package_id){
+       return \App\assignment::where("role_id",\App\role::coache())->where('package_id',$package_id)->first();
+    }
 
 }

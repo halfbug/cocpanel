@@ -70,11 +70,11 @@
 @endsection
 
 @section('heading')
-{{$role}} <small>management</small>
+Client <small>management</small>
 @endsection
 
 @section('title')
-$role
+Client
 @endsection
 
 @section('script')
@@ -87,7 +87,7 @@ $role
     });
     $(document).on('click', '.viewmodules', function (e) {
         var package_id = $(this).val();
-        $("#packmodule_" + package_id).toggle();
+        $('[id^=packmodule_]').toggle();
     });
 </script>
 @endsection

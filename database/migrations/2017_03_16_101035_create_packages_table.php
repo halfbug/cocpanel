@@ -16,13 +16,13 @@ class CreatePackagesTable extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             
-            $table->float('price', 8, 2);
-            $table->char('currency', 4);
-            $table->enum('paymnent_frequency', ['One Off', 'monthly', 'weekly', 'yearly']);
-            $table->string('facebook_group');
-            $table->enum('release_schedule', ['delivere immediately', 'rolling launch', 'one off launch', 'on completion of previous']);
+            $table->float('price', 8, 2)->nullable();
+            $table->char('currency', 4)->nullable();
+            $table->enum('paymnent_frequency', ['One Off', 'monthly', 'weekly', 'yearly'])->nullable();
+            $table->string('facebook_group')->nullable();
+            $table->enum('release_schedule', ['delivere immediately', 'rolling launch', 'one off launch', 'on completion of previous'])->nullable();
             
             $table->timestamps();
         });

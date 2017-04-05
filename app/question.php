@@ -20,6 +20,16 @@ class question extends Model {
      *
      * @var array
      */
+    public function discussions(){
+     
+        return $this->hasMany('App\discussion');
+    
+    }
+    /**
+     * Get the associated discussions
+     *
+     * @var array
+     */
 //    public function discussions() {
 //
 //        return $this->hasMany('App\discussion');
@@ -30,8 +40,10 @@ class question extends Model {
 //                        @endphp
 
     public function getDiscussion($question,$assignment) {
-    
-        $responses = \App\discussion::where('question_id', $question->id)->where('assignment_id', $assignment->id)->get();
+        $assignment_ids = \App\assignment::where("module_id", $assignment->module_id)
+                ->where("package_id",$assignment->package_id)
+                ->pluck("id");
+        $responses = \App\discussion::where('question_id', $question->id)->whereIn('assignment_id', $assignment_ids)->get();
         return $responses;
     }
 

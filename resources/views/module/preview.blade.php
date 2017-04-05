@@ -24,22 +24,30 @@
                 </div> 
                 <div class="post-footer">
                     <ul class="comments-list">
-                        {{$assignment }}
-                        @if($assignment)
-{{$question->getDiscussion($question,$assignment) }}
-{{$question->id}} {{$assignment->id}}
-                        @foreach ( $question->getDiscussion($question,$assignment) as $response )  
 
-                        <li class="comment">
+                        @if($assignment)
+
+                        @foreach ( $question->getDiscussion($question,$assignment) as $response )
+
+
+                        <li class="comment green" >
                             <a class="pull-left" href="#">
+                                @if($response->user_id == Auth::user()->id)
                                 <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
+                                @else
+                                <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
+                                @endif
                             </a>
                             <div class="comment-body">
 
                                 <div class="comment-heading">
                                     <h4 class="user">{{$response->getAName($response->user_id)}}</h4>
 
-                                    <h5 class="time"> {{$response->getTime($response->response_id)}}</h5>
+                                    <h5 class="time"> 
+                                        @if($response->user_id == $assignment->coache_id)
+                                        <b>[COACH]</b>
+                                        @endif
+                                        {{$response->getTime($response->response_id)}}</h5>
                                 </div>
                                 <p>{!!$response->getContent($response->response_id)!!}</p>  
                             </div>
@@ -53,8 +61,7 @@
                     <div class="input-group"> 
                         <form class="form-horizontal" role="form" method="POST"  action="{{ url('assigned/'.$assignment->package_id.'/'.$module->id) }}">
                             {{ csrf_field() }}
-                            <textarea class="form-control input-lg" name="content" placeholder="Add a responce" type="text">
-                            </textarea>                        
+                            <textarea class="form-control input-lg" name="content" placeholder="Add a response" type="text"></textarea>                        
                             <input type="hidden" name="assignment_id" value="{{$assignment->id}}">
                             <input type="hidden" name="question_id" value="{{$question->id}}">
                             <input type="hidden" name="responseby" value="{{Auth::user()->id}}">
@@ -69,10 +76,48 @@
                     </div>
                 </div>
 
+
+
+
+            </div>
+
+            
+
+        </div>
+        
+        @endforeach
+        <div class="col-sm-12">
+<div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Documents</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+<!--                                        <th>ID</th>-->
+                                <th>Description</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="doc-list" name="doc-list">
+                            @foreach ($module->documents()->get() as $document)  
+                            <tr>
+                                <td>{{$document->description}}</td>
+                                <td>{{$document->filename}}</td>
+                                <td>  <a href="/documents/{{$document->filename}}" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a></td>
+<!--                        <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'</td>
+                            -->
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        @endforeach
-
+    </div>
+</div>
         @endsection
 
         @section('heading')
@@ -198,6 +243,15 @@
             }
             .post .post-footer .comments-list .comment > .comments-list {
                 margin-left: 50px;
+            }
+
+            .post-footer .input-group {
+                width: 100%;
+            }
+            .post-footer .input-group textarea {
+                width: 100% !important;
+                margin-bottom: 10px;
+                resize: none;
             }
 
         </style>

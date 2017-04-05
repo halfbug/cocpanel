@@ -43,26 +43,25 @@ class package extends Model {
         return $this->belongsToMany('App\module', 'package_module');
     }
     
-    /**
-     * Get the associated discussions
-     *
-     * @var array
-     */
-    public function discussions(){
-     
-        return $this->hasMany('App\discussion');
-    
-    }
+   
     
     /**
      * Get the associated assignments
      *
      * @var array
      */
-    public function assignments(){
+    public function coach(){
      
         return $this->hasMany('App\assignment');
     
+    }
+    
+     public function getClients() {
+        $clientsId = \App\assignment::whereIn("package_id",  $this->id)->where("role_id",\App\role::client())->pluck("user_id");
+        $clients=  \App\User::whereIn("id",$clientsId->unique("user_id"));
+        return $clients;
+        
+//        return "yes";
     }
     
     /**

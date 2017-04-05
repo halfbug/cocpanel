@@ -56,4 +56,15 @@ class User extends Authenticatable
         return $this->hasMany('App\discussion');
     
     }
+    
+    /**
+     * Get the associated assignments
+     *
+     * @var array
+     */
+    public function assignments(){
+     
+        return $this->hasMany('App\assignment');
+    
+    }
 }
