@@ -1,5 +1,3 @@
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -103,9 +101,10 @@
 
 
         </div>
+            
         @include('modals.add_module')
         @include('modals.document')
-        @include('modals.question') 
+        @include('modals.question')
     </div>
 
 

@@ -1,0 +1,6 @@
+.mce-notification {
+    display: none;
+}
+#page-wrapper {
+   min-height: 500px;
+}

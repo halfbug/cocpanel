@@ -12,6 +12,7 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
         <!-- Scripts -->
         <script>
@@ -90,28 +91,33 @@
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
-                        <li>
+                    <?php
+                    $request = request();
+                    $uri = $request->path();
+                    ?>
+                    
+                        <li class="{{ ($uri == 'home') ? 'active' : '' }}">
                             <a href="{{ url('/home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                         </li>
                         @if (Auth::user())
                         @if (Auth::user()->isAdmin())
-                        <li>
+                        <li class="{{ ($uri == 'modules') ? 'active' : '' }}">
                             <a href="{{ url('/modules') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Modules</a>
                         </li>
-                        <li>
+                        <li class="{{ ($uri == 'packages') ? 'active' : '' }}">
                             <a href="{{ url('/packages') }}"><i class="fa fa-fw fa-table"></i> Packages</a>
                         </li>
-                        <li>
+                        <li class="{{ ($uri == 'clients') ? 'active' : '' }}">
                             <a href="{{ url('/clients') }}"><i class="fa fa-fw fa-users"></i> Clients</a>
                         </li>
-                        <li>
+                        <li class="{{ ($uri == 'coaches') ? 'active' : '' }}">
                             <a href="{{ url('/coaches') }}"><i class="fa fa-fw fa-user-md"></i> Coaches</a>
                         </li>
                         <!--                        <li role="separator" class="divider">
                         
                                                 </li>-->
                         
-                        <li>
+                        <li class="{{ ($uri == 'register') ? 'active' : '' }}">
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-power-off"></i> Administration <i class="fa fa-fw fa-caret-down"></i></a>
                             <ul id="demo" class="collapse">
                                 <li>
@@ -124,12 +130,12 @@
                         </li>
                         @endif
                         @if(Auth::user()->isClient() )
-                        <li>
+                        <li class="{{ ($uri == 'coaches/active_packages') ? 'active' : '' }}">
                             <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
                         </li>
                         @endif
                         @if(Auth::user()->isCoache() )
-                        <li>
+                        <li class="{{ ($uri == 'coaches/active_packages') ? 'active' : '' }}">
                             <a href="{{ url('/coaches/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
                         </li>
                         @endif

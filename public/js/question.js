@@ -44,7 +44,8 @@ $('#btn_add_question').click(function () {
     $('#frmQuestion').trigger("reset");
     $('#addQuestionsModel').modal('show');
     $('#que_module_id').val(module_id);
-    console.log(module_id)
+    $('#que_id').val(0);
+    console.log(module_id);
 });
 
 //create new question / update existing question
@@ -65,7 +66,7 @@ $("#btn-save-question").click(function (e) {
     var state = $('#btn-save-question').val();
     var type = "POST"; //for creating new resource
     var question_id = $('#que_id').val();
-    ;
+
     var my_url = qUrl;
     if (state == "update") {
         type = "PUT"; //for updating existing resource

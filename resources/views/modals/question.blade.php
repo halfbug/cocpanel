@@ -57,7 +57,7 @@
 
 
                         <input type="hidden" id="que_module_id" name="que_module_id" value="0">
-                        <input type="hidden" id="que_id" name="que_module_id" value="0">
+                        <input type="hidden" id="que_id" name="que_id" value="0">
 
                     </div>
                 </form>   
