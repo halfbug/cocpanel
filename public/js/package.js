@@ -101,6 +101,7 @@ $(document).on('click', '#btn-save-package', function (e) {
 
 $(document).on('click', '.edit_package', function (e) {
     var package_id = $(this).val();
+   $('.available-modules li').show();
     $.get(pUrl + '/' + package_id, function (data) {
         //success data
         console.log(data);
@@ -117,8 +118,9 @@ $(document).on('click', '.edit_package', function (e) {
         group.sortable("refresh");
         $.each(data.selected_modules, function (index, module) {
 //            alert(index + ": " + value);
-        $('.selected-modules').append('<li value="'+module.id+'" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>'+module.title+'</li>');
-                
+        $('.selected-modules').append('<li value="'+module.id+'" id="'+module.id+'" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>'+module.title+'</li>');
+           $('.available-modules #'+module.id).hide();
+           
         });
                
                 $('#btn-save-package').val("update");
@@ -215,3 +217,4 @@ $(document).on('click', '#btn-save-addclient', function (e) {
 
 
 });
+
