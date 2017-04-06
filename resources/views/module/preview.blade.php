@@ -32,11 +32,14 @@
 
                         <li class="comment green" >
                             <a class="pull-left" href="#">
-                                @if($response->user_id == Auth::user()->id)
+                                @if($response->user_id == session('client')->id)
                                 <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
                                 @else
                                 <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
-                                @endif
+                                @endif<BR>
+                                @if($response->user_id == session('coach')->id)
+                                       <span class="small bg-primary">Coach</span>
+                                        @endif
                             </a>
                             <div class="comment-body">
 
@@ -44,9 +47,7 @@
                                     <h4 class="user">{{$response->getAName($response->user_id)}}</h4>
 
                                     <h5 class="time"> 
-                                        @if($response->user_id == $assignment->coache_id)
-                                        <b>[COACH]</b>
-                                        @endif
+                                        
                                         {{$response->getTime($response->response_id)}}</h5>
                                 </div>
                                 <p>{!!$response->getContent($response->response_id)!!}</p>  
@@ -102,7 +103,7 @@
                             </tr>
                         </thead>
                         <tbody id="doc-list" name="doc-list">
-                            @foreach ($module->documents()->get() as $document)  
+                            @foreach ($module->documents()->where('uploaded_by',session('coach')->id)->get() as $document)  
                             <tr>
                                 <td>{{$document->description}}</td>
                                 <td>{{$document->filename}}</td>
@@ -114,6 +115,31 @@
                         </tbody>
                     </table>
                     <hr>
+                    
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+<!--                                        <th>ID</th>-->
+                                <th>Description</th>
+                                <th>Name</th>
+                                <th>Uploaded at</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="doc-list" name="doc-list">
+                            @foreach ($module->documents()->where('uploaded_by',session('client')->id)->get() as $document)  
+                            <tr>
+                                <td>{{$document->description}}</td>
+                                <td>{{$document->filename}}</td>
+                                <td>{{ date("D F j, Y, g:i a",  strtotime($document->uploaded_at))}}</td>
+                                <td>  <a href="{{url('/documents/'.$document->filename)}}" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a></td>
+<!--                        <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'</td>
+                                -->
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    
                     <h3>Add New Document</h3>
                     <form action="{{ url('documents/upload') }}" enctype="multipart/form-data" method="POST">
                         {{ csrf_field() }}

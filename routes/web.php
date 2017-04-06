@@ -76,7 +76,7 @@ Route::group(['prefix' => 'coaches'], function () {
 });
 
 Route::group(['prefix' => 'assigned'], function () {
-    Route::get('/{package_id}/{module_id}', 'AassignmentController@show');
+    Route::get('/{package_id}/{module_id}/{user_id?}', 'AassignmentController@show');
     Route::post('/{package_id}/{module_id}', 'AassignmentController@store');
     
 });

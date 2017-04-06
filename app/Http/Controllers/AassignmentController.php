@@ -3,18 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\NewResponse;
 
 class AassignmentController extends Controller {
 
-    public function show(Request $request,$package_id, $module_id) {
-        $role=$request->session()->get('role');
-        
-        if($role == 'client')
-            $role_id= \App\role::client();
-        else
-            $role_id=\App\role::coache();
-        
-        $assignment = \App\assignment::where('role_id',$role_id )
+    public function show(Request $request, $package_id, $module_id, $user_id = null) {
+        $role = $request->session()->get('role');
+
+        if ($role == 'client') {
+            $role_id = \App\role::client();
+            $client_id = \Auth::user()->id;
+
+            $coach_id = \App\assignment::where('role_id', \App\role::coache())
+                            ->where("module_id", $module_id)
+                            ->where("package_id", $package_id)
+                            ->first()->user_id;
+        } else {
+            $role_id = \App\role::coache();
+            $client_id=$user_id;
+            $coach_id = \Auth::user()->id;
+            
+        }
+
+        session(['client' => \App\User::find($client_id)]);
+        session(['coach' => \App\User::find($coach_id)]);
+
+        $assignment = \App\assignment::where('role_id', $role_id)
                 ->where("user_id", \Auth::user()->id)
                 ->where("module_id", $module_id)
                 ->where("package_id", $package_id)
@@ -41,6 +55,16 @@ class AassignmentController extends Controller {
         $discussion->assignment_id = $request->assignment_id;
         $discussion->response_id = $response->id;
         $discussion->save();
+
+        $assignment = $discussion->assignment()->first();
+        // email to client on coach response
+        $user = $discussion->user()->first();
+        if ($assignment->coache_id == null)
+            \Mail::to($user->email)->send(new NewResponse($user, 'coach'));
+        else
+            \Mail::to($user->email)->send(new NewResponse($user, 'client'));
+        // email to coach on client response
+
 
         return back()->with('package_id', $package_id)->with('module_id', $module_id);
     }
