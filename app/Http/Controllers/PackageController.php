@@ -107,4 +107,12 @@ class PackageController extends Controller
     {
         //
     }
+    
+    
+    public function showLinkedClients($package_id)
+    {
+        $package = package::find($package_id);
+        
+        return response()->json($package->getClients());
+    }
 }

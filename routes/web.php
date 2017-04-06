@@ -45,6 +45,7 @@ Route::group(['prefix' => 'questions'], function () {
     Route::put('{question_id}','QuestionController@update');
     Route::get('{question_id}','QuestionController@show');
     Route::delete('{question_id}','QuestionController@destroy');
+    
 });
 
 Route::group(['prefix' => 'packages'], function () {
@@ -53,6 +54,7 @@ Route::group(['prefix' => 'packages'], function () {
     Route::put('{package_id}','PackageController@update');
     Route::get('{package_id}','PackageController@show');
     Route::delete('{package_id}','PackageController@destroy');
+    Route::get('/linked_clients/{package_id}','PackageController@showLinkedClients');
 });
 
 Route::group(['prefix' => 'clients'], function () {

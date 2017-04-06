@@ -60,6 +60,7 @@
         @include('modals.document')
         @include('modals.question') 
         @include('modals.add_client');
+        @include('modals.linked_clients');
     </div>
 
 

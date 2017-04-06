@@ -218,3 +218,19 @@ $(document).on('click', '#btn-save-addclient', function (e) {
 
 });
 
+$(document).on('click', '.linked_client', function (e) {
+     $('#linked_clients_list').html("");
+    var package_id = $(this).val();
+    $('#package_id').val(package_id);
+    $.get(pUrl + '/linked_clients/' + package_id, function (data) {
+        console.log(data);
+   $.each(data, function (index, client) {
+//            alert(index + ": " + value);
+        $('#linked_clients_list').append('<tr><td>'+client.name +' </td></tr>');
+           
+           
+        });     
+    });
+    $('#linkedClient').modal('show');
+    
+});
