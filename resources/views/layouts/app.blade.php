@@ -165,7 +165,7 @@
                             </h1>
                             <ol class="breadcrumb">
                                 <li>
-                                    <i class="fa fa-dashboard"></i>  <a href="{{ url('/') }}">Dashboard</a>
+                                    <i class="fa fa-dashboard"></i>  <a href="{{ url('/home') }}">Dashboard</a>
                                 </li>
                                 <li class="active">
                                     <i class="fa fa-file"></i> @yield('breadcrumbs')
