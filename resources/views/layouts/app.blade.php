@@ -12,7 +12,6 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
         <!-- Scripts -->
         <script>
@@ -32,6 +31,9 @@
         <!-- Custom Fonts -->
         <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
+        <!-- Custom CSS -->
+        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+        
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -55,9 +57,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ url('/') }}/images/logo.png" /></a>
+                        <!--{{ config('app.name', 'Laravel') }}-->
                 </div>
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
@@ -117,15 +118,12 @@
                         
                                                 </li>-->
                         
-                        <li class="{{ ($uri == 'register') ? 'active' : '' }}">
-                            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-power-off"></i> Administration <i class="fa fa-fw fa-caret-down"></i></a>
-                            <ul id="demo" class="collapse">
+                        <li class="dropdown {{ ($uri == 'register') ? 'active' : '' }}">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" ><!-- data-toggle="collapse" data-target="#demo" --><i class="fa fa-fw fa-power-off"></i> Administration <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul class="dropdown-menu"> <!--id="demo" class="collapse"-->
                                 <li>
                                     <a href="{{ url('/register') }}">Add Admin User</a>
-                                </li>
-                                <!--                            <li>
-                                                                <a href="#">Dropdown Item</a>
-                                                            </li>-->
+                                </li>                                
                             </ul>
                         </li>
                         @endif
@@ -149,6 +147,7 @@
                         
                         @endif
                     </ul>
+
                 </div>
                 <!-- /.navbar-collapse -->
             </nav>

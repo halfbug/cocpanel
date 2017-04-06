@@ -9,7 +9,7 @@
 
 var app = {
 development : {
-    base_url : "http://localhost:82/laravel5.3/cocpanel/public"
+    base_url : "http://localhost/cocpanel/public"
  
 },
 production : {

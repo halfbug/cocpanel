@@ -28,7 +28,7 @@
                         <tr id="package_{{$package->id}}">
                             <td>{{$package->title}}</td>
                             <td>{{$package->price}}</td>
-                            <td id="clients_{{$package->id}}">{{$package->linked_clients->count()}}</td>
+                            <td id="clients_{{$package->id}}">{{$package->linked_clients->count() }}</td>
 
                             <td>
                                 <div class="dropup">
