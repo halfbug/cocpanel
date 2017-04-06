@@ -106,7 +106,7 @@
                             <tr>
                                 <td>{{$document->description}}</td>
                                 <td>{{$document->filename}}</td>
-                                <td>  <a href="/documents/{{$document->filename}}" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a></td>
+                                <td>  <a href="{{url('/documents/'.$document->filename)}}" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a></td>
 <!--                        <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'</td>
                             -->
                             </tr>
