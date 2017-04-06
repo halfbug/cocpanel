@@ -79,7 +79,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <b>Co</b>ach and <b>C</b>lient Panel
+                    <img src="{{ url('/') }}/images/logo.png" />
+                    <!--<b>Co</b>ach and <b>C</b>lient Panel-->
                 </div>
 
 <!--                <div class="links">
