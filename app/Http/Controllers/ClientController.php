@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Auth\Events\Registered;
 use App\User;
+use App\Mail\NewClientAdded;
 
 class ClientController extends Controller {
 
@@ -49,6 +50,7 @@ class ClientController extends Controller {
     public function store(Request $request) {
         $pack_id = $request->package_id;
         $request->password = bcrypt($request->password);
+        $package = \App\package::find($request->package_id);
 //        $user = \App\User::create([
 //            'name'=>$request->name, 
 //            'email' => $request->email, 
@@ -56,26 +58,25 @@ class ClientController extends Controller {
 //          
 //        ]);
         event(new Registered($user = $this->create($request->all())));
-
+        \Mail::to($user->email)->send(new NewClientAdded($user,$package));
 //        $clientRole = \App\role::client();
         $assign = new \App\assign();
 //        $client = $assign->client($user->id, $request->package_id);
-        
+
         $role_id = \App\role::client();
-       
-        $pack= $assign->getPackage($request->package_id);
-        $coache= $assign->getCoache($request->package_id);
-        
-        foreach($pack->selected_modules as $module)
-        {
-            
-            \App\assignment::create(['role_id' => $role_id, 'user_id' => $user->id, 'package_id' =>$request->package_id, 'module_id'=> $module->id, 'status' => 3, 'coache_id'=> $coache->id]);
+
+        $pack = $assign->getPackage($request->package_id);
+        $coache = $assign->getCoache($request->package_id);
+
+        foreach ($pack->selected_modules as $module) {
+
+            \App\assignment::create(['role_id' => $role_id, 'user_id' => $user->id, 'package_id' => $request->package_id, 'module_id' => $module->id, 'status' => 3, 'coache_id' => $coache->id]);
         }
 //        $client->role_id = $clientRole;
 //        $client->user_id = $user->id;
 //        $client->package_id = $request->package_id;
 //        $client->save();
-        $package_clients = \App\package::find($request->package_id)->linked_clients;
+        $package_clients = $package->linked_clients;
 
         return response()->json([
                     'client' => $package_clients,
@@ -88,7 +89,7 @@ class ClientController extends Controller {
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'password' => bcrypt($data['password']),
-                    'status'=>0
+                    'status' => 0
         ]);
     }
 
@@ -103,20 +104,21 @@ class ClientController extends Controller {
         $emails = $request->emails;
         $emails = preg_replace('/\s+/', '', $emails);
         $users = \App\User::whereIn('email', explode(",", $emails))->get();
+        $package =\App\package::find($request->package_id);
 
         $clients = [];
         foreach ($users as $user) {
 
             $assign = new \App\assign();
             $assign->client($user->id, $request->package_id);
-
+            \Mail::to($user->email)->send(new NewClientAdded($user,$package));
             $clients[] = $user->email;
         }
-        
-        $package_clients = \App\package::find($request->package_id)->linked_clients;
+
+        $package_clients = $package->linked_clients;
         return response()->json([
-        'clients' => implode(", ", $clients),
-        'totalclients' => $package_clients->count()
+                    'clients' => implode(", ", $clients),
+                    'totalclients' => $package_clients->count()
         ]);
     }
 
@@ -160,21 +162,20 @@ class ClientController extends Controller {
     public function destroy($id) {
         //
     }
-    
-     /**
+
+    /**
      * Display a listing of the active packages.
      *
      * @return \Illuminate\Http\Response
      */
     public function activePackages(Request $request) {
 //return "yesr";
-session(['role' => 'client']);
+        session(['role' => 'client']);
 //        $pack = \App\assign::where('role_id', \App\role::client())->where("user_id",\Auth::user()->id)->pluck("package_id")->all();
-       
 //        $packages= \App\package::whereIn("id",$pack)->get();
-       $assignments = \App\assignment::where('role_id', \App\role::client())->where("user_id",\Auth::user()->id)->get();
-       
-        return view('client.activepack')->with('assignments', $assignments->unique("package_id"))->with('role',"Client");
+        $assignments = \App\assignment::where('role_id', \App\role::client())->where("user_id", \Auth::user()->id)->get();
+
+        return view('client.activepack')->with('assignments', $assignments->unique("package_id"))->with('role', "Client");
     }
 
 }
