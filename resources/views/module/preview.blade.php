@@ -106,13 +106,38 @@
                             <tr>
                                 <td>{{$document->description}}</td>
                                 <td>{{$document->filename}}</td>
-                                <td>  <a href="/documents/{{$document->filename}}" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a></td>
+                                <td>  <a href="{{url('/documents/'.$document->filename)}}" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a></td>
 <!--                        <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'</td>
                             -->
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    <hr>
+                    <h3>Add New Document</h3>
+                    <form action="{{ url('documents/upload') }}" enctype="multipart/form-data" method="POST">
+                    {{ csrf_field() }}
+                    <div class="row">
+                        
+                         <div class="form-group">
+                                <label for="inputDetail" class="col-sm-3 control-label">Description</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="description" name="description" placeholder="description" value="">
+                                </div>
+                            </div>
+                        
+                        <div class="form-group">
+                                <label for="file" class="col-sm-3 control-label">File</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="document" />
+                                </div>
+                            </div>
+                        <input type="hidden" id="doc_module_id" name="doc_module_id" value="{{$module->id}}">
+                        <div class="col-sm-12 right">
+                            <button type="submit" class="btn btn-success">Upload</button>
+                        </div>
+                    </div>
+                </form> 
                 </div>
             </div>
         </div>
