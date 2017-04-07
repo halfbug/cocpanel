@@ -17,7 +17,7 @@
             <div class="panel panel-white post panel-shadow">
                 <div class="post-heading">
                     <div class="pull-left image">
-                        <img src="../../images/question.png" class="img-circle avatar" alt="q">
+                        <img src="{{ url('/') }}/images/question.png" class="img-circle avatar" alt="q">
                     </div>
                     {!!$question->content!!}
 
@@ -90,7 +90,7 @@
         <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Documents</h3>
+                    <h3 class="panel-title">Coach Documents</h3>
                 </div>
                 <div class="panel-body">
                     <table class="table table-striped">
@@ -114,12 +114,19 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <hr>
-                    
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Client Documents</h3>
+                </div>
+                <div class="panel-body">                    
                     <table class="table table-striped">
                         <thead>
                             <tr>
-<!--                                        <th>ID</th>-->
+                                <!--<th>ID</th>-->
                                 <th>Description</th>
                                 <th>Name</th>
                                 <th>Uploaded at</th>
@@ -139,8 +146,15 @@
                             @endforeach
                         </tbody>
                     </table>
-                    
-                    <h3>Add New Document</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Upload New Documents</h3>
+                </div>
+                <div class="panel-body">                                        
                     <form action="{{ url('documents/upload') }}" enctype="multipart/form-data" method="POST">
                         {{ csrf_field() }}
                         <div class="row">
