@@ -59,7 +59,7 @@ class ClientController extends Controller {
 //        ]);
         try {
 //            if (\App\User::where('email', '=', $request->email)->count() < 1) {
-                event(new Registered($user = $this->create($request->all())));
+            event(new Registered($user = $this->create($request->all())));
 //            }
             \Mail::to($user->email)->send(new NewClientAdded($user, $package));
 //        $clientRole = \App\role::client();
@@ -80,14 +80,13 @@ class ClientController extends Controller {
 //        $client->package_id = $request->package_id;
 //        $client->save();
             $package_clients = $package->linked_clients;
-        
-        return response()->json([
-                    'client' => $package_clients,
-                    'totalclients' => $package_clients->count()
-        ]);
-        
+
+            return response()->json([
+                        'client' => $package_clients,
+                        'totalclients' => $package_clients->count()
+            ]);
         } catch (\Exception $e) {
-           abort(500, 'User Already Exist.');
+            abort(500, 'User Already Exist.');
         }
     }
 
@@ -115,13 +114,15 @@ class ClientController extends Controller {
 
         $clients = [];
         foreach ($users as $user) {
-
-            $assign = new \App\assign();
-            $assign->client($user->id, $request->package_id);
-            \Mail::to($user->email)->send(new NewClientAdded($user, $package));
-            $clients[] = $user->email;
+            if (\App\assignment::where('user_id', $user->id)->where('package_id', $request->package_id)->count() < 1) {
+                $assign = new \App\assign();
+                $assign->client($user->id, $request->package_id);
+                \Mail::to($user->email)->send(new NewClientAdded($user, $package));
+                $clients[] = $user->email;
+            } else {
+                abort(500, 'User Already Exist.');
+            }
         }
-
         $package_clients = $package->linked_clients;
         return response()->json([
                     'clients' => implode(", ", $clients),

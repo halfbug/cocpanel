@@ -138,10 +138,9 @@ $(document).on('click', '.new_client', function (e) {
 });
 
 $(document).on('click', '#btn-save-client', function (e) {
-var $btn = $(this);
+    var $btn = $(this);
     $btn.button('loading');
-    // Then whatever you actually want to do i.e. submit form
-    // After that has finished, reset the button state using
+
     setTimeout(function () {
         $btn.button('reset');
     }, 10000);
@@ -176,10 +175,10 @@ var $btn = $(this);
         error: function (xhr, status, error) {
 //            var err = eval("(" + xhr.responseText + ")");
 //            alert(err.Message);
-             $('#newClientModal').modal('hide');
+            $('#newClientModal').modal('hide');
 //             $(xhr.responseText).find('.exception_message').html();
 //             exception_message
-            $.notify("Error :"+$(xhr.responseText).find('.exception_message').html());
+            $.notify("Error :" + $(xhr.responseText).find('.exception_message').html());
         }
     });
 
@@ -195,6 +194,13 @@ $(document).on('click', '.add_client', function (e) {
 
 $(document).on('click', '#btn-save-addclient', function (e) {
 
+     var $btn = $(this);
+    $btn.button('loading');
+
+    setTimeout(function () {
+        $btn.button('reset');
+    }, 10000);
+   
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -221,9 +227,17 @@ $(document).on('click', '#btn-save-addclient', function (e) {
             $('#addClientModal').modal('hide');
 
         },
-        error: function (data) {
-            $.notify("Error :" + data);
-            console.log('Error:', data);
+         error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//            alert(err.Message);
+            $('#addClientModal').modal('hide');
+//             $(xhr.responseText).find('.exception_message').html();
+//             exception_message
+
+             $.notify({
+                 message: "Error :" + $(xhr.responseText).find('.exception_message').html(),
+                 type: 'danger'
+             });
         }
     });
 
