@@ -11,62 +11,83 @@
 
 
             <!--Clients Order by Packages-->
-            <div class="panel-body"> 
-
-
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Packages</h3>
+                </div>
+                <div class="panel-body">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="width: 40px;"></th>
+                            <!--<th style="width: 40px;"></th>-->
                             <th>Name </th>
+                            <th>Description</th>
                             <th>Action</th>
 
                         </tr>
                     </thead>
                     <tbody id="clients-list" name="clients-list">
-                       @foreach ($assignments as $assigned)
+                    @foreach ($assignments as $assigned)
                         @foreach ($assigned->package()->get() as $package)
                         <tr id="package_{{$package->id}}">
-                            <td>+</td>
+                            <!--<td>+</td>-->
                             <td>{{$package->title}}</td>
+                            <td>{{$package->description}}</td>
 
-                            <td><button class="btn btn-success viewmodules" value="{{$package->id}}" title="Show Modules"><i class="fa fa-arrow-circle-o-down" ></i></button></td>
-
+                            <td><button class="btn btn-success viewmodules" value="{{$package->id}}" title="Show Modules"><i class="fa fa-caret-square-o-down" ></i> Show Modules</button></td>
                         </tr>
-                    
-                        @foreach($package->selected_modules as $module)
-                        <tr colspan="3" class="warning" id="packmodule_{{$package->id}}">
-                            <td style="width: 40px;">--</td>
-                            <td>{{$module->title}}</td>  
-                            <td><a class="btn btn-warning btn-detail preview_module" href="{{ url('assigned/'.$package->id.'/'.$module->id) }}" title="Preview"><i class="fa fa-search" ></i></a></td>
 
-                        </tr>
-                        @endforeach
+                            @foreach($package->selected_modules as $module)
+                                @if($loop->index == 0)
+                                <tr id="packmodule_{{$package->id}}"><td colspan="3">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Modules</h3>
+                                        </div>
+                                        <div class="panel-body">                    
+            
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <!--<th style="width: 40px;"></th>-->
+                                                        <th>Name </th>
+                                                        <th>Description</th>
+                                                        <th width="50">Action</th>                
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="clients-list" name="clients-list">                            
+                                @endif
+
+                                                <tr colspan="3" class="warning">
+                                                    <!--<td style="width: 40px;">--</td>-->
+                                                    <td>{{$module->title}}</td>
+                                                    <td>{{$module->description}}</td>
+                                                    <td><a class="btn btn-warning btn-detail preview_module" href="{{ url('assigned/'.$package->id.'/'.$module->id) }}" title="Preview"><i class="fa fa-search" ></i> View Module</a></td>
+                        
+                                                </tr>
+                                                    
+                                @if($loop->count+1 == $loop->last)
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endif
+
+                            @endforeach
                         
                         @endforeach
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
-
-
 
 
         </div>
         <!--       incluides here-->
     </div>
-
-
-
-
-
-
 </div>
-
-
-
-
-
 @endsection
 
 @section('heading')

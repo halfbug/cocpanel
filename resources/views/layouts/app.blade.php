@@ -32,7 +32,7 @@
         <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
         <!-- Custom CSS -->
-        <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/custom.css?v='.time()) }}" rel="stylesheet">
         
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -128,7 +128,7 @@
                         </li>
                         @endif
                         @if(Auth::user()->isClient() )
-                        <li class="{{ ($uri == 'coaches/active_packages') ? 'active' : '' }}">
+                        <li class="{{ ($uri == 'clients/active_packages') ? 'active' : '' }}">
                             <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
                         </li>
                         @endif

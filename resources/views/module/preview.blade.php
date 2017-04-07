@@ -1,28 +1,28 @@
-
-
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
     <div class="col-sm-10">
-        <div class="panel panel-default panel-shadow">
+        <div class="panel panel-default module-desc">
             <div class="panel-body">
                 {{$module->description}}
-
             </div>
-
         </div>
+        <h3>Questions</h3>
+            
         @foreach ($module->questions()->get() as $question)        
-        <div class="col-sm-12">
+        <div class="col-sm-12 questions">
             <div class="panel panel-white post panel-shadow">
-                <div class="post-heading">
-                    <div class="pull-left image">
+                <div class="row table_question">
+                    <div class="question-index">Q{{@$loop->index+1}}</div>
+                    <!--<div class="pull-left image">
                         <img src="{{ url('/') }}/images/question.png" class="img-circle avatar" alt="q">
-                    </div>
-                    {!!$question->content!!}
-
-                </div> 
-                <div class="post-footer">
+                    </div>-->
+                    <div class="question-content">{!!$question->content!!}</div>
+                </div>
+                <div class="row post-footer">
+                    <div class="answer-index">&nbsp;</div>
+                    <div class="answer-content">
                     <ul class="comments-list">
 
                         @if($assignment)
@@ -59,27 +59,26 @@
                         @endforeach
                         @endif 
                     </ul>
-                    <div class="input-group"> 
-                        <form class="form-horizontal" role="form" method="POST"  action="{{ url('assigned/'.$assignment->package_id.'/'.$module->id) }}">
-                            {{ csrf_field() }}
-                            <textarea class="form-control input-lg" name="content" placeholder="Add a response" type="text"></textarea>                        
-                            <input type="hidden" name="assignment_id" value="{{$assignment->id}}">
-                            <input type="hidden" name="question_id" value="{{$question->id}}">
-                            <input type="hidden" name="responseby" value="{{Auth::user()->id}}">
-
-
-                            <span class="input-group-btn">
-                                <button type="submit" class="btn btn-default  right" >
-                                    <i class="fa fa-edit">Submit</i>
-                                </button>  
-                            </span>
-                        </form>
+                    </div> <!--question-content-->
+                </div>
+                <div class="row">
+                    <div class="answer-index">&nbsp;</div>
+                    <div class="response-content">
+                        <div class="input-group"> 
+                            <form class="form-horizontal" role="form" method="POST"  action="{{ url('assigned/'.$assignment->package_id.'/'.$module->id) }}">
+                                {{ csrf_field() }}
+                                <div class="res">Response:</div>
+                                <textarea class="form-control input-lg" name="content" type="text"></textarea>                        
+                                <input type="hidden" name="assignment_id" value="{{$assignment->id}}">
+                                <input type="hidden" name="question_id" value="{{$question->id}}">
+                                <input type="hidden" name="responseby" value="{{Auth::user()->id}}">                                
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default  right" >SAVE</button>  
+                                </span>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
-
-
-
             </div>
 
 
@@ -205,7 +204,6 @@
 
 @section('css')
 <style>
-
     .panel-shadow {
         box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
     }
@@ -266,8 +264,8 @@
         margin-right: 8px;
     }
     .post .post-footer {
-        border-top: 1px solid #ddd;
-        padding: 15px;
+        border-top: 2px solid #b8b8b8;
+        /*padding: 15px;*/
     }
     .post .post-footer .input-group-addon a {
         color: #454545;
@@ -318,6 +316,5 @@
         margin-bottom: 10px;
         resize: none;
     }
-
 </style>
 @endsection

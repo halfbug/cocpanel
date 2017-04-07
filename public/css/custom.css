@@ -19,6 +19,85 @@
     color: #fff;
     background-color: #fe8e28 !important;
 }
+.col-sm-12.questions{
+    padding: 0px !important;
+}
+.module-desc{
+    border: 2px solid #b8b8b8 !important;
+    border-radius: 0px !important;
+}
+.question-index {
+    width: 10%;
+    float: left;
+    background: #fe8e28;
+    color: #fff;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 70px;
+    font-weight: bold;
+}
+.answer-index{
+    width: 10%;
+    float: left;
+    color: #fff;
+    align-items: center;
+    display: flex;
+    justify-content: center;    
+}
+.table_question{
+    display:flex;
+}
+.question-content{
+    float:left;
+    padding-left: 30px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    border-left: 2px solid #b8b8b8;
+}
+.questions .row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.answer-content{
+    width:90%;
+    float: left;
+    padding-left: 30px;
+    border-left: 2px solid #b8b8b8;
+}
+.questions .panel{
+    border-radius: 0px;
+    box-shadow: none;
+    border: 2px solid #b8b8b8;
+}
+.response-content{
+    width:90%;
+    float: left;
+    padding: 30px;
+    background: #c6c6c6;
+}
+.response-content .input-group{
+    width:100%;
+}
+.response-content .input-group textarea{
+    resize:none;
+}
+.response-content .input-group span.input-group-btn{
+    text-align: right;
+    padding-top: 15px;
+}
+.response-content .input-group span.input-group-btn button{
+    background: #fe8e28;
+    color: #fff;
+    padding: 10px 15px;
+}
+.warning td {
+    border: 2px solid #ddd;
+    background: #f1f1f1 !important;
+}
+
 @media (min-width: 768px){
     body {
         margin-top: 0px;
