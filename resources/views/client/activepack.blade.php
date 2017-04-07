@@ -33,7 +33,6 @@
                             <!--<td>+</td>-->
                             <td>{{$package->title}}</td>
                             <td>{{$package->description}}</td>
-
                             <td><button class="btn btn-success viewmodules" value="{{$package->id}}" title="Show Modules"><i class="fa fa-caret-square-o-down" ></i> Show Modules</button></td>
                         </tr>
 
@@ -58,7 +57,7 @@
                                                 <tbody id="clients-list" name="clients-list">                            
                                 @endif
 
-                                                <tr colspan="3" class="warning">
+                                                <tr colspan="3" class="active_modules">
                                                     <!--<td style="width: 40px;">--</td>-->
                                                     <td>{{$module->title}}</td>
                                                     <td>{{$module->description}}</td>

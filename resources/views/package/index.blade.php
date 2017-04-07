@@ -25,10 +25,11 @@
                     </thead>
                     <tbody id="package-list" name="package-list">
                         @foreach ($packages as $package)
+                            <?php //dd($package->linked_clients); ?>
                         <tr id="package_{{$package->id}}">
                             <td>{{$package->title}}</td>
                             <td>{{$package->price}}</td>
-                            <td id="clients_{{$package->id}}">{{$package->linked_clients->count() }}</td>
+                            <td id="clients_{{$package->id}}">{{$package->linked_clients->unique('user_id')->count() }}</td>
 
                             <td>
                                 <div class="dropup">
@@ -59,8 +60,8 @@
         @include('modals.add_package')
         @include('modals.document')
         @include('modals.question') 
-        @include('modals.add_client');
-        @include('modals.linked_clients');
+        @include('modals.add_client')
+        @include('modals.linked_clients')
     </div>
 
 
