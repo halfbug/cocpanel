@@ -63,16 +63,16 @@ $(document).on('click', '#btn-save-package', function (e) {
                     + '<td>' + package.price + '</td >'
                     + '<td> </td>'
                     + ' <td>'
-                    +' <div class="dropup">'
-                                   +' <button class="btn btn-danger btn-detail dropdown-toggle pull-left dropdownMenu1" value="' + package.id + '"  type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Add Client"><i class="fa fa-user" ></i>'
-                                   +' <span class="caret"></span>'
-                                   +' </button>'
-                                   + '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">'
-                                    +'    <li ><a class="add_client" data-value="' + package.id + '" href="#">Add Existing Client</a></li>'
-                                    +'    <li role="separator" class="divider"></li>'
-                                    +'    <li><a class="new_client" data-value="' + package.id + '" href="#">Add New Client</a></li>'
-                                    +'</ul>'
-                                +'</div>&nbsp;'
+                    + ' <div class="dropup">'
+                    + ' <button class="btn btn-danger btn-detail dropdown-toggle pull-left dropdownMenu1" value="' + package.id + '"  type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Add Client"><i class="fa fa-user" ></i>'
+                    + ' <span class="caret"></span>'
+                    + ' </button>'
+                    + '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">'
+                    + '    <li ><a class="add_client" data-value="' + package.id + '" href="#">Add Existing Client</a></li>'
+                    + '    <li role="separator" class="divider"></li>'
+                    + '    <li><a class="new_client" data-value="' + package.id + '" href="#">Add New Client</a></li>'
+                    + '</ul>'
+                    + '</div>&nbsp;'
                     + ' <button class="btn btn-secondary btn-detail edit_package" value="' + package.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
                     + ' <button class="btn btn-warning linked_client" value="' + package.id + '"  title="Linked Client"><i class="fa fa-group"></i></button>'
                     + ' <button class="btn btn-success preview_package" value="' + package.id + '" title="Preview"><i class="fa fa-search" ></i></button>'
@@ -101,32 +101,32 @@ $(document).on('click', '#btn-save-package', function (e) {
 
 $(document).on('click', '.edit_package', function (e) {
     var package_id = $(this).val();
-   $('.available-modules li').show();
+    $('.available-modules li').show();
     $.get(pUrl + '/' + package_id, function (data) {
         //success data
         console.log(data);
         $('#package_id').val(data.id);
         $('#title').val(data.title);
         tinymce.get('description').setContent(data.description);
-            $('#price').val(data.price);
+        $('#price').val(data.price);
         $('#currency').val(data.currency);
-       
-        $( 'input[value="'+data.release_schedule+'"]' ).prop( "checked", true );
-        $( 'input[value="'+data.paymnent_frequency+'"]' ).prop( "checked", true );
+
+        $('input[value="' + data.release_schedule + '"]').prop("checked", true);
+        $('input[value="' + data.paymnent_frequency + '"]').prop("checked", true);
         $('#facebook_group').val(data.facebook_group);
-        $('.selected-modules').html(""); 
+        $('.selected-modules').html("");
         group.sortable("refresh");
         $.each(data.selected_modules, function (index, module) {
 //            alert(index + ": " + value);
-        $('.selected-modules').append('<li value="'+module.id+'" id="'+module.id+'" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>'+module.title+'</li>');
-           $('.available-modules #'+module.id).hide();
-           
+            $('.selected-modules').append('<li value="' + module.id + '" id="' + module.id + '" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>' + module.title + '</li>');
+            $('.available-modules #' + module.id).hide();
+
         });
-               
-                $('#btn-save-package').val("update");
-       
+
+        $('#btn-save-package').val("update");
+
 //         $('#frmPackage').trigger("reset");
-    $('#addPackageModal').modal('show');
+        $('#addPackageModal').modal('show');
     });
 });
 
@@ -134,11 +134,16 @@ $(document).on('click', '.new_client', function (e) {
     var package_id = $(this).data('value');
     $('#package_id').val(package_id);
     $('#newClientModal').modal('show');
-    
+
 });
 
 $(document).on('click', '#btn-save-client', function (e) {
-   
+    var $btn = $(this);
+    $btn.button('loading');
+
+    setTimeout(function () {
+        $btn.button('reset');
+    }, 10000);
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -149,26 +154,31 @@ $(document).on('click', '#btn-save-client', function (e) {
         name: $('#name').val(),
         password: $('#password').val(),
         email: $('#email').val(),
-        package_id : $('#package_id').val()
+        package_id: $('#package_id').val()
     };
-        
-    
+
+
     console.log(formData);
     $.ajax({
         type: "POST",
-        url: app.base_url+"/clients",
+        url: app.base_url + "/clients",
         data: formData,
         dataType: 'json',
         success: function (data) {
-                $.notify("Client have been added successfully.");
+            $.notify("Client have been added successfully.");
             console.log(data);
-            $('#clients_'+$('#package_id').val()).html(data.totalclients);
+            $('#clients_' + $('#package_id').val()).html(data.totalclients);
             $('#frmClient').trigger("reset");
             $('#newClientModal').modal('hide');
 
         },
-        error: function (data) {
-            console.log('Error:', data);
+        error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//            alert(err.Message);
+            $('#newClientModal').modal('hide');
+//             $(xhr.responseText).find('.exception_message').html();
+//             exception_message
+            $.notify("Error :" + $(xhr.responseText).find('.exception_message').html());
         }
     });
 
@@ -179,10 +189,17 @@ $(document).on('click', '.add_client', function (e) {
     var package_id = $(this).data('value');
     $('#package_id').val(package_id);
     $('#addClientModal').modal('show');
-    
+
 });
 
 $(document).on('click', '#btn-save-addclient', function (e) {
+
+     var $btn = $(this);
+    $btn.button('loading');
+
+    setTimeout(function () {
+        $btn.button('reset');
+    }, 10000);
    
     $.ajaxSetup({
         headers: {
@@ -192,26 +209,35 @@ $(document).on('click', '#btn-save-addclient', function (e) {
     e.preventDefault();
     var formData = {
         emails: $('#emails').val(),
-        package_id : $('#package_id').val()
+        package_id: $('#package_id').val()
     };
-        
-    
+
+
     console.log(formData);
     $.ajax({
         type: "POST",
-        url: app.base_url+"/clients/addExisting",
+        url: app.base_url + "/clients/addExisting",
         data: formData,
         dataType: 'json',
         success: function (data) {
-                $.notify(data.clients+" Clients have been added successfully.");
+            $.notify(data.clients + " Clients have been added successfully.");
             console.log(data);
-             $('#clients_'+$('#package_id').val()).html(data.totalclients);
+            $('#clients_' + $('#package_id').val()).html(data.totalclients);
             $('#frmAddClient').trigger("reset");
             $('#addClientModal').modal('hide');
 
         },
-        error: function (data) {
-            console.log('Error:', data);
+         error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//            alert(err.Message);
+            $('#addClientModal').modal('hide');
+//             $(xhr.responseText).find('.exception_message').html();
+//             exception_message
+
+             $.notify({
+                 message: "Error :" + $(xhr.responseText).find('.exception_message').html(),
+                 type: 'danger'
+             });
         }
     });
 
@@ -219,18 +245,18 @@ $(document).on('click', '#btn-save-addclient', function (e) {
 });
 
 $(document).on('click', '.linked_client', function (e) {
-     $('#linked_clients_list').html("");
+    $('#linked_clients_list').html("");
     var package_id = $(this).val();
     $('#package_id').val(package_id);
     $.get(pUrl + '/linked_clients/' + package_id, function (data) {
         console.log(data);
-   $.each(data, function (index, client) {
+        $.each(data, function (index, client) {
 //            alert(index + ": " + value);
-        $('#linked_clients_list').append('<tr><td>'+client.name +' </td></tr>');
-           
-           
-        });     
+            $('#linked_clients_list').append('<tr><td>' + client.name + ' </td></tr>');
+
+
+        });
     });
     $('#linkedClient').modal('show');
-    
+
 });

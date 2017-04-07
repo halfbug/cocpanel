@@ -59,7 +59,7 @@ class package extends Model {
      public function getClients() {
         $clientsId = \App\assignment::where("package_id",  $this->id)->where("role_id",\App\role::client())->pluck("user_id");
         $clients=  \App\User::whereIn("id",$clientsId)->get();
-        return $clients;
+        return $clients->unique('user_id');
         
 //        return "yes";
     }
