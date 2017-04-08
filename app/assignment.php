@@ -15,7 +15,7 @@ class assignment extends Model {
     }
     
     public function getCoachAttribute() {
-        return ($this->coache_id)?\App\User::where('id',  $this->coach_id):\App\User::where('id',  $this->user_id);
+        return ($this->coache_id)?\App\User::find(Self::find($this->coache_id)->user_id):\App\User::find($this->user_id);
     }
     
 

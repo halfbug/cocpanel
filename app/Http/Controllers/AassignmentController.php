@@ -57,9 +57,9 @@ class AassignmentController extends Controller {
         // email to client on coach response
         $user = $discussion->user()->first();
         if ($assignment->coache_id == null)
-            \Mail::to($user->email)->send(new NewResponse($user, 'coach'));
+            \Mail::to($assignment->user()->email)->send(new NewResponse($user, 'coach'));
         else
-            \Mail::to($user->email)->send(new NewResponse($user, 'client'));
+            \Mail::to($assignment->coach->email)->send(new NewResponse($user, 'client'));
         // email to coach on client response
 
 
