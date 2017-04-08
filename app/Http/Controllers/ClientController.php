@@ -57,7 +57,7 @@ class ClientController extends Controller {
 //            'password' => bcrypt($request->password),
 //          
 //        ]);
-        try {
+//        try {
 //            if (\App\User::where('email', '=', $request->email)->count() < 1) {
             event(new Registered($user = $this->create($request->all())));
 //            }
@@ -66,15 +66,12 @@ class ClientController extends Controller {
             $assign = new \App\assign();
 //        $client = $assign->client($user->id, $request->package_id);
 
-            $role_id = \App\role::client();
+//            $role_id = \App\role::client();
 
-            $pack = $assign->getPackage($request->package_id);
-            $coache = $assign->getCoache($request->package_id);
+//            $pack = $assign->getPackage($request->package_id);
+//            $coache = $assign->getCoache($request->package_id);
 
-            foreach ($pack->selected_modules as $module) {
-
-                \App\assignment::create(['role_id' => $role_id, 'user_id' => $user->id, 'package_id' => $request->package_id, 'module_id' => $module->id, 'status' => 3, 'coache_id' => $coache->id]);
-            }
+            $assign->client($user->id, $pack_id);
 //        $client->role_id = $clientRole;
 //        $client->user_id = $user->id;
 //        $client->package_id = $request->package_id;
@@ -85,9 +82,11 @@ class ClientController extends Controller {
                         'client' => $package_clients,
                         'totalclients' => $package_clients->count()
             ]);
-        } catch (\Exception $e) {
-            abort(500, 'User Already Exist.');
-        }
+//        } 
+        
+//        catch (\Exception $e) {
+//            abort(500, 'User Already Exist.');
+//        }
     }
 
     protected function create(array $data) {
@@ -106,6 +105,7 @@ class ClientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function storeExisting(Request $request) {
+        
         $pack_id = $request->package_id;
         $emails = $request->emails;
         $emails = preg_replace('/\s+/', '', $emails);
@@ -114,6 +114,7 @@ class ClientController extends Controller {
 
         $clients = [];
         foreach ($users as $user) {
+            
             if (\App\assignment::where('user_id', $user->id)->where('package_id', $request->package_id)->count() < 1) {
                 $assign = new \App\assign();
                 $assign->client($user->id, $request->package_id);
@@ -181,9 +182,9 @@ class ClientController extends Controller {
         session(['role' => 'client']);
 //        $pack = \App\assign::where('role_id', \App\role::client())->where("user_id",\Auth::user()->id)->pluck("package_id")->all();
 //        $packages= \App\package::whereIn("id",$pack)->get();
-        $assignments = \App\assignment::where('role_id', \App\role::client())->where("user_id", \Auth::user()->id)->get();
+        $collection = \App\assignment::where('role_id', \App\role::client())->where("user_id", \Auth::user()->id)->get();
 
-        return view('client.activepack')->with('assignments', $assignments->unique("package_id"))->with('role', "Client");
+        return view('client.activepack')->with('assignments', $collection->unique("package_id"))->with('collection', $collection);
     }
 
 }
