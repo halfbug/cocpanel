@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container">
     <div class="col-sm-10">
         <div class="panel panel-default module-desc">
@@ -28,13 +27,8 @@
 
                         @if($assignment)
 
-
                         @foreach ( $question->getDiscussion($assignment->id) as $response )
-                            <?php //print_r($response);
-                            echo $response->user_id;
-                            
-                            //echo session('coach')->id;
-                            die(); ?>
+
 
                         <li class="comment green" >
                             <a class="pull-left" href="#">
@@ -43,10 +37,9 @@
                                 @else
                                 <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
                                 @endif<BR>
-                                
-                                <?php /*@if($response->user_id == session('coach')->id)
+                                @if($response->user_id == session('coach')->id)
                                        <span class="small bg-primary">Coach</span>
-                                @endif */ ?>
+                                        @endif
                             </a>
                             <div class="comment-body">
 
