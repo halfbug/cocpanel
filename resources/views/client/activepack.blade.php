@@ -36,7 +36,7 @@
                                 <td><button class="btn btn-success viewmodules" value="{{$package->id}}" title="Show Modules"><i class="fa fa-caret-square-o-down" ></i> Show Modules</button></td>
                             </tr>
 
-                            @foreach($package->selected_modules as $module)
+                           @foreach($package->selected_modules as $module)
                             @if($loop->index == 0)
                             <tr id="packmodule_{{$package->id}}"><td colspan="3">
                                     <div class="panel panel-default">
@@ -68,16 +68,18 @@
                                                         ->where('role_id',\App\role::client())
                                                         ->where('module_id',$module->id);
                                                         @endphp
+                                                        
+                                                        
                                                         @if($assigned->count()>0)
-                                                        <td class="success">{{$assigned[0]->getStatus()}}</td>
-                                                        <td><a class="btn btn-warning btn-detail preview_module" href="{{ url('assigned/'.$assigned[0]->id) }}" title="Preview"><i class="fa fa-search" ></i> View Module</a></td>
+                                                        <td class="success">{{$assigned->first()->getStatus()}}</td>
+                                                        <td><a class="btn btn-warning btn-detail preview_module" href="{{ url('assigned/'.$assigned->first()->id) }}" title="Preview"><i class="fa fa-search" ></i> View Module</a></td>
                                                         @else
                                                         <td class="danger">Pending</td>
                                                         <td><a class="btn btn-warning btn-detail preview_module disabled" href="#" title="Preview"><i class="fa fa-search" ></i> View Module</a></td>
                                                         @endif
                                                     </tr>
 
-                                                    @if($loop->count+1 == $loop->last)
+                                                   @if($loop->count+1 == $loop->last)
                                                 </tbody>
                                             </table>
                                         </div>
@@ -85,7 +87,7 @@
                             </tr>
                             @endif
 
-                            @endforeach
+                            @endforeach 
 
                             @endforeach
                             @endforeach
