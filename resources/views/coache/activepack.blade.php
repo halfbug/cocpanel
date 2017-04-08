@@ -19,6 +19,7 @@
                         <tr>
                             <th style="width: 40px;"></th>
                             <th>Name </th>
+                            <th>Status </th>
                             <th>Action</th>
 
                         </tr>
@@ -28,7 +29,7 @@
                         @foreach ($assigned->package()->get() as $package)
                         <tr id="package_{{$package->id}}">
                             <td>+</td>
-                            <td>{{$package->title}}</td>
+                            <td colspan="2">{{$package->title}}</td>
 
                             <td><button class="btn btn-success viewmodules" value="{{$package->id}}" title="Show Modules"><i class="fa fa-arrow-circle-o-down" ></i></button></td>
 
@@ -45,14 +46,19 @@
                                
                                 <tr colspan="3" class="warning" id="packmodule_{{$package->id}}">
                                     <td style="width: 40px;">--</td>
-                                    <td>{{$module->title}}</td>  
+                                    <td colspan="2">{{$module->title}}</td> 
+                                    @if($clients->count() > 0)
                                     <td><button class="btn btn-warning viewclients" value="{{$package->id}}-{{$module->id}}" title="Show Clients"><i class="fa fa-arrow-circle-o-down" ></i></button></td>
-
+                                    @else
+                                    <td><button class="btn btn-warning viewclients disabled" value="{{$package->id}}-{{$module->id}}" title="Show Clients"><i class="fa fa-arrow-circle-o-down" ></i></button></td>
+                                    @endif
                                 </tr>
+                                
                                 @foreach($clients as $client)
                                 <tr colspan="3" class="success" id="packclient_{{$package->id}}-{{$module->id}}">
                                     <td style="width: 40px;">-></td>
-                                    <td>{{$client->user->name}}</td>  
+                                    <td>{{$client->user->name}}</td>
+                                    <td>{{$client->getStatus()}}</td>
                                     <td><a class="btn btn-info btn-detail preview_module" href="{{ url('assigned/'.$client->id) }}" title="Preview"><i class="fa fa-search" ></i></a></td>
 
                                 </tr>
