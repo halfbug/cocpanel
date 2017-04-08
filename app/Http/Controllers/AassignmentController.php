@@ -61,9 +61,9 @@ class AassignmentController extends Controller {
         $role = $request->session()->get('role');
 
         if ($role == 'coache')
-            \Mail::to($assignment->user()->email)->send(new NewResponse($user, 'client'));
+            \Mail::to($assignment->user->email)->send(new NewResponse($user, 'coach'));
         else
-            \Mail::to($assignment->coach->email)->send(new NewResponse($user, 'coach'));
+            \Mail::to($assignment->coach->email)->send(new NewResponse($user, 'client'));
         // email to coach on client response
 
 

@@ -42,7 +42,7 @@ class NewResponse extends Mailable {
     public function build() {
         
         
-        $this->cview = ($this->role == 'client') ? $this->forClient :$this->forCoach;
+        $this->cview = ($this->role == 'client') ? $this->forCoach :$this->forClient;
         
         
         return $this->view('emails.'.  $this->cview)
