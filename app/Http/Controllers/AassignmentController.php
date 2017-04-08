@@ -7,20 +7,20 @@ use App\Mail\NewResponse;
 
 class AassignmentController extends Controller {
 
-    public function show(Request $request, $package_id, $module_id, $user_id = null) {
+    public function show(Request $request, $assignment_id) {
         $role = $request->session()->get('role');
-
+        $assignment = \App\assignment::find($assignment_id);
+                
+        
         if ($role == 'client') {
-            $role_id = \App\role::client();
+//            $role_id = \App\role::client();
             $client_id = \Auth::user()->id;
 
-            $coach_id = \App\assignment::where('role_id', \App\role::coache())
-                            ->where("module_id", $module_id)
-                            ->where("package_id", $package_id)
-                            ->first()->user_id;
+            $coach_id = $assignment->coache_id;
+            
         } else {
-            $role_id = \App\role::coache();
-            $client_id=$user_id;
+//            $role_id = \App\role::coache();
+            $client_id=$assignment->user_id;
             $coach_id = \Auth::user()->id;
             
         }
@@ -28,12 +28,9 @@ class AassignmentController extends Controller {
         session(['client' => \App\User::find($client_id)]);
         session(['coach' => \App\User::find($coach_id)]);
 
-        $assignment = \App\assignment::where('role_id', $role_id)
-                ->where("user_id", \Auth::user()->id)
-                ->where("module_id", $module_id)
-                ->where("package_id", $package_id)
-                ->first();
-        $module = \App\module::find($module_id);
+        
+        
+        $module = \App\module::find($assignment->module_id);
         return view('module.preview')->with('module', $module)->with('assignment', $assignment);
 //        return $package_id."/".$module_id;
     }

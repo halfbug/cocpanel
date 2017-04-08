@@ -53,7 +53,7 @@
                                 <tr colspan="3" class="success" id="packclient_{{$package->id}}-{{$module->id}}">
                                     <td style="width: 40px;">-></td>
                                     <td>{{$client->user->name}}</td>  
-                                    <td><a class="btn btn-info btn-detail preview_module" href="{{ url('assigned/'.$package->id.'/'.$module->id.'/'.$client->user->id) }}" title="Preview"><i class="fa fa-search" ></i></a></td>
+                                    <td><a class="btn btn-info btn-detail preview_module" href="{{ url('assigned/'.$client->id) }}" title="Preview"><i class="fa fa-search" ></i></a></td>
 
                                 </tr>
                                 @endforeach

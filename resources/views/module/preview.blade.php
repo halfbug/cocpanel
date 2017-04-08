@@ -27,7 +27,7 @@
 
                         @if($assignment)
 
-                        @foreach ( $question->getDiscussion($question,$assignment) as $response )
+                        @foreach ( $question->getDiscussion($assignment->id) as $response )
 
 
                         <li class="comment green" >
