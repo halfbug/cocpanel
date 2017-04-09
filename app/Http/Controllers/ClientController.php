@@ -57,7 +57,7 @@ class ClientController extends Controller {
 //            'password' => bcrypt($request->password),
 //          
 //        ]);
-//        try {
+        try {
 //            if (\App\User::where('email', '=', $request->email)->count() < 1) {
             event(new Registered($user = $this->create($request->all())));
 //            }
@@ -82,11 +82,11 @@ class ClientController extends Controller {
                         'client' => $package_clients,
                         'totalclients' => $package_clients->count()
             ]);
-//        } 
+        } 
         
-//        catch (\Exception $e) {
-//            abort(500, 'User Already Exist.');
-//        }
+        catch (\Exception $e) {
+            abort(500, 'User Already Exist.');
+        }
     }
 
     protected function create(array $data) {
