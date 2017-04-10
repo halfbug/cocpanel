@@ -121,7 +121,7 @@ Client
     });
     $(document).on('click', '.viewmodules', function (e) {
         var package_id = $(this).val();
-        $('[id^=packmodule_]').toggle();
+        $('[id^=packmodule_'+package_id+']').toggle();
     });
 </script>
 @endsection
