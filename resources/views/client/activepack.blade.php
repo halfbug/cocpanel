@@ -38,7 +38,7 @@
 
                            @foreach($package->selected_modules as $module)
                             @if($loop->index == 0)
-                            <tr id="packmodule_{{$package->id}}"><td colspan="3">
+                            <tr id="packmodule_{{$package->id}}" class="active_modules"><td colspan="3">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h3 class="panel-title">Modules</h3>
