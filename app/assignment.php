@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class assignment extends Model {
+class assignment extends assign {
 
     public $fillable = [ 'role_id', 'user_id', 'package_id', 'module_id', 'status', 'coache_id'];
     protected $appends = array('client','coach');
@@ -31,7 +31,10 @@ class assignment extends Model {
         2 => 'Pending',
         3 => 'Active'
     ];
-
+    
+    public function getAllStatus() {
+        return $this->moduleStatus;
+    }
     public function getStatus() {
         return $this->moduleStatus[$this->status];
     }

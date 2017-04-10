@@ -69,5 +69,27 @@ class AassignmentController extends Controller {
 
         return back()->with('package_id', $package_id)->with('module_id', $module_id);
     }
+    
+    
+    public function updateStatus(Request $request) {
+        echo $request->assignment_id;
+        if($request->assignment_id == 0)
+        {
+            $assign =\App\assignment::create([
+                'role_id'=>\App\role::client(),
+                'user_id'=>$request->user_id,
+                'package_id'=>$request->package_id,
+                'module_id'=>$request->module_id,
+                'status'=>$request->status
+                ]);
+        }
+        else{
+            $assign=\App\assignment::find($request->assignment_id);
+            $assign->status = $request->status;
+            $assign->save();
+        }
+        
+        return back();
+    }
 
 }
