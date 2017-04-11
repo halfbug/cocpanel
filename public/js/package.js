@@ -9,6 +9,8 @@ $(document).on('click', '#btn_add_package', function () {
     $('#frmPackage').trigger("reset");
     $('#addPackageModal').modal('show');
     $('#btn-save-package').val("add");
+     $('.available-modules li').show();
+     $('.selected-modules').html("");
 
 //    });
 
