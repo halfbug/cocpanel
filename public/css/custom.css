@@ -94,8 +94,13 @@
     padding: 10px 15px;
 }
 .active_modules td {
-    border: 2px solid #ddd !important;
     background: #f1f1f1 !important;
+}
+.package_client td{
+    background: #cccccc !important; 
+}
+.package_row td{
+    background: #cccccc !important;
 }
 
 @media (min-width: 768px){

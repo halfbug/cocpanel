@@ -97,9 +97,11 @@
                     $uri = $request->path();
                     ?>
                     
+                        @if(Auth::user()->isCoache() )
                         <li class="{{ ($uri == 'home') ? 'active' : '' }}">
                             <a href="{{ url('/home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                         </li>
+                        @endif
                         @if (Auth::user())
                         @if (Auth::user()->isAdmin())
                         <li class="{{ ($uri == 'modules') ? 'active' : '' }}">
@@ -128,12 +130,12 @@
                         </li>
                         @endif
                         @if(Auth::user()->isClient() )
-                        <li class="{{ ($uri == 'clients/active_packages') ? 'active' : '' }}">
+                        <li class="{{ ($uri == 'clients/active_packages' || substr($uri,0,8) == 'assigned') ? 'active' : '' }}">
                             <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
                         </li>
                         @endif
                         @if(Auth::user()->isCoache() )
-                        <li class="{{ ($uri == 'coaches/active_packages') ? 'active' : '' }}">
+                        <li class="{{ ($uri == 'coaches/active_packages' || substr($uri,0,8) == 'assigned') ? 'active' : '' }}">
                             <a href="{{ url('/coaches/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
                         </li>
                         @endif
