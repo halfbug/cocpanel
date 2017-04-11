@@ -13,10 +13,10 @@ class ModuleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $modules = module::all()->where('is_live',false);
-        $live_modules = module::all()->where('is_live',true);
+        $modules = module::all()->where('is_live', false);
+        $live_modules = module::all()->where('is_live', true);
         return view('module.index')->with('modules', $modules)
-                ->with('live_modules',$live_modules);
+                        ->with('live_modules', $live_modules);
     }
 
     /**
@@ -27,6 +27,7 @@ class ModuleController extends Controller {
     public function create() {
         return view('module.create');
     }
+
     /**
      * Available modules.
      *
@@ -34,7 +35,7 @@ class ModuleController extends Controller {
      * @return json
      */
     public function getLive() {
-        $module = module::all()->where('is_live',true);
+        $module = module::all()->where('is_live', true);
         return response()->json($module);
     }
 
@@ -58,7 +59,7 @@ class ModuleController extends Controller {
     public function show($module_id) {
         $module = module::find($module_id);
 //        $assignment = \App\assignment::where('user_id',Auth::user()->id)->where('package_id',$module->package())
-        return view('module.preview')->with('module',$module);
+        return view('module.preview')->with('module', $module);
     }
 
     /**
@@ -98,9 +99,8 @@ class ModuleController extends Controller {
         $module = module::destroy($module_id);
         return response()->json($module);
     }
-    
-    
-     /**
+
+    /**
      * update to live module.
      *
      * @param  \App\module  $module
@@ -111,6 +111,38 @@ class ModuleController extends Controller {
         $module->is_live = true;
         $module->save();
         return response()->json($module);
+    }
+
+    /**
+     * copy a module.
+     *
+     * @param  \App\module  $module
+     * @return \Illuminate\Http\Response
+     */
+    public function makeCopy($module_id) {
+        $module = module::find($module_id);
+        $copy_of_module = $module->replicate();
+        $copy_of_module->title = "[COPY OF]" . $copy_of_module->title;
+        $copy_of_module->is_live = 0;
+        $copy_of_module->save();
+        $copy_questions = [];
+        foreach ($module->questions()->get() as $quesCopy) {
+            $copy_questions[] = $quesCopy->replicate();
+        }
+        $copy_of_module->questions()->saveMany($copy_questions);
+
+        $documents_copy = [];
+        foreach ($module->documents()->get() as $documentCopy) {
+            $fileName = rand(11111, 99999) . "." . explode('.', $documentCopy->filename)[1];
+            copy(public_path('documents') . '/' . $documentCopy->filename, public_path('documents') . '/' . $fileName);
+            $newCopy=$documentCopy->replicate();
+            $newCopy->filename = $fileName;
+            $documents_copy[] = $newCopy;
+            
+        }
+
+        $copy_of_module->documents()->saveMany($documents_copy);
+        return back();
     }
 
 }

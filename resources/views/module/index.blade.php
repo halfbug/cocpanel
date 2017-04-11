@@ -80,7 +80,10 @@
                                         <!--<td>{{$module->description}}</td>-->
                                         <td>
                                             <button class="btn btn-secondary btn-detail open_modal" value="{{$module->id}}" title="Edit"><i class="fa fa-edit" ></i></button>
-                                            <button class="btn btn-primary btn-detail copy_module" value="{{$module->id}}" title="Copy"><i class="fa fa-copy" ></i></button>
+                                            <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="copyModule_{{$module->id}}" action="{{ url('modules/make_copy/'.$module->id) }}">
+                                                {{ csrf_field() }}
+                                                <button class="btn btn-primary btn-detail copy_module" id="copy_module_{{$module->id}}" value="{{$module->id}}" title="Copy"><i class="fa fa-copy" ></i></button>
+                                            </form>
                                             <button class="btn btn-warning btn-detail preview_module" value="{{$module->id}}" title="Preview"><i class="fa fa-search" ></i></button>
                                             <button class="btn btn-danger btn-delete delete-module" value="{{$module->id}}" title="Delete"><i class="fa fa-remove" ></i></button>
                                         </td>
@@ -101,7 +104,7 @@
 
 
         </div>
-            
+
         @include('modals.add_module')
         @include('modals.document')
         @include('modals.question')

@@ -32,6 +32,7 @@ Route::delete('modules/{module_id?}','ModuleController@destroy');
 Route::put('modules/make_live/{module_id?}','ModuleController@makeLive');
 Route::get('modules/live','ModuleController@getLive');
 Route::get('modules/preview/{module_id?}','ModuleController@show');
+Route::post('modules/make_copy/{module_id}','ModuleController@makeCopy');
 
 
 Route::post('/documents/upload', 'DocumentController@docUploadPost');
