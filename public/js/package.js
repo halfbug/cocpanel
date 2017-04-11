@@ -251,10 +251,8 @@ $(document).on('click', '.linked_client', function (e) {
     $.get(pUrl + '/linked_clients/' + package_id, function (data) {
         console.log(data);
         $.each(data, function (index, client) {
-//            alert(index + ": " + value);
-            $('#linked_clients_list').append('<tr><td>' + client.name + ' </td></tr>');
-
-
+            //console.log(index + ": " + client.name + '<br/>');
+            $('#linked_clients_list').append('<tr><td>' + client.name + ' </td><td>' + client.email + ' </td></tr>');
         });
     });
     $('#linkedClient').modal('show');
