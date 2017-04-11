@@ -46,10 +46,10 @@ class NewResponse extends Mailable {
         
         
         return $this->view('emails.'.  $this->cview)
-                ->from("demo@appsgenre.com", "COCpanel Admin")
-                ->subject("A new response by your ".  $this->role)
+                ->from("demo@appsgenre.com", "Business BullsEye Admin")
+                ->subject("Business BullsEye - New response by your ".  $this->role)
                 ->with('user',  $this->user);
-//                ->with('package',  $this->package);
+                //->with('package',  $this->package);
     }
 
 }
