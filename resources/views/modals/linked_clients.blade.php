@@ -9,10 +9,8 @@
                 <table class="table table-striped">
                                 <thead>
                                     <tr>
-        <!--                                        <th>ID</th>-->
-                                        <!--<th>Description</th>-->
                                         <th>Name</th>
-                                        <!--<th>Actions</th>-->
+                                        <th>Email</th>
                                     </tr>
                                 </thead>
                                 <tbody id="linked_clients_list" name="linked_clients_list">

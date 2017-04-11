@@ -57,7 +57,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ url('/') }}/images/logo.png" /></a>
+                    <a class="navbar-brand" href="{{ url('/home') }}"><img src="{{ url('/') }}/images/logo.png" /></a>
                         <!--{{ config('app.name', 'Laravel') }}-->
                 </div>
                 <!-- Top Menu Items -->
