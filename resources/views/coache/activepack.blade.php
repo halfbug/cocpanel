@@ -208,9 +208,29 @@ Coach
     });
 
     $('[id^=module_status]').change(function () {
-        alert("Handler for .change() called.");
+//        alert("Handler for .change() called.");
         //$('[id^=statusform').submit();
-        $(this).parents('form').submit();
+//        $(this).parents('form').submit();
+        $selecbox=$(this);
+        bootbox.confirm({
+        title: "Change Status?",
+        message: "Are you sure the changes will be seen on client side.",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+
+                $selecbox.parents('form').submit();
+            }
+        }
+    });
+        
     });
 </script>
 @endsection

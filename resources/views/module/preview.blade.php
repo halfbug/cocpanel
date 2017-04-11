@@ -61,6 +61,7 @@
                     </ul>
                     </div> <!--question-content-->
                 </div>
+                @if($assignment->status == 3)
                 <div class="row">
                     <div class="answer-index">&nbsp;</div>
                     <div class="response-content">
@@ -79,6 +80,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
 
 
@@ -148,7 +150,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12"> 
+             @if($assignment->status == 3)
+            
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Upload New Documents</h3>
@@ -179,6 +183,7 @@
                     </form> 
                 </div>
             </div>
+             @endif
         </div>
     </div>
 </div>
