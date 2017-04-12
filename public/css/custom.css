@@ -103,6 +103,19 @@
     background: #cccccc !important;
 }
 
+.active_package td, .package_module td {
+    background: #989898;
+}
+.info td {
+    background: #f1f1f1 !important;
+}
+.active_modules td {
+    background: #b7b7b7 !important;
+}
+.success td {
+    background: #bfbfbf !important;
+}
+
 @media (min-width: 768px){
     body {
         margin-top: 0px;
