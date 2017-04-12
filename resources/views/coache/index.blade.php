@@ -6,7 +6,7 @@
 <div class="">
     <div class="row">
         <div class="col-md-11 ">
-            <!--<button id="btn_add_package" name="btn_add_package" class="btn btn-secondary pull-right" >New Package</button>-->
+            <button id="btn_add_coach" name="btn_add_coach" class="btn btn-secondary pull-right" >New Coach</button>
 
 
 
@@ -23,11 +23,11 @@
                             <th> </th>
                         </tr>
                     </thead>
-                    <tbody id="clients-list" name="clients-list">
-                        @foreach ($coaches as $coache)
-                        <tr id="coache_{{$coache->id}}">
+                    <tbody id="coach-list" name="coach-list">
+                        @foreach ($coaches as $coach)
+                        <tr id="coache_{{$coach->id}}">
                             <td>+</td>
-                            <td>{{$coache->getName($users)}}</td>
+                            <td>{{$coach->name}}</td>
 
                             <td></td>
 
@@ -36,7 +36,12 @@
                                 <!-- butons here-->
                             </td>
                         </tr>
-                        @foreach ($coache->getPackages($users,$collection) as $package)
+                        @php
+                        $pack =$collection->where('role_id', \App\role::coache())->where('user_id',$coach->id)->unique("package_id")->pluck("package_id");
+                        $packages= \App\package::whereIn("id",$pack)->get();
+                        @endphp
+
+                        @foreach ($packages as $package)
                         <tr class="success">
                             <td>-</td>
                             <td>{{$package->title}}</td>  
@@ -58,6 +63,7 @@
 
         </div>
         <!--       incluides here-->
+        @include('modals.add_coach')
     </div>
 
 
@@ -83,5 +89,5 @@ Coaches
 
 @section('script')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<!--<script src="{{asset('js/coaches.js')}}"></script>-->
+<script src="{{asset('js/coaches.js')}}"></script>
 @endsection

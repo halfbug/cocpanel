@@ -179,7 +179,7 @@ class ClientController extends Controller {
      */
     public function activePackages(Request $request) {
 //return "yesr";
-        session(['role' => 'client']);
+//        session(['role' => 'client']);
 //        $pack = \App\assign::where('role_id', \App\role::client())->where("user_id",\Auth::user()->id)->pluck("package_id")->all();
 //        $packages= \App\package::whereIn("id",$pack)->get();
         $collection = \App\assignment::where('role_id', \App\role::client())->where("user_id", \Auth::user()->id)->get();
