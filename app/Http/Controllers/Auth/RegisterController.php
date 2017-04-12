@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Mail\NewAdminAdded;
 
 class RegisterController extends Controller {
     /*
@@ -80,7 +81,7 @@ use RegistersUsers;
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
-
+        \Mail::to($user->email)->send(new NewAdminAdded($user));
 //        $this->guard()->login($user);
 
         return redirect($this->redirectPath());

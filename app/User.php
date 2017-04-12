@@ -17,7 +17,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password','status'
     ];
-
+    protected $user_status = [
+        1 => 'admin',
+        2 => 'coach'
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -28,22 +31,23 @@ class User extends Authenticatable
     ];
     
     public function isAdmin(){
+        session(['role' => 'admin']);
         return $this->status == 1;
+        
     }
     
     public function isClient(){
-        
+        session(['role' => 'client']);
 //        $l_clients=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->pluck("package_id")->get();
         $client=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->count();
         return $client > 0;
     
     }
     
-    public function isCoache(){
-        
+    public function isCoach(){
+        session(['role' => 'coach']);
 //        $l_clients=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->pluck("package_id")->get();
-        $client=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::coache())->count();
-        return $client > 0;
+         return $this->status == 2;
     
     }
     /**
@@ -65,6 +69,17 @@ class User extends Authenticatable
     public function assignments(){
      
         return $this->hasMany('App\assignment');
+    
+    }
+    
+     /**
+     * Get the associated modules
+     *
+     * @var array
+     */
+    public function modules(){
+     
+        return $this->hasMany('App\modules');
     
     }
 }

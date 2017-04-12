@@ -64,6 +64,18 @@ class package extends Model {
 //        return "yes";
     }
     
+    
+     public function scopeOwner($query)
+    {
+
+          if(\Auth::user()->status == 2)
+            return $query->join('assignments', 'packages.id', '=', 'assignments.package_id')->where('assignments.role_id', '=', \App\role::coache())->where('assignments.user_id',  \Auth::user()->id);
+        else
+            return $query;
+        
+    }
+    
+    
     /**
      * Get all of the clients that are assigned to this package.
      */

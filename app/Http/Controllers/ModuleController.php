@@ -13,8 +13,10 @@ class ModuleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $modules = module::all()->where('is_live', false);
-        $live_modules = module::all()->where('is_live', true);
+        $modules = module::where('is_live', false)->author()->get();
+        $live_modules = module::where('is_live', true)->author()->get();
+        
+       
         return view('module.index')->with('modules', $modules)
                         ->with('live_modules', $live_modules);
     }
