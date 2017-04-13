@@ -37,7 +37,7 @@
                                 @else
                                 <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
                                 @endif<BR>
-                                @if($response->user_id != session('client')->id)
+                                @if($response->user_id == session('coach')->id)
                                        <span class="small bg-primary">Coach</span>
                                 @endif
                             </a>

@@ -10,12 +10,10 @@ class AassignmentController extends Controller {
     public function show(Request $request, $assignment_id) {
         $role = $request->session()->get('role');
         $assignment = \App\assignment::find($assignment_id);
-                
-        
-        if ($role == 'client') {
+                        
+        if(\Auth::user()->isClient()){
 //            $role_id = \App\role::client();
             $client_id = \Auth::user()->id;
-
             $coach_id = \App\assignment::find($assignment->coache_id)->user_id;
             
         } else {
