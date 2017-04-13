@@ -32,7 +32,7 @@ class HomeController extends Controller
         }
         else{
 //            return "inside";
-            return redirect('/clients/active_packages');
+            return redirect('/coaches/active_packages');
             //return view('home');
         }
             

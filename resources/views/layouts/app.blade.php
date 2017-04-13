@@ -142,7 +142,7 @@
                         @endif
                         @if(Auth::user()->isClient() && !Auth::user()->isAdmin() )
                         <li class="{{ ($uri == 'clients/active_packages' || substr($uri,0,8) == 'assigned') ? 'active' : '' }}">
-                            <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages123</a>
+                            <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
                         </li>
                         @endif
                         @if(Auth::user()->isCoach() )
