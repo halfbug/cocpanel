@@ -128,7 +128,7 @@
                                 </li>                                
                             </ul>
                         </li>
-                         <li class="dropdown {{ ($uri == 'active_packages') ? 'active' : '' }}">
+                         <li class="dropdown {{ ($uri == 'active_packages' || $uri == 'clients/active_packages' || $uri == 'coaches/active_packages') ? 'active' : '' }}">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" ><!-- data-toggle="collapse" data-target="#demo" --><i class="fa fa-fw fa-database"></i> Active Packages <i class="fa fa-fw fa-caret-down"></i></a>
                             <ul class="dropdown-menu"> <!--id="demo" class="collapse"-->
                                 <li>
@@ -140,9 +140,9 @@
                             </ul>
                         </li>
                         @endif
-                        @if(Auth::user()->isClient() )
+                        @if(Auth::user()->isClient() && !Auth::user()->isAdmin() )
                         <li class="{{ ($uri == 'clients/active_packages' || substr($uri,0,8) == 'assigned') ? 'active' : '' }}">
-                            <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
+                            <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages123</a>
                         </li>
                         @endif
                         @if(Auth::user()->isCoach() )

@@ -25,13 +25,15 @@ class HomeController extends Controller
     {
         
 //        return "i m view";
-        if(\Auth::user()->isClient()){
-          
+        if(\Auth::user()->isClient()){          
             return redirect('/clients/active_packages');
+        } else if(\Auth::user()->isCoach()){
+            return redirect('/coaches/active_packages');
         }
         else{
 //            return "inside";
-            return view('home');
+            return redirect('/clients/active_packages');
+            //return view('home');
         }
             
     }
