@@ -116,6 +116,22 @@
     background: #bfbfbf !important;
 }
 
+.coaches_coach td{
+    background: #0682e4 !important;
+    color: #fff;
+}
+.coaches_pkg td{
+    background: #fe8e28 !important;
+    color: #fff;
+}
+.coaches_pkg_module td{
+    background: #ffaa5d !important;
+    color: #fff;
+}
+.coach_packages td {
+    background: #0682e4;
+}
+
 @media (min-width: 768px){
     body {
         margin-top: 0px;
