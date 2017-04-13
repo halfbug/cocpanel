@@ -35,7 +35,7 @@ class CoacheController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function activePackages(Request $request) {
-//        session(['role' => 'coache']);
+        session(['role' => 'coach']);
         $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();
         $collection = \App\assignment::all();
         $users = \App\User::all();
