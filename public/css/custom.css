@@ -116,20 +116,24 @@
     background: #bfbfbf !important;
 }
 
-.coaches_coach td{
-    background: #0682e4 !important;
-    color: #fff;
+.coaches_coach td, .coaches_list td{
+    /*background: #0682e4 !important;
+    color: #fff;*/
 }
 .coaches_pkg td{
-    background: #fe8e28 !important;
-    color: #fff;
+    background: #bfbfbf !important;
+    /*color: #fff;*/
 }
 .coaches_pkg_module td{
-    background: #ffaa5d !important;
-    color: #fff;
+    background: #f1f1f1 !important;
+    /*color: #fff;*/
 }
-.coach_packages td {
-    background: #0682e4;
+.coach_packages td, .coach_clients td{
+    background: #989898;
+}
+.coach_client td {
+    background: #f1f1f1 !important;
+    /*color: #fff;*/
 }
 
 @media (min-width: 768px){

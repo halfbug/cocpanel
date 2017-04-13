@@ -17,53 +17,48 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="width: 14px;"></th>
+                            <!--<th style="width: 14px;"></th>-->
                             <th>Name </th>
-                            <th> </th>
-                            <th> </th>
+                            <!--<th> </th>
+                            <th> </th>-->
                         </tr>
                     </thead>
                     <tbody id="clients-list" name="clients-list">
                         @foreach ($coaches as $coache)
-                        <tr id="coache_{{$coache->id}}">
-                            <td>+</td>
-                            <td>{{$coache->getName($users)}}</td>
-
-                            <td></td>
-
-                            <td>
-
-                                <!-- butons here-->
-                            </td>
+                        <tr id="coache_{{$coache->id}}" class="coaches_list">
+                            <!--<td>+</td>-->
+                            <td><strong>[Coach]</strong> {{$coache->getEmail($users)}}</td>
+                            <td><button class="btn btn-success viewclients" value="{{$coache->id}}" title="Show Clients"><i class="fa fa-caret-square-o-down" ></i> Show Clients</button></td>
                         </tr>
                         @foreach ($coache->getClients($users,$collection) as $client)
-                        <tr class="success">
-                            <td>-</td>
-                            <td>{{$client->name}}</td>  
-                        </tr>
+                            @if($loop->index == 0)
+                            <tr id="coach_{{$coache->id}}" class="coach_clients">
+                                <td colspan="3">                 
+                                            <table class="table">
+                                                <tbody id="clients-list" name="clients-list">                            
+                                                    @endif
+                            <tr class="coach_client">
+                                <!--<td>-</td>-->
+                                <td>{{$client->email}}</td>  
+                            </tr>
+
+                                                   @if($loop->count+1 == $loop->last)
+                                                </tbody>
+                                            </table>
+                                </td>
+                            </tr>
+                            @endif                        
                         @endforeach
                         @endforeach
                     </tbody>
                 </table>
             </div>
 
-
-
-
         </div>
         <!--       incluides here-->
     </div>
 
-
-
-
-
-
 </div>
-
-
-
-
 
 @endsection
 
@@ -78,4 +73,14 @@ Clients
 @section('script')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!--<script src="{{asset('js/client.js')}}"></script>-->
+<script>
+    $(document).ready(function () {
+        console.log("ready!");
+        $('[id^=coach_]').hide();
+    });
+    $(document).on('click', '.viewclients', function (e) {
+        var coach_id = $(this).val();
+        $('[id^=coach_'+coach_id+']').toggle();
+    });
+</script>
 @endsection

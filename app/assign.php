@@ -50,6 +50,13 @@ class assign extends Model {
         
 //        return "yes";
     }
+
+    public function getEmail($users) {
+        $user = $users->where("id", $this->user_id)->first();
+        return $user->email;
+        
+//        return "yes";
+    }
     
      public function getClients($users,$collection) {
         $pack = $collection->where("user_id",  $this->user_id)->unique("package_id")->pluck("package_id");
