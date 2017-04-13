@@ -36,7 +36,12 @@ class CoacheController extends Controller {
      */
     public function activePackages(Request $request) {
         session(['role' => 'coach']);
-        $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();
+        
+        if(\Auth::user()->isAdmin())
+        $assignments = \App\assignment::where('role_id', \App\role::coache())->get();
+        else
+        $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();    
+            
         $collection = \App\assignment::all();
         $users = \App\User::all();
 

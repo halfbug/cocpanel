@@ -23,9 +23,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(\Auth::user()->isClient())
+        
+//        return "i m view";
+        if(\Auth::user()->isClient()){
+          
             return redirect('/clients/active_packages');
-        else
+        }
+        else{
+//            return "inside";
             return view('home');
+        }
+            
     }
 }
