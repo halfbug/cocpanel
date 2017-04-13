@@ -128,6 +128,17 @@
                                 </li>                                
                             </ul>
                         </li>
+                         <li class="dropdown {{ ($uri == 'active_packages') ? 'active' : '' }}">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" ><!-- data-toggle="collapse" data-target="#demo" --><i class="fa fa-fw fa-database"></i> Active Packages <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul class="dropdown-menu"> <!--id="demo" class="collapse"-->
+                                <li>
+                                    <a href="{{ url('/clients/active_packages') }}"><i class="fa fa-fw fa-users"></i> Client</a>
+                                </li>  
+                                <li>
+                                    <a href="{{ url('/coaches/active_packages') }}"><i class="fa fa-fw fa-headphones"></i> Coaches</a>
+                                </li> 
+                            </ul>
+                        </li>
                         @endif
                         @if(Auth::user()->isClient() )
                         <li class="{{ ($uri == 'clients/active_packages' || substr($uri,0,8) == 'assigned') ? 'active' : '' }}">
