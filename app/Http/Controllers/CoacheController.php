@@ -19,7 +19,7 @@ class CoacheController extends Controller {
     public function index() {
         $collection = \App\assign::all();
         $users = \App\User::all();
-        $coaches = \App\User::whereIn('status',[1,2])->orderBy('name','asc')->get(); 
+        $coaches = \App\User::whereIn('status', [1, 2])->orderBy('name', 'asc')->get();
 //                $collection->where('role_id', \App\role::coache())->unique("user_id");
 //        return $coaches;
 
@@ -36,12 +36,12 @@ class CoacheController extends Controller {
      */
     public function activePackages(Request $request) {
         session(['role' => 'coach']);
-        
-        if(\Auth::user()->isAdmin())
-        $assignments = \App\assignment::where('role_id', \App\role::coache())->get();
+
+        if (\Auth::user()->isAdmin())
+            $assignments = \App\assignment::where('role_id', \App\role::coache())->get();
         else
-        $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();    
-            
+            $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();
+
         $collection = \App\assignment::all();
         $users = \App\User::all();
 
@@ -54,7 +54,7 @@ class CoacheController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-   protected function create(array $data) {
+    protected function create(array $data) {
         return User::create([
                     'name' => $data['name'],
                     'email' => $data['email'],
@@ -73,27 +73,25 @@ class CoacheController extends Controller {
 
     public function store(Request $request) {
         try {
-            $user =  \App\User::where('email',$request->email)->first();
+            $user = \App\User::where('email', $request->email)->first();
             $error = 0;
 //            var_dump($user);
 //            var_dump($request->all());
             if (is_null($user)) {
                 event(new Registered($user = $this->create($request->all())));
                 \Mail::to($user->email)->send(new NewCoachAdded($user));
-            } 
-            elseif($user->first()->status != 0) {
+            } elseif ($user->first()->status != 0) {
                 $user->status = 2;
                 $user->save();
                 \Mail::to($user->email)->send(new NewCoachAdded($user));
-            }
-            else{
+            } else {
                 $user = "already exist";
                 $error = 1;
             }
-            
 
 
-            return response()->json([$user,$error]);
+
+            return response()->json([$user, $error]);
         } catch (\Exception $e) {
             abort(500, 'OOps!!Some thing went wrong. Please try again.');
         }
@@ -136,8 +134,26 @@ class CoacheController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($coach_id) {
+//         $request->coache_id
+
+        $user = \App\User::find($coach_id);
+        $coachRec = $user->assignments()->coach()->get();
+
+        $umodules = \App\module::where('author_id', '=', $user->id)->delete();
+        $upack = \App\package::whereIn('id', $coachRec->pluck('package_id'))->delete();
+        $uclients = \App\assignment::whereIn('coache_id', $coachRec->pluck('id'))->delete();
+
+        $udelcoach = \App\assignment::destroy($coachRec->pluck('id'));
+
+        if ($user->isClient()) {
+            $user->status = 0;
+            $user->save();
+        }
+        else {
+        $udel=\App\User::destroy($user->id);
+        }
+        return back()->with('user', $user)->with('success', $user->name . ' has been deleted successfully.');
     }
 
 }

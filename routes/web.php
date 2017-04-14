@@ -74,11 +74,12 @@ Route::group(['prefix' => 'coaches'], function () {
     Route::get('/', 'CoacheController@index');
     Route::post('/','CoacheController@store');
     Route::get('/active_packages','CoacheController@activePackages');
+    Route::delete('/{coach_id}','CoacheController@destroy');
 });
 
 Route::group(['prefix' => 'assigned'], function () {
     Route::get('/{assigned_id}', 'AassignmentController@show');
     Route::post('/{package_id}/{module_id}', 'AassignmentController@store');
-     Route::post('/update_status', 'AassignmentController@updateStatus');
+    Route::post('/update_status', 'AassignmentController@updateStatus');
     
 });

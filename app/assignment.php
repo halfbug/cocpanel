@@ -88,5 +88,12 @@ class assignment extends assign {
     public function user() {
         return $this->belongsTo('App\User');
     }
+     public function scopeCoach($query)
+    {
 
+            return $query->where('role_id',  \App\role::coache());
+        
+        
+    }
+    
 }

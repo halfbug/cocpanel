@@ -5,7 +5,11 @@
     <div class="row">
         <div class="col-md-11 ">
             <button id="btn_add_coach" name="btn_add_coach" class="btn btn-secondary pull-right" >New Coach</button>
+ @if ($message = Session::get('success'))
+            <div class="success-notification" message="{{ $message }}">
+            </div>
 
+            @endif
 
             <!--Clients Order by Packages-->
             <div class="panel-body"> 
@@ -24,7 +28,18 @@
                         <tr id="coache_{{$coach->id}}" class="coaches_coach">
                             <!--<td>C</td>-->
                             <td><strong>[Coach]</strong> {{$coach->email}}</td>
-                            <td><button class="btn btn-success viewpackages" value="{{$coach->id}}" title="Show Modules"><i class="fa fa-caret-square-o-down" ></i> Show Packages</button></td>
+                            <td><button class="btn btn-success viewpackages" value="{{$coach->id}}" title="Show Modules"><i class="fa fa-caret-square-o-down" ></i> Show Packages</button>
+                            
+                                <form enctype='multipart/form-data' class="form-inline" role="form" method="POST"  id="deleteForm_{{$coach->id}}" action="{{ url("coaches/".$coach->id) }} " style="display: inline;">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE') }}
+                                                    <button type="button" class="btn btn-danger btn-delete delete-coach " value="{{$coach->email}}" id="delete_coach_{{$coach->id}}"  title="Delete">
+                                                        <i class="fa fa-remove" ></i></button>
+                                                    <!--<input type="hidden" name="coache_id" value="{{$coach->id}}" />-->
+
+                                                </form>
+                            
+                            </td>
                             <!--<td></td>-->
                         </tr>
                         @php
@@ -89,6 +104,31 @@ Coaches
     $(document).on('click', '.viewpackages', function (e) {
         var package_id = $(this).val();
         $('[id^=packmodule_'+package_id+']').toggle();
+    });
+     $('[id^=delete_coach_]').click(function () {
+        delbtn = $(this);
+        bootbox.confirm({
+            title: "Delete Coach?",
+            message: "Are you sure to delete <b>"+delbtn.val() +"</b> [Coach] ?  it will delete all related packages and discussions",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    console.log(result);
+                    console.log(delbtn.val());
+
+                    delbtn.parents('form').submit();
+
+                }
+            }
+        });
+//    return result; //you can just return c because it will be true or false
     });
 </script>
 @endsection
