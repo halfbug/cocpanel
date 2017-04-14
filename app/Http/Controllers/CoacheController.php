@@ -136,7 +136,7 @@ class CoacheController extends Controller {
      */
     public function destroy($coach_id) {
 //         $request->coache_id
-
+        $this->authorize('destroyCoach', \App\User::class);
         $user = \App\User::find($coach_id);
         $coachRec = $user->assignments()->coach()->get();
 
@@ -149,9 +149,8 @@ class CoacheController extends Controller {
         if ($user->isClient()) {
             $user->status = 0;
             $user->save();
-        }
-        else {
-        $udel=\App\User::destroy($user->id);
+        } else {
+            $udel = \App\User::destroy($user->id);
         }
         return back()->with('user', $user)->with('success', $user->name . ' has been deleted successfully.');
     }
