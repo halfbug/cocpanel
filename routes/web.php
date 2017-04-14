@@ -65,7 +65,7 @@ Route::group(['prefix' => 'clients'], function () {
     Route::post('/addExisting','ClientController@storeExisting');
     Route::put('{package_id}','ClientController@update');
 //    Route::get('{package_id}','ClientController@show');
-    Route::delete('{package_id}','ClientController@destroy');
+    Route::delete('{client_id}','ClientController@destroy');
     
     
 });

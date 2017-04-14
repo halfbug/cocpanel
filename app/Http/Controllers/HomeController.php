@@ -25,13 +25,15 @@ class HomeController extends Controller
     {
         
 //        return "i m view";
-        if(\Auth::user()->isClient()){          
+        if(\Auth::user()->isClient()){   
+             session(['role' => 'client']);
             return redirect('/clients/active_packages');
         } else if(\Auth::user()->isCoach()){
+            session(['role' => 'coach']);
             return redirect('/coaches/active_packages');
         }
         else{
-//            return "inside";
+           session(['role' => 'admin']);
             return redirect('/coaches/active_packages');
             //return view('home');
         }

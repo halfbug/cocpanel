@@ -168,8 +168,13 @@ class ClientController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($client_id) {
+
+        $this->authorize('destroy', \App\User::class);
+        $user= \App\User::find($client_id);
+        $udel = \App\User::destroy($client_id);
+        
+        return back()->with('user',$user)->with('success', $user->name.' has been deleted successfully.');
     }
 
     /**

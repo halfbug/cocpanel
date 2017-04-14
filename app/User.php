@@ -31,13 +31,13 @@ class User extends Authenticatable
     ];
     
     public function isAdmin(){
-        session(['role' => 'admin']);
+//        session(['role' => 'admin']);
         return $this->status == 1;
         
     }
     
     public function isClient(){
-        session(['role' => 'client']);
+//        session(['role' => 'client']);
 //        $l_clients=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->pluck("package_id")->get();
         $client=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->count();
         return $client > 0;
@@ -45,7 +45,7 @@ class User extends Authenticatable
     }
     
     public function isCoach(){
-        session(['role' => 'coach']);
+//        session(['role' => 'coach']);
 //        $l_clients=\App\assign::where('user_id',$this->id)->where('role_id',\App\role::client())->pluck("package_id")->get();
          return $this->status == 2;
     
