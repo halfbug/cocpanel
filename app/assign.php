@@ -59,8 +59,8 @@ class assign extends Model {
     }
     
      public function getClients($users,$collection) {
-        $pack = $collection->where("user_id",  $this->user_id)->unique("package_id")->pluck("package_id");
-        $clientsId = $collection->whereIn("package_id",$pack)->where("role_id",\App\role::client())->unique("user_id")->pluck("user_id");
+//        $pack = $collection->where("user_id",  $this->user_id)->unique("package_id")->pluck("package_id");
+        $clientsId = $collection->where("coache_id",$this->id)->unique("user_id")->pluck("user_id");
         $clients=$users->whereIn("id",$clientsId);
         return $clients;
         

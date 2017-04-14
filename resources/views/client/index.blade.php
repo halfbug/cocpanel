@@ -47,8 +47,10 @@
                                                 <form enctype='multipart/form-data' class="form-horizontal" role="form" method="POST"  id="deleteForm_{{$client->id}}" action="{{ url("clients/".$client->id) }}">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
-                                                    <button type="submit" class="btn btn-danger btn-delete"   title="Delete">
+                                                    <button type="button" class="btn btn-danger btn-delete delete-client " value="{{$client->id}}" id="delete_client_{{$client->id}}"  title="Delete">
                                                         <i class="fa fa-remove" ></i></button>
+                                                    <input type="hidden" name="coache_id" value="{{$coache->id}}" />
+
                                                 </form>
 
                                             </td>
@@ -99,6 +101,31 @@ Clients
             $.notify($('.success-notification').attr("message"));
         }
 
+    });
+    $('[id^=delete_client_]').click(function () {
+        delbtn = $(this);
+        bootbox.confirm({
+            title: "Delete Client?",
+            message: "Are you sure to delete this client?  it will be deleted from all your subscribed packages",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    console.log(result);
+                    console.log(delbtn.val());
+
+                    delbtn.parents('form').submit();
+
+                }
+            }
+        });
+//    return result; //you can just return c because it will be true or false
     });
 </script>
 @endsection
