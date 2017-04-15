@@ -149,7 +149,7 @@ class CoacheController extends Controller {
         if ($user->isClient()) {
             $user->status = 0;
             $user->save();
-        } else {
+        } elseif(!$user->isAdmin()) {
             $udel = \App\User::destroy($user->id);
         }
         return back()->with('user', $user)->with('success', $user->name . ' has been deleted successfully.');

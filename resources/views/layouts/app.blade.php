@@ -152,6 +152,9 @@
                         <li class="{{ ($uri == 'packages') ? 'active' : '' }}">
                             <a href="{{ url('/packages') }}"><i class="fa fa-fw fa-table"></i> Packages</a>
                         </li>
+                         <li class="{{ ($uri == 'clients') ? 'active' : '' }}">
+                            <a href="{{ url('/clients') }}"><i class="fa fa-fw fa-users"></i> Clients</a>
+                        </li>
                         <li class="{{ ($uri == 'coaches/active_packages' || substr($uri,0,8) == 'assigned') ? 'active' : '' }}">
                             <a href="{{ url('/coaches/active_packages') }}"><i class="fa fa-fw fa-database"></i> Active Packages</a>
                         </li>

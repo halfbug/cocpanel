@@ -21,7 +21,7 @@ class ClientController extends Controller {
 
         $collection = \App\assign::all();
         $users = \App\User::all();
-        $coaches = $collection->where('role_id', \App\role::coache())->unique("user_id");
+        $coaches = $coaches = \App\assignment::coach()->get()->unique('user_id');
 //        return $coaches;
 
 
