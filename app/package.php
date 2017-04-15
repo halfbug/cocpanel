@@ -18,7 +18,7 @@ class package extends Model {
     }
     
     public function getLinkedClientsAttribute() {
-        $l_clients=\App\assign::where('package_id',$this->id)->where('role_id',\App\role::client())->get();
+        $l_clients=\App\assign::where('package_id',$this->package_id)->where('role_id',\App\role::client())->get();
         return $l_clients;
     }
     

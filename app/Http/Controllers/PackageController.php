@@ -16,7 +16,7 @@ class PackageController extends Controller
     public function index() {
         $packages = package::owner()->get();
         $epackage= new package();
-        $live_modules= module::where('is_live',true)->author()->get();
+        $live_modules= module::where('is_live',true)->author()->get();        
         return view('package.index')->with('packages', $packages)->with('epackage',$epackage)
                 ->with('live_modules' ,$live_modules);
                 

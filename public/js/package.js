@@ -135,6 +135,10 @@ $(document).on('click', '.edit_package', function (e) {
 $(document).on('click', '.new_client', function (e) {
     var package_id = $(this).data('value');
     $('#package_id').val(package_id);
+    $('#name').val('');
+    $('#email').val('');
+    $('#password').val('');
+     
     $('#newClientModal').modal('show');
 
 });
@@ -190,6 +194,8 @@ $(document).on('click', '#btn-save-client', function (e) {
 $(document).on('click', '.add_client', function (e) {
     var package_id = $(this).data('value');
     $('#package_id').val(package_id);
+
+    $('#emails').val('');
     $('#addClientModal').modal('show');
 
 });
