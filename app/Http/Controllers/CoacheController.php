@@ -93,7 +93,8 @@ class CoacheController extends Controller {
 
             return response()->json([$user, $error]);
         } catch (\Exception $e) {
-            abort(500, 'OOps!!Some thing went wrong. Please try again.');
+            
+            abort(500, 'OOps!!Some thing went wrong. Please try again.'.$user);
         }
     }
 

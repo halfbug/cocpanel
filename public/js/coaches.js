@@ -33,14 +33,17 @@ $("#btn-save-coach").click(function (e) {
             $.notify("Coach have been added successfully.");
             console.log(data);
             if(data[1]== 0){
-            $('#coach-list').append('<tr id="coache_{{$coache->id}}">'
-                    + '<td>+</td>'
-                    + '<td>'+data[0].name+'</td>'
-                    + ' <td></td>'
-                    + ' <td>'
-                    + '                        <!-- butons here-->'
-                    + '                   </td>'
-                    + '              </tr>');
+            $('#coach-list').append('<tr id="coache_'+data[0].id+'" class="coaches_coach">'
+                          +'<td><strong>[Coach]</strong> '+data[0].email+'</td>'
+                           +' <td><button class="btn btn-success viewpackages" value="'+data[0].id+'" title="Show Modules"><i class="fa fa-caret-square-o-down" ></i> Show Packages</button>'
+                            +' <form enctype="multipart/form-data" class="form-inline" role="form" method="POST"  id="deleteForm_'+data[0].id+'" action="{{ url("coaches/".'+data[0].id+') }} " style="display: inline;">'
+                                     +'<input type="hidden" name="_token" value="CXprh8U9AOQFL4fhTpuoN8xVwmAxsa7843m1o5o7">'
+                                     + '<input type="hidden" name="_method" value="DELETE">'
+                                      +'     <button type="button" class="btn btn-danger btn-delete delete-coach " value="{{$coach->email}}" id="delete_coach_{{$coach->id}}"  title="Delete">'
+                                      +'       <i class="fa fa-remove" ></i></but0ton>'
+                                      +'      </form>'
+                            +'</td>'
+                            +'</tr>');
             $('#frmCoach').trigger("reset");
         } 
         else
