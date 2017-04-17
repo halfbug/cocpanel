@@ -10,7 +10,7 @@ function addModuleHtml(type, data)
                     + '<td>'
                     + '  <button class="btn btn-secondary btn-detail open_modal" value="' + data.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
                     + '  <button class="btn btn-primary btn-detail copy_module" value="' + data.id + '" title="Copy"><i class="fa fa-copy" ></i></button>'
-                    + '  <button class="btn btn-warning btn-detail preview_module" value="' + data.id + '+" title="Preview"><i class="fa fa-search" ></i></button>'
+                    //+ '  <button class="btn btn-warning btn-detail preview_module" value="' + data.id + '+" title="Preview"><i class="fa fa-search" ></i></button>'
                     + '  <button class="btn btn-danger btn-delete delete-module" value="' + data.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
                     + '</td>'
                     + '</tr>';
