@@ -84,7 +84,7 @@
                                                 {{ csrf_field() }}
                                                 <button class="btn btn-primary btn-detail copy_module" id="copy_module_{{$module->id}}" value="{{$module->id}}" title="Copy"><i class="fa fa-copy" ></i></button>
                                             </form>
-                                            <button class="btn btn-warning btn-detail preview_module" value="{{$module->id}}" title="Preview"><i class="fa fa-search" ></i></button>
+                                            <!--<button class="btn btn-warning btn-detail preview_module" value="{{$module->id}}" title="Preview"><i class="fa fa-search" ></i></button>-->
                                             <button class="btn btn-danger btn-delete delete-module" value="{{$module->id}}" title="Delete"><i class="fa fa-remove" ></i></button>
                                         </td>
                                     </tr>
