@@ -54,7 +54,7 @@ class AassignmentController extends Controller {
         $assignment = $discussion->assignment()->first();
         // email to client on coach response
         $user = $discussion->user()->first();
-
+        session(['assignment_id'=>$assignment->id]);
         if(\Auth::user()->isCoach() || \Auth::user()->isAdmin())
             \Mail::to($assignment->user->email)->send(new NewResponse($user, 'coach'));
         else
