@@ -4,24 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class package extends Model {
 
     public $fillable = ['id', 'title', 'description', 'price', 'currency', 'paymnent_frequency', 'facebook_group', 'release_schedule'];
     protected $payment_frequencies = ['One Off', 'monthly', 'weekly', 'yearly'];
     protected $release_schedule = ['delivere immediately', 'rolling launch', 'one off launch', 'on completion of previous'];
-    protected $appends = array('selected_modules','linked_clients');
+    protected $appends = array('selected_modules', 'linked_clients');
+
 //    protected $clients;
 
     public function getSelectedModulesAttribute() {
         return $this->modules()->get();
     }
-    
+
     public function getLinkedClientsAttribute() {
-        $l_clients=\App\assign::where('package_id',$this->package_id)->where('role_id',\App\role::client())->get();
+        $l_clients = \App\assign::where('package_id', $this->id)->where('role_id', \App\role::client())->get();
         return $l_clients;
     }
-    
+
     public function setSelectedModulesAttribute($value) {
         $this->modules()->detach();
         $this->modules()->attach($value);
@@ -42,40 +42,39 @@ class package extends Model {
     public function modules() {
         return $this->belongsToMany('App\module', 'package_module');
     }
-    
-   
-    
+
     /**
      * Get the associated assignments
      *
      * @var array
      */
-    public function coach(){
-     
+    public function assignments() {
+
         return $this->hasMany('App\assignment');
-    
     }
-    
-     public function getClients() {
-        $clientsId = \App\assignment::where("package_id",  $this->id)->where("role_id",\App\role::client())->pluck("user_id");
-        $clients=  \App\User::whereIn("id",$clientsId)->get();
+
+    public function getClients() {
+        $clientsId = \App\assignment::where("package_id", $this->id)->where("role_id", \App\role::client())->pluck("user_id");
+        $clients = \App\User::whereIn("id", $clientsId)->get();
         return $clients;
-        
+
 //        return "yes";
     }
-    
-    
-     public function scopeOwner($query)
-    {
 
-          if(\Auth::user()->status == 2)
-            return $query->join('assignments', 'packages.id', '=', 'assignments.package_id')->where('assignments.role_id', '=', \App\role::coache())->where('assignments.user_id',  \Auth::user()->id);
-        else
+    public function scopeOwner($query) {
+
+        if (\Auth::user()->status == 2) {
+            return $query->join('assignments', 'packages.id', '=', 'assignments.package_id')
+                            ->where('assignments.role_id', '=', \App\role::coache())
+                            ->where('assignments.user_id', \Auth::user()->id)
+                            ->select("packages.*", "assignments.*", "assignments.id as assignment_id", "packages.id as id");
+        }
+//          App\package::join('assignments', 'packages.id', '=', 'assignments.package_id')->where('assignments.role_id', '=',3)->where('assignments.user_id', 1)->select("packages.*","assignments.*","assignments.id as assignment_id", "packages.id as id")->get();
+        else {
             return $query;
-        
+        }
     }
-    
-    
+
     /**
      * Get all of the clients that are assigned to this package.
      */
@@ -94,8 +93,4 @@ class package extends Model {
 ////        
 ////        return $clients;
 //    }
-    
-    
-    
-
 }
