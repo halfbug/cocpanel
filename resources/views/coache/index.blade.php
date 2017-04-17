@@ -27,7 +27,7 @@
                         @foreach ($coaches as $coach)
                         <tr id="coache_{{$coach->id}}" class="coaches_coach">
                             <!--<td>C</td>-->
-                            <td><strong>[Coach]</strong> {{$coach->email}}</td>
+                            <td><strong>[{{($coach->status==2)?'Coach':'Admin'}}]</strong> {{$coach->email}}</td>
                             <td><button class="btn btn-success viewpackages" value="{{$coach->id}}" title="Show Modules"><i class="fa fa-caret-square-o-down" ></i> Show Packages</button>
                             
                                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST"  id="deleteForm_{{$coach->id}}" action="{{ url("coaches/".$coach->id) }} " style="display: inline;">
@@ -109,7 +109,7 @@ Coaches
         delbtn = $(this);
         bootbox.confirm({
             title: "Delete Coach?",
-            message: "Are you sure to delete <b>"+delbtn.val() +"</b> [Coach] ?  it will delete all related packages and discussions",
+            message: "Are you sure to delete <b>"+delbtn.val() +"</b> ?  it will delete all related packages and discussions",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancel'

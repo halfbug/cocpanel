@@ -57,6 +57,13 @@ class assign extends Model {
         
 //        return "yes";
     }
+
+    public function getUserStatus($users) {
+        $user = $users->where("id", $this->user_id)->first();
+        return $user->status;
+        
+//        return "yes";
+    }
     
      public function getClients($users,$collection) {
 //        $pack = $collection->where("user_id",  $this->user_id)->unique("package_id")->pluck("package_id");

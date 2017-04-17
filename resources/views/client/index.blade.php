@@ -30,7 +30,7 @@
                         @foreach ($coaches as $coache)
                         <tr id="coache_{{$coache->id}}" class="coaches_list">
                             <!--<td>+</td>-->
-                            <td><strong>[Coach]</strong> {{$coache->getEmail($users)}}</td>
+                            <td><strong>[{{ ($coache->getUserStatus($users)==2)?'Coach':'Admin'}}]</strong> {{$coache->getEmail($users)}}</td>
                             <td><button class="btn btn-success viewclients" value="{{$coache->id}}" title="Show Clients"><i class="fa fa-caret-square-o-down" ></i> Show Clients</button></td>
                         </tr>
                         @foreach ($coache->getClients($users,$collection) as $client)
