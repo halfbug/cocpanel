@@ -9,13 +9,22 @@ use App\module;
 class DocumentController extends Controller {
 
     public function docUploadPost(Request $request) {
-        $this->validate($request, [
-            'document' => 'required|max:2048',
-            'description' => 'required'
-        ]);
+//        $this->validate($request, [
+//            'document' => 'required|max:2048',
+//            'description' => 'required'
+//        ]);
 
+        $rules = array('document' => 'required|max:2048',
+            'description' => 'required');
+        $validator = \Validator::make($request->all(), $rules);
+        // Validate the input and return correct response
+        if ($validator->fails()) {
+            session(['module_id_doc'=>$request->doc_module_id]);
+            return back()->withErrors($validator)
+                        ->withInput()->with("module_id",$request->doc_module_id); // 400 being the HTTP code for an invalid request.
+        }
 //        $fileName = $request->document->getClientOriginalName();
-        $fileName = rand(11111,99999).".".$request->document->getClientOriginalExtension();
+        $fileName = rand(11111, 99999) . "." . $request->document->getClientOriginalExtension();
         $request->document->move(public_path('documents'), $fileName);
 
         // insert to database
@@ -33,7 +42,7 @@ class DocumentController extends Controller {
 
     public function destroy($doc_id) {
         $doc_file = document::where('id', $doc_id)->first();
-        unlink(public_path('documents/'.$doc_file->filename));
+        unlink(public_path('documents/' . $doc_file->filename));
         $doc = document::destroy($doc_id);
         return response()->json($doc);
     }
@@ -41,7 +50,6 @@ class DocumentController extends Controller {
     public function listModuleDoc($module_id) {
         $documents = module::find($module_id)->documents()->get();
         return response()->json($documents);
-                        
     }
 
 }
