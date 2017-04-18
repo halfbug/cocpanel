@@ -9,23 +9,19 @@ $(document).on('click', '#btn_add_package', function () {
     $('#frmPackage').trigger("reset");
     $('#addPackageModal').modal('show');
     $('#btn-save-package').val("add");
-     $('.available-modules li').show();
-     $('.selected-modules').html("");
-
+    $('.available-modules li').show();
+    $('.selected-modules').html("");
 //    });
 
 
 
 });
-
 $(document).on('click', '#btn-save-package', function (e) {
     var selected_modules = {};
     $('.selected-modules li').each(function (index) {
         selected_modules[index] = $(this).attr('value');
         console.log(index + ": " + $(this).text() + " value =" + $(this).attr('value'));
     });
-
-
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -46,7 +42,6 @@ $(document).on('click', '#btn-save-package', function (e) {
     var state = $('#btn-save-package').val();
     var type = "POST"; //for creating new resource
     var package_id = $('#package_id').val();
-
     var my_url = pUrl;
     if (state == "update") {
         type = "PUT"; //for updating existing resource
@@ -91,16 +86,12 @@ $(document).on('click', '#btn-save-package', function (e) {
             }
             $('#frmPackage').trigger("reset");
             $('#addPackageModal').modal('hide');
-
         },
         error: function (data) {
             console.log('Error:', data);
         }
     });
-
-
 });
-
 $(document).on('click', '.edit_package', function (e) {
     var package_id = $(this).val();
     $('.available-modules li').show();
@@ -112,7 +103,6 @@ $(document).on('click', '.edit_package', function (e) {
         tinymce.get('description').setContent(data.description);
         $('#price').val(data.price);
         $('#currency').val(data.currency);
-
         $('input[value="' + data.release_schedule + '"]').prop("checked", true);
         $('input[value="' + data.paymnent_frequency + '"]').prop("checked", true);
         $('#facebook_group').val(data.facebook_group);
@@ -122,31 +112,23 @@ $(document).on('click', '.edit_package', function (e) {
 //            alert(index + ": " + value);
             $('.selected-modules').append('<li value="' + module.id + '" id="' + module.id + '" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>' + module.title + '</li>');
             $('.available-modules #' + module.id).hide();
-
         });
-
         $('#btn-save-package').val("update");
-
 //         $('#frmPackage').trigger("reset");
         $('#addPackageModal').modal('show');
     });
 });
-
 $(document).on('click', '.new_client', function (e) {
     var package_id = $(this).data('value');
     $('#package_id').val(package_id);
     $('#name').val('');
     $('#email').val('');
     $('#password').val('');
-     
     $('#newClientModal').modal('show');
-
 });
-
 $(document).on('click', '#btn-save-client', function (e) {
     var $btn = $(this);
     $btn.button('loading');
-
     setTimeout(function () {
         $btn.button('reset');
     }, 10000);
@@ -162,8 +144,6 @@ $(document).on('click', '#btn-save-client', function (e) {
         email: $('#email').val(),
         package_id: $('#package_id').val()
     };
-
-
     console.log(formData);
     $.ajax({
         type: "POST",
@@ -176,7 +156,6 @@ $(document).on('click', '#btn-save-client', function (e) {
             $('#clients_' + $('#package_id').val()).html(data.totalclients);
             $('#frmClient').trigger("reset");
             $('#newClientModal').modal('hide');
-
         },
         error: function (xhr, status, error) {
 //            var err = eval("(" + xhr.responseText + ")");
@@ -187,28 +166,20 @@ $(document).on('click', '#btn-save-client', function (e) {
             $.notify("Error :" + $(xhr.responseText).find('.exception_message').html());
         }
     });
-
-
 });
-
 $(document).on('click', '.add_client', function (e) {
     var package_id = $(this).data('value');
     $('#package_id').val(package_id);
-
     $('#emails').val('');
     $('#addClientModal').modal('show');
-
 });
-
 $(document).on('click', '#btn-save-addclient', function (e) {
 
-     var $btn = $(this);
+    var $btn = $(this);
     $btn.button('loading');
-
     setTimeout(function () {
         $btn.button('reset');
     }, 10000);
-   
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -219,8 +190,6 @@ $(document).on('click', '#btn-save-addclient', function (e) {
         emails: $('#emails').val(),
         package_id: $('#package_id').val()
     };
-
-
     console.log(formData);
     $.ajax({
         type: "POST",
@@ -233,36 +202,67 @@ $(document).on('click', '#btn-save-addclient', function (e) {
             $('#clients_' + $('#package_id').val()).html(data.totalclients);
             $('#frmAddClient').trigger("reset");
             $('#addClientModal').modal('hide');
-
         },
-         error: function (xhr, status, error) {
+        error: function (xhr, status, error) {
 //            var err = eval("(" + xhr.responseText + ")");
 //            alert(err.Message);
             $('#addClientModal').modal('hide');
 //             $(xhr.responseText).find('.exception_message').html();
 //             exception_message
 
-             $.notify({
-                 message: "Error :" + $(xhr.responseText).find('.exception_message').html(),
-                 type: 'danger'
-             });
+            $.notify({
+                message: "Error :" + $(xhr.responseText).find('.exception_message').html(),
+                type: 'danger'
+            });
         }
     });
-
-
 });
-
 $(document).on('click', '.linked_client', function (e) {
     $('#linked_clients_list').html("");
     var package_id = $(this).val();
     $('#package_id').val(package_id);
     $.get(pUrl + '/linked_clients/' + package_id, function (data) {
         console.log(data);
-        $.each(data, function (index, client) {
+        $.each(data.clients, function (index, client) {
             //console.log(index + ": " + client.name + '<br/>');
-            $('#linked_clients_list').append('<tr><td>' + client.name + ' </td><td>' + client.email + ' </td></tr>');
+            $('#linked_clients_list').append('<tr><td>' + client.name + ' </td><td>' + client.email + ' </td>'
+                    + '<td> <form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST"  id="deleteForm_' + client.id + '" action="' + app.base_url + '/clients/' + client.id + '">'
+                    + '<input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">'
+                    + '<input type="hidden" name="_method" value="DELETE">'
+                    + ' <button type="button" class="btn btn-danger btn-delete delete-client " value="' + client.id + '" id="delete_client_' + client.id + '"  title = "Delete" >'
+                    + '<i class="fa fa-remove" > </i></button >'
+                    + '<input type="hidden" name = "coache_id" value = "' + data.coach.id + '" / >'
+                    + '<input type="hidden" name = "package_id" value = "' + package_id + '" / >'
+                    + '</form></td></tr>'
+                    );
         });
     });
     $('#linkedClient').modal('show');
+});
 
+$(document).on('click', '[id^=delete_client_]', function (e) {
+    console.log("clicked");
+    var delbtn = $(this);
+    bootbox.confirm({
+        title: "Delete Client?",
+        message: "Are you sure to delete this client?  it will be deleted from all your subscribed packages",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                console.log(result);
+                console.log(delbtn.val());
+
+                delbtn.parents('form').submit();
+
+            }
+        }
+    });
+//    return result; //you can just return c because it will be true or false
 });

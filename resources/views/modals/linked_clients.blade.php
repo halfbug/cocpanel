@@ -11,6 +11,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="linked_clients_list" name="linked_clients_list">

@@ -61,6 +61,14 @@ class package extends Model {
 //        return "yes";
     }
 
+    public function getCoach() {
+        $clientsId = \App\assignment::where("package_id", $this->id)->where("role_id", \App\role::coache())->pluck("user_id");
+        $coach = \App\User::whereIn("id", $clientsId)->first();
+        return $coach;
+
+//        return "yes";
+    }
+
     public function scopeOwner($query) {
 
         if (\Auth::user()->status == 2) {

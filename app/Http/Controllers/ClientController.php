@@ -65,9 +65,7 @@ class ClientController extends Controller {
 //        $clientRole = \App\role::client();
             $assign = new \App\assign();
 //        $client = $assign->client($user->id, $request->package_id);
-
 //            $role_id = \App\role::client();
-
 //            $pack = $assign->getPackage($request->package_id);
 //            $coache = $assign->getCoache($request->package_id);
 
@@ -82,9 +80,7 @@ class ClientController extends Controller {
                         'client' => $package_clients,
                         'totalclients' => $package_clients->count()
             ]);
-        } 
-        
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             abort(500, 'User Already Exist.');
         }
     }
@@ -105,7 +101,7 @@ class ClientController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function storeExisting(Request $request) {
-        
+
         $pack_id = $request->package_id;
         $emails = $request->emails;
         $emails = preg_replace('/\s+/', '', $emails);
@@ -114,7 +110,7 @@ class ClientController extends Controller {
 
         $clients = [];
         foreach ($users as $user) {
-            
+
             if (\App\assignment::where('user_id', $user->id)->where('package_id', $request->package_id)->count() < 1) {
                 $assign = new \App\assign();
                 $assign->client($user->id, $request->package_id);
@@ -168,13 +164,18 @@ class ClientController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$client_id) {
-//return $request->coache_id
+    public function destroy(Request $request, $client_id) {
+//return $request->coache_id;
         $this->authorize('destroy', \App\User::class);
-        $user= \App\User::find($client_id);
-        $udel = \App\assignment::where('coache_id',$request->coache_id)->where('user_id',$client_id)->delete();
+        $user = \App\User::find($client_id);
+        if (isset($request->package_id)) {
+            $udel = \App\assignment::where('package_id', $request->package_id)->where('user_id', $client_id)->delete();
+          
+        } else {
+            $udel = \App\assignment::where('coache_id', $request->coache_id)->where('user_id', $client_id)->delete();
+        }
 //  return $udel;      
-        return back()->with('user',$user)->with('success', $user->name.' has been deleted successfully.');
+        return back()->with('user', $user)->with('success', $user->name . ' has been deleted successfully.');
     }
 
     /**
@@ -187,11 +188,11 @@ class ClientController extends Controller {
         session(['role' => 'client']);
 //        $pack = \App\assign::where('role_id', \App\role::client())->where("user_id",\Auth::user()->id)->pluck("package_id")->all();
 //        $packages= \App\package::whereIn("id",$pack)->get();
-        
-        if(\Auth::user()->isAdmin())
-        $collection = \App\assignment::where('role_id', \App\role::client())->get();
+
+        if (\Auth::user()->isAdmin())
+            $collection = \App\assignment::where('role_id', \App\role::client())->get();
         else
-        $collection = \App\assignment::where('role_id', \App\role::client())->where("user_id", \Auth::user()->id)->get();
+            $collection = \App\assignment::where('role_id', \App\role::client())->where("user_id", \Auth::user()->id)->get();
 
         return view('client.activepack')->with('assignments', $collection->unique("package_id"))->with('collection', $collection);
     }
