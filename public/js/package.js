@@ -266,3 +266,29 @@ $(document).on('click', '[id^=delete_client_]', function (e) {
     });
 //    return result; //you can just return c because it will be true or false
 });
+
+$(document).on('click', '[id^=delete_package_]',function (e) {
+        delbtn = $(this);
+        bootbox.confirm({
+            title: "Delete Package?",
+            message: "Are you sure to delete package?  it will be completely deleted.",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    console.log(result);
+                    console.log(delbtn.val());
+
+                    delbtn.parents('form').submit();
+
+                }
+            }
+        });
+//    return result; //you can just return c because it will be true or false
+    });

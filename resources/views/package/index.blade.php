@@ -45,6 +45,14 @@
                                 <button class="btn btn-warning linked_client" value="{{$package->id}}"  title="Linked Client"><i class="fa fa-group"></i></button>
                                 <!--<button class="btn btn-success preview_package" value="{{$package->id}}" title="Preview"><i class="fa fa-search" ></i></button>-->
                                 <!--<button class="btn btn-primary btn-delete copy_package" value="{{$package->id}}" title="Copy"><i class="fa fa-copy" ></i></button>-->
+                                <form enctype='multipart/form-data' class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm_{{$package->id}}" action="{{ url("packages/".$package->id) }}">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE') }}
+                                                    <button type="button" class="btn btn-danger btn-delete delete-package " value="{{$package->id}}" id="delete_package_{{$package->id}}"  title="Delete">
+                                                        <i class="fa fa-remove" ></i></button>
+                                                    <input type="hidden" name="package_id" value="{{$package->id}}" />
+
+                                                </form>
                             </td>
                         </tr>
                         @endforeach

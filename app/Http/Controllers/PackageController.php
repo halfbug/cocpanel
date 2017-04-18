@@ -103,9 +103,11 @@ class PackageController extends Controller
      * @param  \App\package  $package
      * @return \Illuminate\Http\Response
      */
-    public function destroy(package $package)
+    public function destroy($package_id)
     {
-        //
+        $package= package::find($package_id);
+         $pack = package::destroy($package_id);
+        return  back()->with('pack', $pack)->with('success', $package->title . ' has been deleted successfully.');
     }
     
     
