@@ -94,7 +94,7 @@ $( document ).ready(function() {
         });
 //        $('#doc-list').html(data);
 //        $('#doc-list').append(data);
-    
+    $('#doc_module_id').val(module_id);
      $('#documentModel').modal('show');
       $('.nav-tabs a[href="#add_doc"]').tab('show');
     
