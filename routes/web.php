@@ -56,6 +56,7 @@ Route::group(['prefix' => 'packages'], function () {
     Route::get('{package_id}','PackageController@show');
     Route::delete('{package_id}','PackageController@destroy');
     Route::get('/linked_clients/{package_id}','PackageController@showLinkedClients');
+    Route::post('/make_copy/{package_id}','PackageController@makeCopy');
 });
 
 Route::group(['prefix' => 'clients'], function () {
@@ -82,4 +83,13 @@ Route::group(['prefix' => 'assigned'], function () {
     Route::post('/{package_id}/{module_id}', 'AassignmentController@store');
     Route::post('/update_status', 'AassignmentController@updateStatus');
     
+});
+
+Route::group(['prefix' => 'profile'], function () {
+    Route::get('/', 'ProfileController@index');
+    Route::post('/','ProfileController@store');
+    Route::put('{user_id}','ProfileController@update');
+    Route::get('{user_id}','ProfileController@show');
+    Route::delete('{user_id}','ProfileController@destroy');
+    Route::get('/linked_clients/{user_id}','ProfileController@showLinkedClients');
 });
