@@ -33,7 +33,7 @@
                             <td>
                                 <div class="dropup">
                                     <button class="btn btn-danger btn-detail dropdown-toggle pull-left dropdownMenu1" value="{{$package->id}}"  type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Add Client"><i class="fa fa-user" ></i>
-                                    <span class="caret"></span>
+                                        <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                         <li ><a class="add_client" data-value="{{$package->id}}" href="#">Add Existing Client</a></li>
@@ -44,15 +44,18 @@
                                 <button class="btn btn-secondary btn-detail edit_package" value="{{$package->id}}" title="Edit"><i class="fa fa-edit" ></i></button>
                                 <button class="btn btn-warning linked_client" value="{{$package->id}}"  title="Linked Client"><i class="fa fa-group"></i></button>
                                 <!--<button class="btn btn-success preview_package" value="{{$package->id}}" title="Preview"><i class="fa fa-search" ></i></button>-->
-                                <!--<button class="btn btn-primary btn-delete copy_package" value="{{$package->id}}" title="Copy"><i class="fa fa-copy" ></i></button>-->
+                                <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="copyPackage_{{$package->id}}" action="{{ url('packages/make_copy/'.$package->id) }}">
+                                    {{ csrf_field() }}
+                                    <button class="btn btn-primary btn-delete copy_package" id="copy_package_{{$package->id}}" value="{{$package->id}}" title="Copy"><i class="fa fa-copy" ></i></button>
+                                </form>
                                 <form enctype='multipart/form-data' class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm_{{$package->id}}" action="{{ url("packages/".$package->id) }}">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                    <button type="button" class="btn btn-danger btn-delete delete-package " value="{{$package->id}}" id="delete_package_{{$package->id}}"  title="Delete">
-                                                        <i class="fa fa-remove" ></i></button>
-                                                    <input type="hidden" name="package_id" value="{{$package->id}}" />
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <button type="button" class="btn btn-danger btn-delete delete-package " value="{{$package->id}}" id="delete_package_{{$package->id}}"  title="Delete">
+                                        <i class="fa fa-remove" ></i></button>
+                                    <input type="hidden" name="package_id" value="{{$package->id}}" />
 
-                                                </form>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

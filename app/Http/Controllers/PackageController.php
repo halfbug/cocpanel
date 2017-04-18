@@ -6,8 +6,8 @@ use App\package;
 use Illuminate\Http\Request;
 use App\module;
 
-class PackageController extends Controller
-{
+class PackageController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,19 +15,18 @@ class PackageController extends Controller
      */
     public function index() {
         $packages = package::owner()->get();
-        $epackage= new package();
-        $live_modules= module::where('is_live',true)->author()->get();        
-        return view('package.index')->with('packages', $packages)->with('epackage',$epackage)
-                ->with('live_modules' ,$live_modules);
-                
+        $epackage = new package();
+        $live_modules = module::where('is_live', true)->author()->get();
+        return view('package.index')->with('packages', $packages)->with('epackage', $epackage)
+                        ->with('live_modules', $live_modules);
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -37,14 +36,13 @@ class PackageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-          $package = package::create($request->all());
-          $package->modules()->attach($request->selected_modules);
-          // auto set coache
-          $assign = new \App\assign();
-          $assign->coache(auth()->user()->id,$package->id);
-          
+    public function store(Request $request) {
+        $package = package::create($request->all());
+        $package->modules()->attach($request->selected_modules);
+        // auto set coache
+        $assign = new \App\assign();
+        $assign->coache(auth()->user()->id, $package->id);
+
         return response()->json($package);
     }
 
@@ -54,8 +52,7 @@ class PackageController extends Controller
      * @param  \App\package  $package
      * @return \Illuminate\Http\Response
      */
-    public function show($package_id)
-    {
+    public function show($package_id) {
         $package = package::find($package_id);
 //        $package->selected_modules ='["2","5"]';  //$package->modules()->get();
         return response()->json($package);
@@ -67,10 +64,9 @@ class PackageController extends Controller
      * @param  \App\package  $package
      * @return \Illuminate\Http\Response
      */
-    public function edit($package_id)
-    {
+    public function edit($package_id) {
         $package = package::find($package_id);
-        
+
 //        return response()->json($package)->with('selected_modules',$package->modules()->get());
     }
 
@@ -81,8 +77,7 @@ class PackageController extends Controller
      * @param  \App\package  $package
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $package_id)
-    {
+    public function update(Request $request, $package_id) {
         $package = package::find($package_id);
         $package->title = $request->title;
         $package->description = $request->description;
@@ -103,17 +98,36 @@ class PackageController extends Controller
      * @param  \App\package  $package
      * @return \Illuminate\Http\Response
      */
-    public function destroy($package_id)
-    {
-        $package= package::find($package_id);
-         $pack = package::destroy($package_id);
-        return  back()->with('pack', $pack)->with('success', $package->title . ' has been deleted successfully.');
-    }
-    
-    
-    public function showLinkedClients($package_id)
-    {
+    public function destroy($package_id) {
         $package = package::find($package_id);
-        return response()->json(['clients'=>$package->getClients(),'coach'=>$package->getCoach()]);
+        $pack = package::destroy($package_id);
+        return back()->with('pack', $pack)->with('success', $package->title . ' has been deleted successfully.');
     }
+
+    public function showLinkedClients($package_id) {
+        $package = package::find($package_id);
+        return response()->json(['clients' => $package->getClients(), 'coach' => $package->getCoach()]);
+    }
+
+    /**
+     * copy a package.
+     *
+     * @param  \App\package  $package
+     * @return \Illuminate\Http\Response
+     */
+    public function makeCopy($package_id) {
+        $package = package::find($package_id);
+        $copy_of_package = $package->replicate();
+        $copy_of_package->title = "[COPY OF] " . $copy_of_package->title;
+
+        $copy_of_package->save();
+//        
+        $copy_of_package->modules()->saveMany($package->modules()->get());
+         // auto set coache
+        $assign = new \App\assign();
+        $assign->coache(auth()->user()->id, $copy_of_package->id);
+        
+        return back();
+    }
+
 }
