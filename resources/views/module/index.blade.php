@@ -1,25 +1,33 @@
 @extends('layouts.app')
 
+
+    @section('script')
+    <script>
+    $(document).ready(function(){
+        $("#tab_live").click();        
+    });
+    
+    </script>
+
+    @endsection
+
 @section('content')
 <div class="">
     <div class="row">
         <div class="col-md-11 ">
             <button id="btn_add" name="btn_add" class="btn btn-secondary pull-right">New Module</button>
 
-
-
-
             <div id="exTab2" >	
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a  href="#draft" data-toggle="tab">Draft </a>
+                        <a id="tab_draft" href="#draft" data-toggle="tab">Draft </a>
                     </li>
                     <li>
-                        <a href="#live" data-toggle="tab">Live</a>
+                        <a id="tab_live" href="#live" data-toggle="tab">Live</a>
                     </li>
 
                 </ul>
-
+                
                 <div class="tab-content ">
                     <div class="tab-pane active" id="draft">
                         <h3>Draft Modules</h3>
@@ -54,7 +62,6 @@
                                 </tbody>
                             </table>
                         </div>
-
 
                     </div>
                     <div class="tab-pane" id="live">
@@ -98,11 +105,6 @@
                 </div>
             </div>
 
-
-
-
-
-
         </div>
 
         @include('modals.add_module')
@@ -124,5 +126,4 @@
     @section('script')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{asset('js/module.js')}}"></script>
-
     @endsection

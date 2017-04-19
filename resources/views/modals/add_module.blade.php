@@ -21,7 +21,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="inputDetail" class="col-sm-3 control-label">Content</label>
+                                <label for="inputDetail" class="col-sm-3 control-label">Introduction and Guidelines</label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" id="content" name="content" ></textarea>
                                 </div>
@@ -52,7 +52,7 @@ tinymce.init({
         'searchreplace visualblocks code fullscreen',
         'insertdatetime media table contextmenu paste code'
     ],
-    toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+    toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
     content_css: '//www.tinymce.com/css/codepen.min.css'
 });
     </script>
