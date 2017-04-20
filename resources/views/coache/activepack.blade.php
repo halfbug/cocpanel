@@ -76,7 +76,7 @@
                             <tr colspan="3" class="info">
                                 <!--<td style="width: 40px;">--</td>-->
                                 <td>{{$module->title}}</td>
-                                <td>{{$module->description}}</td>
+                                <td>{{strip_tags($module->description)}}</td>
                                 @if($clients->count() > 0)
                                 <td><button class="btn btn-warning viewclients" value="{{$package->id}}-{{$module->id}}" title="Show Clients"><i class="fa fa-caret-square-o-down" ></i> Show Client</button></td>
                                 @else
@@ -185,7 +185,7 @@
 
                             <tr class="info">
                                 <td>{{$package->title}} </td>
-                                <td>{{$package->description}} </td>
+                                <td>{{strip_tags($package->description)}} </td>
                                 <td>&nbsp;</td>     
                                 <td><button class="btn btn-success viewpackagemodules" value="{{$client->user->id.'_'.$package->id}}" title="Show Packages"><i class="fa fa-caret-square-o-down" ></i> Assigned Modules</button></td>
                             </tr>   
@@ -215,7 +215,7 @@
 
                             <tr class="success">
                                 <td>{{$module->title}} </td>
-                                <td>{{$module->description}} </td>
+                                <td>{{strip_tags($module->description)}} </td>
                                 @php
                                 $activeModule=$collection->where('module_id',$module->id)->where('package_id',$package->id)->where('user_id',$client->user_id)->first();
                                 $isActive=($activeModule == null)?false:true;
