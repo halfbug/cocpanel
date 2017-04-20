@@ -95,6 +95,7 @@
                     <?php
                     $request = request();
                     $uri = $request->path();
+                    $uri_part = explode('/',$uri);
                     ?>
                     
                         @if(Auth::user()->isCoach() )
@@ -104,7 +105,7 @@
                         @endif
                         @if (Auth::user())
                         @if (Auth::user()->isAdmin())
-                        <li class="{{ ($uri == 'modules') ? 'active' : '' }}">
+                        <li class="{{ ($uri == 'modules' || $uri_part[0] == 'modules') ? 'active' : '' }}">
                             <a href="{{ url('/modules') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Modules</a>
                         </li>
                         <li class="{{ ($uri == 'packages') ? 'active' : '' }}">
@@ -146,7 +147,7 @@
                         </li>
                         @endif
                         @if(Auth::user()->isCoach() )
-                        <li class="{{ ($uri == 'modules') ? 'active' : '' }}">
+                        <li class="{{ ($uri == 'modules' || $uri_part[0] == 'modules') ? 'active' : '' }}">
                             <a href="{{ url('/modules') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Modules</a>
                         </li>
                         <li class="{{ ($uri == 'packages') ? 'active' : '' }}">
