@@ -20,7 +20,7 @@ class DocumentController extends Controller {
         // Validate the input and return correct response
         if ($validator->fails()) {
             session(['module_id_doc'=>$request->doc_module_id]);
-            return back()->withErrors($validator)
+            return redirect('modules/'.$request->doc_module_id)->withErrors($validator)
                         ->withInput()->with("module_id",$request->doc_module_id); // 400 being the HTTP code for an invalid request.
         }
 //        $fileName = $request->document->getClientOriginalName();
