@@ -7,6 +7,10 @@
             if ($state == 'add')
               {
               $module = new \App\module();
+              $disabled = "disabled";
+              }
+              else{
+              $disabled ="";
               }
         @endphp
         <div class="panel panel-primary">
@@ -107,7 +111,7 @@
                         </div>
                         <div class="panel-footer">
                             <span class="pull-right">
-                                <button type="button" class="btn btn-warning" id="btn-save-question" value="add">Save changes</button>
+                                <button type="button" class="btn btn-warning {{$disabled}}" id="btn-save-question" value="add">Save changes</button>
                             </span>
                             <div class="clearfix"></div>
                         </div>
@@ -198,7 +202,7 @@
                         </div>
                         <div class="panel-footer">
                             <span class="pull-right">
-                                <button type="submit" class="btn btn-success">Upload</button>
+                                <button type="submit" id="uploaddocument" class="btn btn-success {{$disabled}}">Upload</button>
                             </span>
                             <div class="clearfix"></div>
                         </div>

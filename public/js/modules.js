@@ -36,7 +36,9 @@ $("#btn-save").click(function (e) {
                 $('#btn-save').val("update");
                 $('#module_id').val(data.id);
                 $('#que_module_id').val(data.id);
-                $('#doc_module_id').val(data.id);   
+                $('#doc_module_id').val(data.id);
+                $('#btn-save-question').removeClass('disabled');
+                $('#uploaddocument').removeClass('disabled');
                 $.notify("Module have been added successfully.");
             } else { //if user updated an existing record
 
