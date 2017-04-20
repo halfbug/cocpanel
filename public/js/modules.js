@@ -117,7 +117,8 @@ function load_documents(){
 
 $( document ).ready(function() {
     var state = $('#btn-save').val();
-    if(state == "update")
+    if(state == "update"){
     load_questions();
     load_documents();
+}
 });
