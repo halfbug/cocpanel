@@ -27,7 +27,10 @@ class ModuleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('module.create');
+//        $module = new module();
+//        $module->title = "New Module Title";
+//        $module->description 
+        return view('module.create')->with('state','add');
     }
 
     /**
@@ -72,7 +75,10 @@ class ModuleController extends Controller {
      */
     public function edit($module_id) {
         $module = module::find($module_id);
-        return response()->json($module);
+//        return response()->json($module);
+//        return var_dump($module);
+        return  view('module.create')->with('state','update')
+                ->with('module',$module);
     }
 
     /**

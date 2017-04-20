@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/modules', 'ModuleController@index');
 
-//Route::get('/modules/add', 'ModuleController@create');
+Route::get('/modules/add', 'ModuleController@create');
 
 Route::get('modules/{module_id?}','ModuleController@edit');
 Route::post('modules','ModuleController@store');

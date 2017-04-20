@@ -24,7 +24,8 @@ class DocumentController extends Controller {
                         ->withInput()->with("module_id",$request->doc_module_id); // 400 being the HTTP code for an invalid request.
         }
 //        $fileName = $request->document->getClientOriginalName();
-        $fileName = rand(11111, 99999) . "." . $request->document->getClientOriginalExtension();
+        $name=pathinfo($request->document->getClientOriginalName(), PATHINFO_FILENAME);
+        $fileName = $name."_".rand(11111, 99999) . "." . $request->document->getClientOriginalExtension();
         $request->document->move(public_path('documents'), $fileName);
 
         // insert to database
@@ -35,7 +36,7 @@ class DocumentController extends Controller {
         $doc->filename = $fileName;
         $doc->save();
 
-        return back()
+        return redirect('modules/'.$doc->module_id)
                         ->with('success', 'Document Uploaded successfully.')
                         ->with('model', '#documentModel');
     }
