@@ -186,14 +186,14 @@
                                 <div class="form-group">
                                     <label for="inputDetail" class="col-sm-3 control-label">Description</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="description" name="description" placeholder="description" value="">
+                                        <input type="text" class="form-control" id="description" name="description" placeholder="description" value="" required >
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="file" class="col-sm-3 control-label">File</label>
                                     <div class="col-sm-9">
-                                        <input type="file" name="document" />
+                                        <input type="file" name="document" required />
                                     </div>
                                 </div>
                                 <input type="hidden" id="doc_module_id" name="doc_module_id" value="0">
