@@ -179,7 +179,7 @@ $(document).on('click', '.make_live', function () {
     var module_id = $(this).val();
     bootbox.confirm({
         title: "Make Live?",
-        message: "Do you want to make live this module?<br> Any client who buy packages containg this module in future will buy this.",
+        message: "Warning! Once you make this module live, any client who buy any packages containg this module in the future will buy this version. <br/><br/>Clients who have purchased this moduel previously will continue to see the module as it was when they bought it. Do you want to continue?",
         buttons: {
             cancel: {
                 label: '<i class="fa fa-times"></i> Cancel'
