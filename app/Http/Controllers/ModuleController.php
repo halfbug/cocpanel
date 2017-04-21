@@ -150,7 +150,7 @@ class ModuleController extends Controller {
         }
 
         $copy_of_module->documents()->saveMany($documents_copy);
-        return back();
+        return back()->with('success', 'Module copy successfully.');
     }
 
 }

@@ -8,8 +8,11 @@ function addModuleHtml(type, data)
             module = '<tr id="module' + data.id + '">'
                     + '<td>' + data.title + '</td>'
                     + '<td>'
-                    + '  <button class="btn btn-secondary btn-detail open_modal" value="' + data.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
-                    + '  <button class="btn btn-primary btn-detail copy_module" value="' + data.id + '" title="Copy"><i class="fa fa-copy" ></i></button>'
+                    + ' <a href="' + app.base_url + '/modules/' + data.id + '" class="btn btn-default" value="' + data.id + '" title="Edit"><i class="fa fa-edit" ></i></a>'
+                    + '<form enctype="multipart/form-data" class="form-inline" style="display:inline" role="form" method="POST"  id="copyModule_' + data.id + '" action="' + app.base_url + '/modules/make_copy/' + data.id + '">'
+                    + '<input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">'
+                    + '  <button class="btn btn-primary btn-detail copy_module" value="' + data.id + '" id="copy_module_' + data.id + '" title="Copy"><i class="fa fa-copy" ></i></button>'
+                    + '</form>&nbsp;'
                     //+ '  <button class="btn btn-warning btn-detail preview_module" value="' + data.id + '+" title="Preview"><i class="fa fa-search" ></i></button>'
                     + '  <button class="btn btn-danger btn-delete delete-module" value="' + data.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
                     + '</td>'
@@ -21,10 +24,7 @@ function addModuleHtml(type, data)
             module = '<tr id="module' + data.id + '">'
                     + '<td>' + data.title + '</td>'
                     + '<td>'
-                    + '<button class="btn btn-secondary btn-detail open_modal" value="' + data.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
-                    + ' <button class="btn btn-primary btn-detail open_doc" value="' + data.id + '" title="Documents"><i class="fa fa-file-text-o" ></i></button>'
-                    + ' <button class="btn btn-warning open_ques" value="' + data.id + '"  title="Questions"><i class="fa fa-question-circle"></i></button>'
-                    + ' | '
+                    + ' <a href="' + app.base_url + '/modules/' + data.id + '" class="btn btn-default" value="' + data.id + '" title="Edit"><i class="fa fa-edit" ></i></a>'
                     + ' <button class="btn btn-success make_live " value="' + data.id + '" title="Make Live"><i class="fa fa-plus-square-o" ></i></button>'
                     + ' <button class="btn btn-danger btn-delete delete-module" value="' + data.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
                     + '</td>'
@@ -39,15 +39,15 @@ function addModuleHtml(type, data)
 
 }
 
-function getModuleType(id){
-     var $wrapper = $('#live-modules-list'),
+function getModuleType(id) {
+    var $wrapper = $('#live-modules-list'),
             $target = $('#module' + id);
     if ($.contains($wrapper[0], $target[0])) {
-            return('live');
-        } else
-        {
-            return('draft');
-        }
+        return('live');
+    } else
+    {
+        return('draft');
+    }
 }
 
 
@@ -156,7 +156,7 @@ $("#btn-save").click(function (e) {
         success: function (data) {
             console.log(data);
 
-            var module_type =getModuleType(data.id);
+            var module_type = getModuleType(data.id);
             if (state == "add") { //if user added a new record
                 $('#modules-list').append(addModuleHtml(module_type, data));
                 $.notify("Module have been added successfully.");
@@ -166,7 +166,7 @@ $("#btn-save").click(function (e) {
             }
             $('#frmModules').trigger("reset");
             $('#myModal').modal('hide');
-            $('.nav-tabs a[href="#'+module_type+'"]').tab('show');
+            $('.nav-tabs a[href="#' + module_type + '"]').tab('show');
         },
         error: function (data) {
             console.log('Error:', data);

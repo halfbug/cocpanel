@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 
-    @section('script')
-    
-
-    @endsection
-
 @section('content')
 <div class="">
     <div class="row">
@@ -118,6 +113,7 @@
     @endsection
 
     @section('script')
+    @parent
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{asset('js/module.js')}}"></script>
     @endsection
