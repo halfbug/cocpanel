@@ -174,7 +174,6 @@ $("#btn-save").click(function (e) {
     });
 });
 
-
 $(document).on('click', '.make_live', function () {
     var module_id = $(this).val();
     bootbox.confirm({

@@ -10,10 +10,10 @@
             <div id="exTab2" >	
                 <ul class="nav nav-tabs">
                     <li >
-                        <a  href="#draft" data-toggle="tab">Draft </a>
+                        <a href="#draft" data-toggle="tab" id="tab_draft">Draft </a>
                     </li>
                     <li class="active">
-                        <a href="#live" data-toggle="tab">Live</a>
+                        <a href="#live" data-toggle="tab"  id="tab_live">Live</a>
                     </li>
                 </ul>
                 
