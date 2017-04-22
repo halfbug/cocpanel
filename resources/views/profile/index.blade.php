@@ -3,126 +3,127 @@
 @section('content')
 <div class="">
     <div class="row">
-        <div class="col-md-11 ">
-            <button id="btn_add" name="btn_add" class="btn btn-secondary pull-right">New Module</button>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-0 toppad" >
 
 
-
-
-            <div id="exTab2" >	
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a  href="#draft" data-toggle="tab">Draft </a>
-                    </li>
-                    <li>
-                        <a href="#live" data-toggle="tab">Live</a>
-                    </li>
-
-                </ul>
-
-                <div class="tab-content ">
-                    <div class="tab-pane active" id="draft">
-                        <h3>Draft Modules</h3>
-                        <div class="panel-body"> 
-
-
-                            <table class="table">
-                                <thead>
-                                    <tr>
-<!--                                        <th>ID</th>-->
-                                        <th>Title</th>
-                                        <!--<th>Details</th>-->
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="modules-list" name="modules-list">
-                                    @foreach ($modules as $module)
-                                    <tr id="module{{$module->id}}">
-<!--                                        <td>{{$module->id}}</td>-->
-                                        <td>{{$module->title}}</td>
-                                        <!--<td>{{$module->description}}</td>-->
-                                        <td>
-                                            <button class="btn btn-secondary btn-detail open_modal" value="{{$module->id}}" title="Edit"><i class="fa fa-edit" ></i></button>
-                                            <button class="btn btn-primary btn-detail open_doc" value="{{$module->id}}" title="Documents"><i class="fa fa-file-text-o" ></i></button>
-                                            <button class="btn btn-warning open_ques" value="{{$module->id}}"  title="Questions"><i class="fa fa-question-circle"></i></button>
-                                            |
-                                            <button class="btn btn-success make_live" value="{{$module->id}}" title="Make Live"><i class="fa fa-plus-square-o" ></i></button>
-                                            <button class="btn btn-danger btn-delete delete-module" value="{{$module->id}}" title="Delete"><i class="fa fa-remove" ></i></button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-
-                    </div>
-                    <div class="tab-pane" id="live">
-                        <h3>Live Modules</h3>
-
-                        <div class="panel-body"> 
-
-
-                            <table class="table">
-                                <thead>
-                                    <tr>
-<!--                                        <th>ID</th>-->
-                                        <th>Title</th>
-                                        <!--<th>Details</th>-->
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="live-modules-list" name="live-modules-list">
-                                    @foreach ($live_modules as $module)
-                                    <tr id="module{{$module->id}}">
-<!--                                        <td>{{$module->id}}</td>-->
-                                        <td>{{$module->title}}</td>
-                                        <!--<td>{{$module->description}}</td>-->
-                                        <td>
-                                            <button class="btn btn-secondary btn-detail open_modal" value="{{$module->id}}" title="Edit"><i class="fa fa-edit" ></i></button>
-                                            <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="copyModule_{{$module->id}}" action="{{ url('modules/make_copy/'.$module->id) }}">
-                                                {{ csrf_field() }}
-                                                <button class="btn btn-primary btn-detail copy_module" id="copy_module_{{$module->id}}" value="{{$module->id}}" title="Copy"><i class="fa fa-copy" ></i></button>
-                                            </form>
-                                            <button class="btn btn-warning btn-detail preview_module" value="{{$module->id}}" title="Preview"><i class="fa fa-search" ></i></button>
-                                            <button class="btn btn-danger btn-delete delete-module" value="{{$module->id}}" title="Delete"><i class="fa fa-remove" ></i></button>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title " style="display: inline">{{$user->name}}</h3>
+                    <small class=" pull-right "><b>Join at</b> :{{$user->created_at }} </small>
                 </div>
+                <div class="panel-body">
+                    <div class="row">
+                        @php
+                        $url = Storage::disk('public')->url($user->avatar);
+                        $path = public_path($url);
+                        
+                        @endphp
+                        <div class="col-md-3 col-lg-3 " align="center"> 
+                            <img width="150px" height="150px" alt="User Pic" src="{{asset('storage/'.$user->avatar)}}" class=" img-responsive">
+                               
+                            
+                        </div>
+
+                        <div class=" col-md-9 col-lg-9 "> 
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>Full Name:</td>
+                                        <td>{{$user->name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email:</td>
+                                        <td>{{$user->email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>About</td>
+                                        <td>{{$user->description}}</td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+
+                            <!--<a href="#" class="btn btn-primary">Active Packages</a>-->
+                            <!--<a href="#" class="btn btn-primary">Active Clients</a>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <!--<a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>-->
+                    <span class="pull-right">
+                        @if($user->id == \Auth::user()->id || Auth::user()->isAdmin())
+                        <a href="{{url('profile/edit/'.$user->id)}}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        <!--<a href="{{url("user/destroy/".$user->id)}}" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>-->
+                        @endif
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+
             </div>
-
-
-
-
-
-
         </div>
 
-        @include('modals.add_module')
-        @include('modals.document')
-        @include('modals.question')
+
+
+
+
     </div>
+    <!-- includes here-->
+
+</div>
 
 
-    @endsection
+@endsection
 
-    @section('heading')
-    Modules <small>management</small>
-    @endsection
+@section('heading')
+User <small>Profile</small>
+@endsection
 
-    @section('title')
-    Modules
-    @endsection
+@section('title')
+Profile
+@endsection
 
-    @section('script')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{asset('js/module.js')}}"></script>
+@section('css')
+<style>
+    .user-row {
+        margin-bottom: 14px;
+    }
 
-    @endsection
+    .user-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .dropdown-user {
+        margin: 13px 0;
+        padding: 5px;
+        height: 100%;
+    }
+
+    .dropdown-user:hover {
+        cursor: pointer;
+    }
+
+    .table-user-information > tbody > tr {
+        border-top: 1px solid rgb(221, 221, 221);
+    }
+
+    .table-user-information > tbody > tr:first-child {
+        border-top: 0;
+    }
+
+
+    .table-user-information > tbody > tr > td {
+        border-top: 0;
+    }
+    .toppad
+    {margin-top:20px;
+    }
+</style>
+@endsection
+
+@section('script')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+@endsection

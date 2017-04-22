@@ -88,8 +88,9 @@ Route::group(['prefix' => 'assigned'], function () {
 Route::group(['prefix' => 'profile'], function () {
     Route::get('/', 'ProfileController@index');
     Route::post('/','ProfileController@store');
-    Route::put('{user_id}','ProfileController@update');
-    Route::get('{user_id}','ProfileController@show');
+    Route::put('/update/{user_id}','ProfileController@update');
+    Route::get('/edit/{user_id}','ProfileController@edit');
+    Route::get('/{user_id}','ProfileController@show');
     Route::delete('{user_id}','ProfileController@destroy');
     Route::get('/linked_clients/{user_id}','ProfileController@showLinkedClients');
 });

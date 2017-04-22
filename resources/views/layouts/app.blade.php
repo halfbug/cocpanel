@@ -84,6 +84,8 @@
                                     {{ csrf_field() }}
                                 </form>
                             </li>
+                            <li><a href="{{url('profile/'.Auth::user()->id)}}"> <i class="fa fa-fw fa-file"></i> Profile</a></li>
+                             <li><a href="{{url('profile/edit/'.Auth::user()->id)}}"> <i class="fa fa-fw fa-shield"></i> Settings</a></li>
                         </ul>
                     </li>
                     @endif

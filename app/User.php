@@ -82,4 +82,13 @@ class User extends Authenticatable
         return $this->hasMany('App\modules');
     
     }
+    
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
+    public function getCreatedAtAttribute($value)
+    {
+        return date("D F j, Y, g:i a",  strtotime($value));
+    }
 }
