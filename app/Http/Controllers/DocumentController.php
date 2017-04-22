@@ -25,7 +25,8 @@ class DocumentController extends Controller {
         }
 //        $fileName = $request->document->getClientOriginalName();
         $name=pathinfo($request->document->getClientOriginalName(), PATHINFO_FILENAME);
-        $fileName = $name."_".rand(11111, 99999) . "." . $request->document->getClientOriginalExtension();
+        //$fileName = $name."_".rand(11111, 99999) . "." . $request->document->getClientOriginalExtension();
+        $fileName = $name. "." . $request->document->getClientOriginalExtension();
         $request->document->move(public_path('documents'), $fileName);
 
         // insert to database

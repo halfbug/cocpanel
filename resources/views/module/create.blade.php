@@ -62,16 +62,16 @@
             </div>
             <div class="panel-body">
                 <div class="panel panel-default ">
-                    <div class="panel-heading">
+                    <!--<div class="panel-heading">
                         List
-                    </div>
+                    </div>-->
                     <div class="panel-body"> 
                         <!--<button id="btn_add_question" name="btn_add_question" class="btn btn-warning pull-right">New Question</button>-->
                         <table class="table" id="questiontbl">
                             <thead>
                                 <tr>
-        <!--                                        <th>ID</th>-->
-                                    <th>S.No</th>
+                                    <!--<th>ID</th>-->
+                                    <!--<th>S.No</th>-->
                                     <th>Questions</th>
                                     <th>Actions</th>
                                 </tr>
@@ -131,9 +131,9 @@
             </div>
             <div class="panel-body">
                 <div class="panel panel-default ">
-                    <div class="panel-heading">
+                    <!--<div class="panel-heading">
                         List
-                    </div>
+                    </div>-->
                     <div class="panel-body"> 
 
 
@@ -150,6 +150,7 @@
 
                             </tbody>
                         </table>
+                        <input type="hidden" id="user_id" name="user_id" value="{{\Auth::user()->id}}"/>
                     </div>
 
                 </div>    

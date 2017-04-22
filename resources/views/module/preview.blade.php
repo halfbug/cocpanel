@@ -2,10 +2,21 @@
 
 @section('content')
 <div class="container">
-    <div class="col-sm-10">
+<!--<div class="row">
+    <div class="col-sm-11">
+        <div class="panel-body module_desc">{{$module->description}}</div>
+    </div>
+</div>-->
+
+    <div class="col-sm-11">
+        <h2 class="intro">Introduction and Guidelines</h2>
         <div class="panel panel-default module-desc">
             <div class="panel-body">
-                {{$module->description}}
+@php
+$doc = new DOMDocument();
+$doc->loadHTML($module->content);
+echo $doc->saveHTML();
+@endphp
             </div>
         </div>
         <h3>Questions</h3>

@@ -63,9 +63,9 @@ function load_questions(){
 
                 $('#que-list').append(
                         '<tr id="que_' + que.id + '">'
-                        + '  <td>' + que.sno + '</td>'
-                        + '  <td>' +$($.parseHTML(que.content)).text().substring(0,120)+ '</td>'
-                        + '  <td>'
+                        //+ '  <td>' + que.sno + '</td>'
+                        + '  <td class="ques_content">' +$($.parseHTML(que.content)).text().substring(0,120)+ '</td>'
+                        + '  <td class="ques_actions">'
                         + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
                         + '     <button class="btn btn-danger que_delete" value="' + que.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
                         + '  </td>'
@@ -95,17 +95,19 @@ function load_documents(){
         console.log(documents);
         $('#doc-list').html("");
         $.each(documents, function (i, doc) {
-            console.log(doc.filename);
-            $('#doc-list').append(
-                    '<tr id="doc_' + doc.id + '">'
-                    + '  <td>' + doc.description + '</td>'
-                    + '  <td>' + doc.filename + '</td>'
-                    + '  <td>'
-                    + '     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>'
-                    + '     <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
-                    + '  </td>'
-                    + '</tr>'
-                    );
+            //console.log(doc.filename);
+            if(doc.uploaded_by == $("#user_id").val()){
+                $('#doc-list').append(
+                        '<tr id="doc_' + doc.id + '">'
+                        + '  <td>' + doc.description + '</td>'
+                        + '  <td>' + doc.filename + '</td>'
+                        + '  <td>'
+                        + '     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>'
+                        + '     <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
+                        + '  </td>'
+                        + '</tr>'
+                );
+            }
         });
 //        $('#doc-list').html(data);
 //        $('#doc-list').append(data);
