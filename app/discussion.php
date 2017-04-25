@@ -51,6 +51,11 @@ class discussion extends Model {
         $author = \App\User::find($user_id);
         return $author->name;
     }
+    
+    public function getAvatar($user_id) {
+        $author = \App\User::find($user_id);
+        return $author->avatar;
+    }
 
     public function getContent($response_id){
         $response_detail= \App\response::find($response_id);

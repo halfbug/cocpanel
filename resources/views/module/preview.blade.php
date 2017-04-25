@@ -43,11 +43,13 @@ echo $doc->saveHTML();
 
                         <li class="comment green" >
                             <a class="pull-left" href="#">
-                                @if($response->user_id == session('client')->id)
+                                <img class="avatar" src="{{asset('storage/'.$response->getAvatar($response->user_id))}}" alt="avatar">
+<!--                                @if($response->user_id == session('client')->id)
                                 <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
                                 @else
                                 <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
-                                @endif<BR>
+                                @endif-->
+<BR>
                                 @if($response->user_id == session('coach')->id)
                                        <span class="small bg-primary">Coach</span>
                                 @endif
