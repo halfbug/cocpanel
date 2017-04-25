@@ -156,6 +156,9 @@ td.ques_content {
     background: #f1f1f1 !important;
     /*color: #fff;*/
 }
+.dropdown.active, .dropdown-menu .active a{
+    background: #fe8e28;
+}
 
 @media (min-width: 768px){
     body {

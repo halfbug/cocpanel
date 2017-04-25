@@ -60,6 +60,14 @@
                     <a class="navbar-brand" href="{{ url('/home') }}"><img src="{{ url('/') }}/images/logo.png" /></a>
                         <!--{{ config('app.name', 'Laravel') }}-->
                 </div>
+
+                <?php
+                $request = request();
+                $uri = $request->path();
+                $uri_part = explode('/',$uri);
+                ?>
+
+
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
                     <!-- Authentication Links -->
@@ -67,12 +75,14 @@
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <!--<li><a href="{{ route('register') }}">Register</a></li>-->
                     @else
-                    <li class="dropdown">
+                    <li class="dropdown {{ ($uri_part[0] == 'profile') ? 'active' : '' }}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <i class="fa fa-user"></i> {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                            <li class="{{ ($uri_part[0] == 'profile' && $uri_part[1] != 'edit') ? 'active' : '' }}"><a href="{{url('profile/'.Auth::user()->id)}}"> <i class="fa fa-fw fa-file"></i> Profile</a></li>
+                            <li class="{{ ($uri_part[0] == 'profile' && $uri_part[1] == 'edit') ? 'active' : '' }}"><a href="{{url('profile/edit/'.Auth::user()->id)}}"> <i class="fa fa-fw fa-shield"></i> Settings</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
@@ -84,8 +94,6 @@
                                     {{ csrf_field() }}
                                 </form>
                             </li>
-                            <li><a href="{{url('profile/'.Auth::user()->id)}}"> <i class="fa fa-fw fa-file"></i> Profile</a></li>
-                             <li><a href="{{url('profile/edit/'.Auth::user()->id)}}"> <i class="fa fa-fw fa-shield"></i> Settings</a></li>
                         </ul>
                     </li>
                     @endif
@@ -93,13 +101,7 @@
                 </ul>
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav side-nav">
-                    <?php
-                    $request = request();
-                    $uri = $request->path();
-                    $uri_part = explode('/',$uri);
-                    ?>
-                    
+                    <ul class="nav navbar-nav side-nav">                    
                         @if(Auth::user()->isCoach() )
                         <li class="{{ ($uri == 'home') ? 'active' : '' }}">
                             <a href="{{ url('/home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
