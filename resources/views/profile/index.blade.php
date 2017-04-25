@@ -20,7 +20,7 @@
                         
                         @endphp
                         <div class="col-md-3 col-lg-3 " align="center"> 
-                            <img width="150px" height="150px" alt="User Pic" src="{{asset('storage/'.$user->avatar)}}" class=" img-responsive">
+                            <img width="150px" height="150px" alt="User Pic" src="{{asset('../storage/app/public/'.$user->avatar)}}" class=" img-responsive">
                                
                             
                         </div>
