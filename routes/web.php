@@ -21,26 +21,26 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/modules', 'ModuleController@index');
+Route::get('/modules', 'ModuleController@index')->middleware('auth');
 
-Route::get('/modules/add', 'ModuleController@create');
+Route::get('/modules/add', 'ModuleController@create')->middleware('auth');
 
-Route::get('modules/{module_id?}','ModuleController@edit');
-Route::post('modules','ModuleController@store');
-Route::put('modules/{module_id?}','ModuleController@update');
-Route::delete('modules/{module_id?}','ModuleController@destroy');
-Route::put('modules/make_live/{module_id?}','ModuleController@makeLive');
-Route::get('modules/live','ModuleController@getLive');
-Route::get('modules/preview/{module_id?}','ModuleController@show');
-Route::post('modules/make_copy/{module_id}','ModuleController@makeCopy');
-
-
-Route::post('/documents/upload', 'DocumentController@docUploadPost');
-Route::get('/documents/list/{module_id?}', 'DocumentController@listModuleDoc');
-Route::delete('/documents/{doc_id?}', 'DocumentController@destroy');
+Route::get('modules/{module_id?}','ModuleController@edit')->middleware('auth');
+Route::post('modules','ModuleController@store')->middleware('auth');
+Route::put('modules/{module_id?}','ModuleController@update')->middleware('auth');
+Route::delete('modules/{module_id?}','ModuleController@destroy')->middleware('auth');
+Route::put('modules/make_live/{module_id?}','ModuleController@makeLive')->middleware('auth');
+Route::get('modules/live','ModuleController@getLive')->middleware('auth');
+Route::get('modules/preview/{module_id?}','ModuleController@show')->middleware('auth');
+Route::post('modules/make_copy/{module_id}','ModuleController@makeCopy')->middleware('auth');
 
 
-Route::group(['prefix' => 'questions'], function () {
+Route::post('/documents/upload', 'DocumentController@docUploadPost')->middleware('auth');
+Route::get('/documents/list/{module_id?}', 'DocumentController@listModuleDoc')->middleware('auth');
+Route::delete('/documents/{doc_id?}', 'DocumentController@destroy')->middleware('auth');
+
+
+Route::group(['prefix' => 'questions','middleware' => 'auth'], function () {
     Route::get('list/{module_id?}', 'QuestionController@grid');
     Route::post('/','QuestionController@store');
     Route::put('{question_id}','QuestionController@update');
@@ -49,7 +49,7 @@ Route::group(['prefix' => 'questions'], function () {
     
 });
 
-Route::group(['prefix' => 'packages'], function () {
+Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
     Route::get('/', 'PackageController@index');
     Route::post('/','PackageController@store');
     Route::put('{package_id}','PackageController@update');
@@ -59,7 +59,7 @@ Route::group(['prefix' => 'packages'], function () {
     Route::post('/make_copy/{package_id}','PackageController@makeCopy');
 });
 
-Route::group(['prefix' => 'clients'], function () {
+Route::group(['prefix' => 'clients','middleware' => 'auth'], function () {
     Route::get('/active_packages','ClientController@activePackages');
     Route::get('/', 'ClientController@index');
     Route::post('/','ClientController@store');
@@ -71,21 +71,21 @@ Route::group(['prefix' => 'clients'], function () {
     
 });
 
-Route::group(['prefix' => 'coaches'], function () {
+Route::group(['prefix' => 'coaches','middleware' => 'auth'], function () {
     Route::get('/', 'CoacheController@index');
     Route::post('/','CoacheController@store');
     Route::get('/active_packages','CoacheController@activePackages');
     Route::delete('/{coach_id}','CoacheController@destroy');
 });
 
-Route::group(['prefix' => 'assigned'], function () {
+Route::group(['prefix' => 'assigned','middleware' => 'auth'], function () {
     Route::get('/{assigned_id}', 'AassignmentController@show');
     Route::post('/{package_id}/{module_id}', 'AassignmentController@store');
     Route::post('/update_status', 'AassignmentController@updateStatus');
     
 });
 
-Route::group(['prefix' => 'profile'], function () {
+Route::group(['prefix' => 'profile','middleware' => 'auth'], function () {
     Route::get('/', 'ProfileController@index');
     Route::post('/','ProfileController@store');
     Route::put('/update/{user_id}','ProfileController@update');
