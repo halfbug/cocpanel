@@ -43,7 +43,7 @@ echo $doc->saveHTML();
 
                         <li class="comment green" >
                             <a class="pull-left" href="#">
-                                <img class="avatar" src="{{asset('storage/'.$response->getAvatar($response->user_id))}}" alt="avatar">
+                                <img class="avatar" src="{{asset('../storage/app/public/'.$response->getAvatar($response->user_id))}}" alt="avatar">
 <!--                                @if($response->user_id == session('client')->id)
                                 <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
                                 @else
