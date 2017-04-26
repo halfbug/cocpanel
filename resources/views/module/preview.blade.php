@@ -2,25 +2,25 @@
 
 @section('content')
 <div class="container">
-<!--<div class="row">
-    <div class="col-sm-11">
-        <div class="panel-body module_desc">{{$module->description}}</div>
-    </div>
-</div>-->
+    <!--<div class="row">
+        <div class="col-sm-11">
+            <div class="panel-body module_desc">{{$module->description}}</div>
+        </div>
+    </div>-->
 
     <div class="col-sm-11">
         <h2 class="intro">Introduction and Guidelines</h2>
         <div class="panel panel-default module-desc">
             <div class="panel-body">
-@php
-$doc = new DOMDocument();
-$doc->loadHTML($module->content);
-echo $doc->saveHTML();
-@endphp
+                @php
+                $doc = new DOMDocument();
+                $doc->loadHTML($module->content);
+                echo $doc->saveHTML();
+                @endphp
             </div>
         </div>
         <h3>Questions</h3>
-            
+
         @foreach ($module->questions()->get() as $question)        
         <div class="col-sm-12 questions">
             <div class="panel panel-white post panel-shadow">
@@ -34,44 +34,44 @@ echo $doc->saveHTML();
                 <div class="row post-footer">
                     <div class="answer-index">&nbsp;</div>
                     <div class="answer-content">
-                    <ul class="comments-list">
+                        <ul class="comments-list">
 
-                        @if($assignment)
+                            @if($assignment)
 
-                        @foreach ( $question->getDiscussion($assignment->id) as $response )
+                            @foreach ( $question->getDiscussion($assignment->id) as $response )
+                            @if(!($response->visibility == 1 && $assignment->coach->id == Auth::user()->id))
 
+                            <li class="comment green" >
+                                <a class="pull-left" href="#">
+                                    <img class="avatar" src="{{asset('../storage/app/public/'.$response->getAvatar($response->user_id))}}" alt="avatar">
+                                    <!--                                @if($response->user_id == session('client')->id)
+                                                                    <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
+                                                                    @else
+                                                                    <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
+                                                                    @endif-->
+                                    <BR>
+                                    @if($response->user_id == session('coach')->id)
+                                    <span class="small bg-primary">Coach</span>
+                                    @endif
+                                </a>
+                                <div class="comment-body">
 
-                        <li class="comment green" >
-                            <a class="pull-left" href="#">
-                                <img class="avatar" src="{{asset('../storage/app/public/'.$response->getAvatar($response->user_id))}}" alt="avatar">
-<!--                                @if($response->user_id == session('client')->id)
-                                <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar">
-                                @else
-                                <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
-                                @endif-->
-<BR>
-                                @if($response->user_id == session('coach')->id)
-                                       <span class="small bg-primary">Coach</span>
-                                @endif
-                            </a>
-                            <div class="comment-body">
+                                    <div class="comment-heading">
+                                        <h4 class="user">{{$response->getAName($response->user_id)}}</h4>
 
-                                <div class="comment-heading">
-                                    <h4 class="user">{{$response->getAName($response->user_id)}}</h4>
+                                        <h5 class="time"> 
 
-                                    <h5 class="time"> 
-                                        
-                                        {{$response->getTime($response->response_id)}}</h5>
+                                            {{$response->getTime($response->response_id)}}</h5>
+                                    </div>
+                                    <p>{!!$response->getContent($response->response_id)!!}</p>  
                                 </div>
-                                <p>{!!$response->getContent($response->response_id)!!}</p>  
-                            </div>
 
-                        </li>
+                            </li>
 
-
-                        @endforeach
-                        @endif 
-                    </ul>
+                            @endif
+                            @endforeach
+                            @endif 
+                        </ul>
                     </div> <!--question-content-->
                 </div>
                 @if($assignment->status == 3 )
@@ -165,8 +165,8 @@ echo $doc->saveHTML();
             </div>
         </div>
         <div class="col-sm-12"> 
-             @if($assignment->status == 3)
-            
+            @if($assignment->status == 3)
+
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Upload New Documents</h3>
@@ -197,7 +197,7 @@ echo $doc->saveHTML();
                     </form> 
                 </div>
             </div>
-             @endif
+            @endif
         </div>
     </div>
 </div>

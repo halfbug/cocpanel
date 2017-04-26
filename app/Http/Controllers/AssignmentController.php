@@ -56,7 +56,11 @@ class AssignmentController extends Controller {
         if($assignment->package()->first()->status == 0)
             $clientReply=true;
         else
+        {
             $clientReply=false;
+            $discussion->visibility = 1;
+            $discussion->save();
+        }
         // email to client on coach response
         $user = $discussion->user()->first();
         session(['assignment_id'=>$assignment->id]);
