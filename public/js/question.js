@@ -11,8 +11,8 @@ $(document).on('click', '.open_ques', function () {
 
                 $('#que-list').append(
                         '<tr id="que_' + que.id + '">'
-                        //+ '  <td>' + que.sno + '</td>'
-                        + '  <td class="ques_content">' +$($.parseHTML(que.content)).text().substring(0,120)+ '</td>'
+                        + '  <td>' + que.sno + '</td>'
+                        + '  <td class="ques_content">' + $($.parseHTML(que.content)).text().substring(0, 120) + '</td>'
                         + '  <td class="ques_actions">'
                         + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
                         + '     <button class="btn btn-danger que_delete" value="' + que.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
@@ -58,7 +58,7 @@ $("#btn-save-question").click(function (e) {
     });
     e.preventDefault();
     var formData = {
-        sno: $('#questiontbl tr').length + 1,
+        sno: $('#questiontbl tr').length,
         module_id: $('#que_module_id').val(),
         content: tinymce.get('question').getContent() //$('textarea#content').val()
     };
@@ -81,7 +81,7 @@ $("#btn-save-question").click(function (e) {
         success: function (que) {
             console.log(que);
             var question = '<tr id="que_' + que.id + '">'
-                    //+ '  <td>' + que.sno + '</td>'
+                    + '  <td>' + que.sno + '</td>'
                     + '  <td class="ques_content">' + que.content + '</td>'
                     + '  <td class="ques_actions">'
                     + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
@@ -112,8 +112,8 @@ $(document).on('click', '.que_edit', function () {
     $.get(qUrl + '/' + que_id, function (data) {
         //success data
         console.log(data);
-         $('#que_module_id').val(data.module_id);
-          $('#que_id').val(data.id);
+        $('#que_module_id').val(data.module_id);
+        $('#que_id').val(data.id);
         $('#question').val(data.content);
         tinymce.get('question').setContent(data.content);
         $('#btn-save-question').val("update");
@@ -152,6 +152,7 @@ $(document).on('click', '.que_delete', function () {
                         console.log(data);
                         $("#que_" + que_id).remove();
                         $.notify("Questions have been deleted successfully.");
+                        $('#frmQuestion').trigger("reset");
 
                     },
                     error: function (data) {
@@ -163,4 +164,35 @@ $(document).on('click', '.que_delete', function () {
         }
     });
 
+});
+
+$("#que-list").sortable({
+    stop: function (event, ui) {
+        var data = [];
+        $(this).find('tr').each(function (i) {
+            var trid = $(this).attr('id').split('_');
+//            console.log(trid.split('_'));
+            $(this).find('td:first').text(i + 1);
+            data.push({"q_id": trid[1], "sno": i + 1});
+
+        });
+        console.log(data);
+        $.ajaxSetup({
+            
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: 'application/json',
+            processData: false
+        });
+//    e.preventDefault();
+        $.ajax({
+            type: "PUT",
+            url: qUrl + "/sort",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            }});
+    }
 });

@@ -71,7 +71,7 @@
                             <thead>
                                 <tr>
                                     <!--<th>ID</th>-->
-                                    <!--<th>S.No</th>-->
+                                    <th>S.No</th>
                                     <th>Questions</th>
                                     <th>Actions</th>
                                 </tr>
@@ -236,7 +236,7 @@ Modules
 @section('script')
 @parent
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<script src="{{asset('js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('js/modules.js')}}"></script>
 <script src="{{asset('js/question.js')}}"></script>
 <script src="{{asset('js/document.js')}}"></script>

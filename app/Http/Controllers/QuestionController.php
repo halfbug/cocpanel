@@ -14,7 +14,7 @@ class QuestionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function grid($module_id) {
-        $questions = module::find($module_id)->questions()->get();
+        $questions = module::find($module_id)->questions()->orderBy('sno')->get();
         return response()->json($questions);
     }
 
@@ -83,6 +83,19 @@ class QuestionController extends Controller {
     public function destroy($question_id) {
         $doc = \App\question::destroy($question_id);
         return response()->json($doc);
+    }
+    
+     public function sort(Request $request) {
+         foreach ($request->json()->all() as $sq){
+//             var_dump($sq['q_id']);
+        $question = question::find($sq['q_id']);
+        $question->sno = $sq['sno'];
+        
+        $question->save();
+             }
+         
+        return response()->json("sorting done.");
+//         return $request->json($question);
     }
 
 }

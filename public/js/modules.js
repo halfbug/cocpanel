@@ -63,7 +63,7 @@ function load_questions(){
 
                 $('#que-list').append(
                         '<tr id="que_' + que.id + '">'
-                        //+ '  <td>' + que.sno + '</td>'
+                        + '  <td>' + que.sno + '</td>'
                         + '  <td class="ques_content">' +$($.parseHTML(que.content)).text().substring(0,120)+ '</td>'
                         + '  <td class="ques_actions">'
                         + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'

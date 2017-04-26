@@ -41,11 +41,13 @@ Route::delete('/documents/{doc_id?}', 'DocumentController@destroy')->middleware(
 
 
 Route::group(['prefix' => 'questions','middleware' => 'auth'], function () {
+     Route::put('sort','QuestionController@sort');
     Route::get('list/{module_id?}', 'QuestionController@grid');
     Route::post('/','QuestionController@store');
     Route::put('{question_id}','QuestionController@update');
     Route::get('{question_id}','QuestionController@show');
     Route::delete('{question_id}','QuestionController@destroy');
+   
     
 });
 

@@ -21,7 +21,7 @@
         </div>
         <h3>Questions</h3>
 
-        @foreach ($module->questions()->get() as $question)        
+        @foreach ($module->questions()->orderBy('sno')->get() as $question)        
         <div class="col-sm-12 questions">
             <div class="panel panel-white post panel-shadow">
                 <div class="row table_question">
