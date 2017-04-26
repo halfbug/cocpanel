@@ -52,7 +52,7 @@ class ModuleController extends Controller {
      */
     public function store(Request $request) {
         $module = module::create($request->all());
-        return response()->json($module);
+        return response()->json(['module'=>$module, 'url'=>url('modules/'.$module->id)]);
     }
 
     /**

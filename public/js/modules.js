@@ -32,17 +32,20 @@ $("#btn-save").click(function (e) {
         dataType: 'json',
         success: function (data) {
             console.log(data);
+            
             if (state == "add") { //if user added a new record
                 $('#btn-save').val("update");
-                $('#module_id').val(data.id);
-                $('#que_module_id').val(data.id);
-                $('#doc_module_id').val(data.id);
+                $('#module_id').val(data.module.id);
+                $('#que_module_id').val(data.module.id);
+                $('#doc_module_id').val(data.module.id);
                 $('#btn-save-question').removeClass('disabled');
                 $('#uploaddocument').removeClass('disabled');
                 $.notify("Module have been added successfully.");
+                window.location.replace(data.url);
             } else { //if user updated an existing record
 
                 $.notify("Module have been updated successfully.");
+                
             }
         },
         error: function (data) {
