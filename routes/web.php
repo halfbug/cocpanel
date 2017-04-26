@@ -57,6 +57,7 @@ Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
     Route::delete('{package_id}','PackageController@destroy');
     Route::get('/linked_clients/{package_id}','PackageController@showLinkedClients');
     Route::post('/make_copy/{package_id}','PackageController@makeCopy');
+    Route::post('/status/{package_id}','PackageController@updateStatus');
 });
 
 Route::group(['prefix' => 'clients','middleware' => 'auth'], function () {
@@ -79,9 +80,9 @@ Route::group(['prefix' => 'coaches','middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'assigned','middleware' => 'auth'], function () {
-    Route::get('/{assigned_id}', 'AassignmentController@show');
-    Route::post('/{package_id}/{module_id}', 'AassignmentController@store');
-    Route::post('/update_status', 'AassignmentController@updateStatus');
+    Route::get('/{assigned_id}', 'AssignmentController@show');
+    Route::post('/{package_id}/{module_id}', 'AssignmentController@store');
+    Route::post('/update_status', 'AssignmentController@updateStatus');
     
 });
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mail\NewResponse;
 
-class AassignmentController extends Controller {
+class AssignmentController extends Controller {
 
     public function show(Request $request, $assignment_id) {
         $role = $request->session()->get('role');
@@ -52,13 +52,23 @@ class AassignmentController extends Controller {
         $discussion->save();
 
         $assignment = $discussion->assignment()->first();
+//        replyoff
+        if($assignment->package()->first()->status == 0)
+            $clientReply=true;
+        else
+            $clientReply=false;
         // email to client on coach response
         $user = $discussion->user()->first();
         session(['assignment_id'=>$assignment->id]);
         if(\Auth::user()->isCoach() || \Auth::user()->isAdmin())
+            {
+            if($clientReply)
             \Mail::to($assignment->user->email)->send(new NewResponse($user, 'coach', $assignment->module()->first()));
-        else
+        }
+        else{
+            if($clientReply)
             \Mail::to($assignment->coach->email)->send(new NewResponse($user, 'client',$assignment->module()->first()));
+        }
         // email to coach on client response
 
 

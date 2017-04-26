@@ -214,3 +214,13 @@ $(document).on('click', '.make_live', function () {
         }
     });
 });
+
+$(document).on('click', '[id^=rbtn_]',function (e) {
+    $responsebx = $(this).val();
+    $("#responseBox_"+$responsebx).toggle();
+    
+});
+
+$( document ).ready(function() {
+    $("[id^=responseBox_]").hide();
+});

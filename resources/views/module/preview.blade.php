@@ -74,12 +74,13 @@ echo $doc->saveHTML();
                     </ul>
                     </div> <!--question-content-->
                 </div>
-                @if($assignment->status == 3)
+                @if($assignment->status == 3 )
                 <div class="row">
                     <div class="answer-index">&nbsp;</div>
                     <div class="response-content">
-                        <div class="input-group"> 
-                            <form class="form-horizontal" role="form" method="POST"  action="{{ url('assigned/'.$assignment->package_id.'/'.$module->id) }}">
+                        <div class="input-group">
+                            <button class="btn btn-warning" id='rbtn_{{$question->id}}' value="{{$question->id}}">Show Reply Box</button>
+                            <form class="form-horizontal" id="responseBox_{{$question->id}}" role="form" method="POST"  action="{{ url('assigned/'.$assignment->package_id.'/'.$module->id) }}">
                                 {{ csrf_field() }}
                                 <div class="res">Response:</div>
                                 <textarea class="form-control input-lg" name="content" type="text"></textarea>                        

@@ -130,4 +130,11 @@ class PackageController extends Controller {
         return back();
     }
 
+    public function updateStatus(Request $request, $package_id) {
+        $package = package::find($package_id);
+        
+        $package->status = 1;
+        $package->save();
+        return back()->with('success',' The status of "'. $package->title.' " has been updated successfully.');
+    }
 }

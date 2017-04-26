@@ -304,3 +304,34 @@ $(document).on('click', '[id^=delete_package_]',function (e) {
         });
 //    return result; //you can just return c because it will be true or false
     });
+    
+    $(document).on('click', '[id^=status_package_]',function (e) {
+        delbtn = $(this);
+         if(this.checked) {
+        bootbox.confirm({
+            title: "Change Client Reply on Package?",
+            message: "Are you sure to make changes in client reply on package?  It will completly disable the client coach communication.",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    console.log(result);
+                    console.log(delbtn.val());
+
+                    delbtn.parents('form').submit();
+
+                }
+                else{
+                    delbtn.prop('checked', false);
+                }
+            }
+        });
+//    return result; //you can just return c because it will be true or false+
+         }
+    });

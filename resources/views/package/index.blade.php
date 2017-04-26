@@ -20,6 +20,7 @@
                             <th>Title</th>
                             <th>Price</th>
                             <th>Clients</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -29,7 +30,14 @@
                             <td>{{$package->title}}</td>
                             <td>{{$package->price}}</td>
                             <td id="clients_{{$package->id}}">{{$package->linked_clients->unique('user_id')->count() }}</td>
-
+                            <td>
+                                @php
+                                    $checked = ($package->status == 1)? 'checked':'';
+                                @endphp
+                                <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="statusPackage_{{$package->id}}" action="{{ url('packages/status/'.$package->id) }}">
+                                    {{ csrf_field() }}
+                                    <input type="checkbox" id="status_package_{{$package->id}}" name="status" {{$checked}} >Off Client Reply 
+                                </form></td>
                             <td>
                                 <div class="dropup">
                                     <button class="btn btn-danger btn-detail dropdown-toggle pull-left dropdownMenu1" value="{{$package->id}}"  type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Add Client"><i class="fa fa-user" ></i>
