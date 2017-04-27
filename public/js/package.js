@@ -98,6 +98,7 @@ $(document).on('click', '#btn-save-package', function (e) {
             }
             $('#frmPackage').trigger("reset");
             $('#addPackageModal').modal('hide');
+            window.location.reload();
         },
         error: function (data) {
             console.log('Error:', data);
