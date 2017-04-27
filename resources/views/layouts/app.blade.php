@@ -133,7 +133,7 @@
                                 </li>                                
                             </ul>
                         </li>
-                         <li class="dropdown {{ ($uri == 'active_packages' || $uri == 'clients/active_packages' || $uri == 'coaches/active_packages') ? 'active' : '' }}">
+                         <li class="dropdown {{ ($uri == 'active_packages' || $uri == 'clients/active_packages' || $uri == 'coaches/active_packages' || $uri_part[0] == 'assigned') ? 'active' : '' }}">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" ><!-- data-toggle="collapse" data-target="#demo" --><i class="fa fa-fw fa-database"></i> Active Packages <i class="fa fa-fw fa-caret-down"></i></a>
                             <ul class="dropdown-menu"> <!--id="demo" class="collapse"-->
                                 <li>

@@ -102,7 +102,7 @@ function load_documents(){
             if(doc.uploaded_by == $("#user_id").val()){
                 $('#doc-list').append(
                         '<tr id="doc_' + doc.id + '">'
-                        + '  <td>' + doc.description + '</td>'
+                        //+ '  <td>' + doc.description + '</td>'
                         + '  <td>' + doc.filename + '</td>'
                         + '  <td>'
                         + '     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>'

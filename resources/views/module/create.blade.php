@@ -141,7 +141,7 @@
                             <thead>
                                 <tr>
 <!--                                        <th>ID</th>-->
-                                    <th>Description</th>
+                                    <!--<th>Description</th>-->
                                     <th>Name</th>
                                     <th>Actions</th>
                                 </tr>
