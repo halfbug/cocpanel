@@ -11,7 +11,7 @@ $(document).on('click', '.open_ques', function () {
 
                 $('#que-list').append(
                         '<tr id="que_' + que.id + '">'
-                        + '  <td>' + que.sno + '</td>'
+                        //+ '  <td>' + que.sno + '</td>'
                         + '  <td class="ques_content">' + $($.parseHTML(que.content)).text().substring(0, 120) + '</td>'
                         + '  <td class="ques_actions">'
                         + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
@@ -81,7 +81,7 @@ $("#btn-save-question").click(function (e) {
         success: function (que) {
             console.log(que);
             var question = '<tr id="que_' + que.id + '">'
-                    + '  <td>' + que.sno + '</td>'
+                    //+ '  <td>' + que.sno + '</td>'
                     + '  <td class="ques_content">' + que.content + '</td>'
                     + '  <td class="ques_actions">'
                     + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
@@ -91,10 +91,10 @@ $("#btn-save-question").click(function (e) {
 
             if (state == "add") { //if user added a new record
                 $('#que-list').append(question);
-                $.notify("Questions have been added successfully.");
+                $.notify("Question has been added successfully.");
             } else { //if user updated an existing record
                 $("#que_" + question_id).replaceWith(question);
-                $.notify("Question have been updated successfully.");
+                $.notify("Question has been updated successfully.");
             }
             $('#frmQuestion').trigger("reset");
             $('#addQuestionsModel').modal('hide');

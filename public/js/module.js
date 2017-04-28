@@ -109,7 +109,7 @@ $(document).on('click', '.delete-module', function () {
                     success: function (data) {
                         console.log(data);
                         $("#module" + module_id).remove();
-                        $.notify("Module have been deleted successfully.");
+                        $.notify("Module has been deleted successfully.");
 
                     },
                     error: function (data) {
@@ -159,10 +159,10 @@ $("#btn-save").click(function (e) {
             var module_type = getModuleType(data.id);
             if (state == "add") { //if user added a new record
                 $('#modules-list').append(addModuleHtml(module_type, data));
-                $.notify("Module have been added successfully.");
+                $.notify("Module has been added successfully.");
             } else { //if user updated an existing record
                 $("#module" + module_id).replaceWith(addModuleHtml(module_type, data));
-                $.notify("Module have been updated successfully.");
+                $.notify("Module has been updated successfully.");
             }
             $('#frmModules').trigger("reset");
             $('#myModal').modal('hide');

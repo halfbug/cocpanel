@@ -34,7 +34,7 @@ $(document).on('click', '.doc_delete', function () {
     var doc_id = $(this).val();
     bootbox.confirm({
         title: "Delete document?",
-        message: "Do you want to delete document? This cannot be undone.",
+        message: "Do you want to delete this document? This cannot be undone.",
         buttons: {
             cancel: {
                 label: '<i class="fa fa-times"></i> Cancel'
