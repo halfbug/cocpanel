@@ -63,7 +63,7 @@ $("#btn-save-question").click(function (e) {
         content: tinymce.get('question').getContent() //$('textarea#content').val()
     };
     //used to determine the http verb to use [add=POST], [update=PUT]
-    var state = $('#btn-save-question').val();
+    var state = ($('#que_id').val() == 0)? 'add':'update';
     var type = "POST"; //for creating new resource
     var question_id = $('#que_id').val();
 
