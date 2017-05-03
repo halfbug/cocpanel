@@ -200,23 +200,23 @@
             @endif
             
             <div class="panel panel-default">
-  <div class="panel-body text-center">
+  <div class="panel-body text-right">
       @can('sendcoachAlert', $assignment)
-     <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
-                                    {{ csrf_field() }}
-                                    <button type="button" class="btn btn-warning btn-delete copy_module" id="sendtoclient" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > Save and Submit to Client</i></button>
+      <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
+            {{ csrf_field() }}
+        <button type="button" class="btn btn-warning" id="sendtoclient" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > SAVE & SUBMIT TO CLIENT</i></button>
       </form>
       @endcan
       @cannot('sendcoachAlert', $assignment)
         <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtocoach/'.$assignment->id) }}">
-                                    {{ csrf_field() }}
-                                    <button type="button" class="btn btn-warning btn-delete copy_module" id="sendtocoach" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > Save and Submit to Coach</i></button>
-      </form>
+                {{ csrf_field() }}
+            <button type="button" class="btn btn-warning" id="sendtocoach" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > SAVE & SUBMIT TO COACH</i></button>
+        </form>
       @endcan
-      <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('modules/savecontinue/'.$assignment->id) }}">
+      <!--<form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('modules/savecontinue/'.$assignment->id) }}">
                                     {{ csrf_field() }}
                                     <button type="button" class="btn btn-primary btn-delete copy_module" id="savecontinue" value="{{$assignment->id}}" title="Copy"><i class="fa fa-save" > Save and Continue</i></button>
-      </form>
+      </form>-->
   </div>
 </div>
         </div>

@@ -1,4 +1,4 @@
-<p>Dear {{$user->name}},</p> 
+<p>Dear {{$recipient}},</p> 
 
 <p>I have submitted a response to your module {{$module->title}}, in your package {{$package->title}}. </p>
 
