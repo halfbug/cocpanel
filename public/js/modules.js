@@ -18,7 +18,6 @@ $("#btn-save").click(function (e) {
     var state = $('#btn-save').val();
     var type = "POST"; //for creating new resource
     var module_id = $('#module_id').val();
-    ;
     var my_url = app.base_url + "/modules";
     if (state == "update") {
         type = "PUT"; //for updating existing resource
@@ -66,7 +65,7 @@ function load_questions(){
 
                 $('#que-list').append(
                         '<tr id="que_' + que.id + '">'
-                        //+ '  <td>' + que.sno + '</td>'
+                        + '  <td class="s_no">' + que.sno + '</td>'
                         + '  <td class="ques_content">' +$($.parseHTML(que.content)).text().substring(0,120)+ '</td>'
                         + '  <td class="ques_actions">'
                         + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
@@ -79,7 +78,7 @@ function load_questions(){
         {
             $('#que-list').append(
                     '<tr >'
-                    + '  <td colspan="2">No question found.</td>'
+                    + '  <td colspan="3">No question found.</td>'
                     + '  </td>'
                     + '</tr>'
                     );

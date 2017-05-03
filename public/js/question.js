@@ -11,7 +11,7 @@ $(document).on('click', '.open_ques', function () {
 
                 $('#que-list').append(
                         '<tr id="que_' + que.id + '">'
-                        //+ '  <td>' + que.sno + '</td>'
+                        + '  <td class="s_no">' + que.sno + '</td>'
                         + '  <td class="ques_content">' + $($.parseHTML(que.content)).text().substring(0, 120) + '</td>'
                         + '  <td class="ques_actions">'
                         + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
@@ -24,7 +24,7 @@ $(document).on('click', '.open_ques', function () {
         {
             $('#que-list').append(
                     '<tr >'
-                    + '  <td colspan="2">No question found.</td>'
+                    + '  <td colspan="3">No question found.</td>'
                     + '  </td>'
                     + '</tr>'
                     );
@@ -72,7 +72,7 @@ $("#btn-save-question").click(function (e) {
         type = "PUT"; //for updating existing resource
         my_url += '/' + question_id;
     }
-    console.log(formData);
+    //console.log(formData);
     $.ajax({
         type: type,
         url: my_url,
@@ -81,7 +81,7 @@ $("#btn-save-question").click(function (e) {
         success: function (que) {
             console.log(que);
             var question = '<tr id="que_' + que.id + '">'
-                    //+ '  <td>' + que.sno + '</td>'
+                    + '  <td class="s_no">' + que.sno + '</td>'
                     + '  <td class="ques_content">' + que.content + '</td>'
                     + '  <td class="ques_actions">'
                     + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
@@ -96,6 +96,7 @@ $("#btn-save-question").click(function (e) {
                 $("#que_" + question_id).replaceWith(question);
                 $.notify("Question has been updated successfully.");
             }
+            $('#que_id').val(0);
             $('#frmQuestion').trigger("reset");
             $('#addQuestionsModel').modal('hide');
 
@@ -192,7 +193,8 @@ $("#que-list").sortable({
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                console.log('SORTED');
+                //console.log(data);
             }});
     }
 });

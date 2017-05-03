@@ -26,6 +26,10 @@
     border: 2px solid #b8b8b8 !important;
     border-radius: 0px !important;
 }
+.s_no{
+    color:#fff;
+    display:none;
+}
 .ques_actions {
     min-width: 125px;
 }

@@ -71,7 +71,7 @@
                             <thead>
                                 <tr>
                                     <!--<th>ID</th>-->
-                                    <!--<th>S.No</th>-->
+                                    <th class="s_no">S.No</th> <!--S.No-->
                                     <th>Questions</th>
                                     <th>Actions</th>
                                 </tr>
