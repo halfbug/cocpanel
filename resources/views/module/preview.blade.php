@@ -80,7 +80,7 @@
                     <div class="response-content">
                         <div class="input-group">
                             <button class="btn btn-warning" id='rbtn_{{$question->id}}' value="{{$question->id}}">Show Reply Box</button>
-                            <form class="form-horizontal" id="responseBox_{{$question->id}}" role="form" method="POST"  action="{{ url('assigned/'.$assignment->package_id.'/'.$module->id) }}">
+                            <form class="form-horizontal" id="responseBox_{{$question->id}}" role="form" method="POST"  action="{{ url('assigned/'.$assignment->module_id.'/'.$module->id) }}">
                                 {{ csrf_field() }}
                                 <div class="res">Response:</div>
                                 <textarea class="form-control input-lg" name="content" type="text"></textarea>                        
@@ -198,6 +198,27 @@
                 </div>
             </div>
             @endif
+            
+            <div class="panel panel-default">
+  <div class="panel-body text-center">
+      @can('sendcoachAlert', $assignment)
+     <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
+                                    {{ csrf_field() }}
+                                    <button type="button" class="btn btn-warning btn-delete copy_module" id="sendtoclient" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > Save and Submit to Client</i></button>
+      </form>
+      @endcan
+      @cannot('sendcoachAlert', $assignment)
+        <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtocoach/'.$assignment->id) }}">
+                                    {{ csrf_field() }}
+                                    <button type="button" class="btn btn-warning btn-delete copy_module" id="sendtocoach" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > Save and Submit to Coach</i></button>
+      </form>
+      @endcan
+      <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('modules/savecontinue/'.$assignment->id) }}">
+                                    {{ csrf_field() }}
+                                    <button type="button" class="btn btn-primary btn-delete copy_module" id="savecontinue" value="{{$assignment->id}}" title="Copy"><i class="fa fa-save" > Save and Continue</i></button>
+      </form>
+  </div>
+</div>
         </div>
     </div>
 </div>
@@ -219,6 +240,88 @@
 @section('script')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="{{asset('js/module.js')}}"></script>
+<script>
+$(document).on('click', '#sendtoclient', function (e) {
+    console.log("clicked");
+    var delbtn = $(this);
+    bootbox.confirm({
+        title: "Send to Client?",
+        message: "Are you sure to send changes to client?",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                console.log(result);
+                console.log(delbtn.val());
+
+                delbtn.parents('form').submit();
+
+            }
+        }
+    });
+//    return result; //you can just return c because it will be true or false
+});
+
+$(document).on('click', '#sendtocoach', function (e) {
+    console.log("clicked");
+    var delbtn = $(this);
+    bootbox.confirm({
+        title: "Send to Coach?",
+        message: "Are you sure to send changes to coach?",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                console.log(result);
+                console.log(delbtn.val());
+
+                delbtn.parents('form').submit();
+
+            }
+        }
+    });
+//    return result; //you can just return c because it will be true or false
+});
+
+$(document).on('click', '#savecontinue', function (e) {
+    console.log("clicked");
+    var delbtn = $(this);
+    bootbox.confirm({
+        title: "Continue to next module?",
+        message: "Are you sure to save changes?",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                console.log(result);
+                console.log(delbtn.val());
+
+                delbtn.parents('form').submit();
+
+            }
+        }
+    });
+//    return result; //you can just return c because it will be true or false
+});
+</script>
 @endsection
 
 @section('css')

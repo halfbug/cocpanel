@@ -64,16 +64,16 @@ class AssignmentController extends Controller {
         // email to client on coach response
         $user = $discussion->user()->first();
         session(['assignment_id'=>$assignment->id]);
-        if(\Auth::user()->isCoach() || \Auth::user()->isAdmin())
-            {
-            if($clientReply)
-            \Mail::to($assignment->user->email)->send(new NewResponse($user, 'coach', $assignment->module()->first()));
-        }
-        else{
-            if($clientReply)
-            \Mail::to($assignment->coach->email)->send(new NewResponse($user, 'client',$assignment->module()->first()));
-        }
-        // email to coach on client response
+//        if(\Auth::user()->isCoach() || \Auth::user()->isAdmin())
+//            {
+//            if($clientReply)
+////            \Mail::to($assignment->user->email)->send(new NewResponse($user, 'coach', $assignment->module()->first()));
+//        }
+//        else{
+//            if($clientReply)
+//            \Mail::to($assignment->coach->email)->send(new NewResponse($user, 'client',$assignment->module()->first()));
+//        }
+//        // email to coach on client response
 
 
         return back()->with('package_id', $package_id)->with('module_id', $module_id);
@@ -101,4 +101,21 @@ class AssignmentController extends Controller {
         return back();
     }
 
+     public function sendtoclient($assigned_id) {
+        $assignment = \App\assignment::find($assigned_id);
+         \Mail::to($assignment->user->email)->send(new NewResponse($user, 'coach', $assignment->module()->first()));
+     
+         return back();    
+     }
+     public function sendtocoach($assigned_id) {
+         $assignment = \App\assignment::find($assigned_id);
+         \Mail::to($assignment->coach->email)->send(new NewResponse($user, 'client',$assignment->module()->first()));
+         
+          return back();   
+     }
+     public function savecontinue($assigned_id) {
+        $assignment = \App\assignment::find($assigned_id);
+     
+         return back();    
+     }
 }
