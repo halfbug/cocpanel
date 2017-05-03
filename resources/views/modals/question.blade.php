@@ -11,8 +11,8 @@
                 <table class="table" id="questiontbl">
                     <thead>
                         <tr>
-<!--                                        <th>ID</th>-->
-                            <th>S.No</th>
+                            <!--<th>ID</th>-->
+                            <!--<th>S.No</th>-->
                             <th>Questions</th>
                             <th>Actions</th>
                         </tr>

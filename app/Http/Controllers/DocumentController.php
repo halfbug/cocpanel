@@ -37,7 +37,7 @@ class DocumentController extends Controller {
         $doc->filename = $fileName;
         $doc->save();
 
-        return back()->with('success', 'Document Uploaded successfully.')
+        return back()->with('success', 'Document uploaded successfully.')
                         ->with('model', '#documentModel');
     }
 

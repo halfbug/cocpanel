@@ -40,11 +40,11 @@ $("#btn-save").click(function (e) {
                 $('#doc_module_id').val(data.module.id);
                 $('#btn-save-question').removeClass('disabled');
                 $('#uploaddocument').removeClass('disabled');
-                $.notify("Module have been added successfully.");
+                $.notify("Module has been added successfully.");
                 window.location.replace(data.url);
             } else { //if user updated an existing record
 
-                $.notify("Module have been updated successfully.");
+                $.notify("Module has been updated successfully.");
                 
             }
         },
@@ -66,7 +66,7 @@ function load_questions(){
 
                 $('#que-list').append(
                         '<tr id="que_' + que.id + '">'
-                        + '  <td>' + que.sno + '</td>'
+                        //+ '  <td>' + que.sno + '</td>'
                         + '  <td class="ques_content">' +$($.parseHTML(que.content)).text().substring(0,120)+ '</td>'
                         + '  <td class="ques_actions">'
                         + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'

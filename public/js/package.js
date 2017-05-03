@@ -91,10 +91,10 @@ $(document).on('click', '#btn-save-package', function (e) {
 
             if (state == "add") { //if user added a new record
                 $('#package-list').append(packagerow);
-                $.notify("Package have been added successfully.");
+                $.notify("Package has been added successfully.");
             } else { //if user updated an existing record
                 $("#package_" + package_id).replaceWith(packagerow);
-                $.notify("Package have been updated successfully.");
+                $.notify("Package has been updated successfully.");
             }
             $('#frmPackage').trigger("reset");
             $('#addPackageModal').modal('hide');
@@ -284,7 +284,7 @@ $(document).on('click', '[id^=delete_package_]',function (e) {
         delbtn = $(this);
         bootbox.confirm({
             title: "Delete Package?",
-            message: "Are you sure to delete package?  it will be completely deleted.",
+            message: "Are you sure to delete this package? It will be completely deleted.",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancel'
