@@ -103,13 +103,13 @@ class AssignmentController extends Controller {
 
      public function sendtoclient($assigned_id) {
         $assignment = \App\assignment::find($assigned_id);
-         \Mail::to($assignment->user->email)->send(new NewResponse($user, 'coach', $assignment->module()->first()));
+         \Mail::to($assignment->user->email)->send(new NewResponse(\Auth::user(), 'coach', $assignment->module()->first(),$assignment));
      
          return back();    
      }
      public function sendtocoach($assigned_id) {
          $assignment = \App\assignment::find($assigned_id);
-         \Mail::to($assignment->coach->email)->send(new NewResponse($user, 'client',$assignment->module()->first()));
+         \Mail::to($assignment->coach->email)->send(new NewResponse(\Auth::user(), 'client',$assignment->module()->first(),$assignment));
          
           return back();   
      }
