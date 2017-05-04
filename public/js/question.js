@@ -154,6 +154,7 @@ $(document).on('click', '.que_delete', function () {
                         $("#que_" + que_id).remove();
                         $.notify("Questions have been deleted successfully.");
                         $('#frmQuestion').trigger("reset");
+                        $('#que_id').val(0);
 
                     },
                     error: function (data) {
