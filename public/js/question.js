@@ -53,7 +53,8 @@ $("#btn-save-question").click(function (e) {
     // alert($('meta[name="_token"]').attr('content'));
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') ,
+        contentType: "application/x-www-form-urlencoded"
         }
     });
     e.preventDefault();
