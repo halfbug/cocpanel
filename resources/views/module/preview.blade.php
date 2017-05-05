@@ -213,10 +213,10 @@
             <button type="button" class="btn btn-warning" id="sendtocoach" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > SAVE & SUBMIT TO COACH</i></button>
         </form>
       @endcan
-      <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="saveandcontinue" action="{{ url('assigned/savecontinue/'.$assignment->id) }}">
+      <!--form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="saveandcontinue" action="{{ url('assigned/savecontinue/'.$assignment->id) }}">
                                     {{ csrf_field() }}
-                                    <button type="button" class="btn btn-primary btn-delete copy_module" id="savecontinue" value="{{$assignment->id}}" title="Copy"><i class="fa fa-save" > Save and Continue</i></button>
-      </form>
+        <button type="button" class="btn btn-primary btn-delete copy_module" id="savecontinue" value="{{$assignment->id}}" title="Copy"><i class="fa fa-save" > SAVE AND CONTINUE</i></button>
+      </form>-->
   </div>
 </div>
         </div>
