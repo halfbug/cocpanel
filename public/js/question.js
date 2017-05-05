@@ -185,8 +185,8 @@ $("#que-list").sortable({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            contentType: 'application/json',
-            processData: false
+            //contentType: 'application/json',
+            //processData: false
         });
 //    e.preventDefault();
         $.ajax({
