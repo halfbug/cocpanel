@@ -34,7 +34,7 @@ class AssignmentPolicy
     
     public function sendclientAlert(User $user , assignment $assignment)
     {
-       if(\Auth::user()->id == $assignment->user->id)
+       if((\Auth::user()->id == $assignment->user->id ) )
            return true;
     }
 }

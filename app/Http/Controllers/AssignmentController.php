@@ -126,7 +126,7 @@ class AssignmentController extends Controller {
                 'user_id'=>$assignment->user_id,
                 'package_id'=>$assignment->package_id,
                 'module_id'=>$next_module->id,
-                
+                'coache_id'=>$assignment->coache_id
                 ]);
         }
         
