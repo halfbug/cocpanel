@@ -115,7 +115,21 @@ class AssignmentController extends Controller {
      }
      public function savecontinue($assigned_id) {
         $assignment = \App\assignment::find($assigned_id);
-     
-         return back();    
+        $next_module= $assignment->package()->first()->modules()->where('modules.id','!=' , $assignment->module_id)->first();
+        if(\App\assignment::where('package_id',$assignment->package_id)->where('module_id',$next_module->id)->where('user_id',$assignment->user_id)->count() > 0)
+        {
+            $assigned_module = \App\assignment::where('package_id',$assignment->package_id)->where('module_id',$next_module->id)->where('user_id',$assignment->user_id)->first();
+        }
+        else{
+             $assigned_module =\App\assignment::create([
+                'role_id'=>\App\role::client(),
+                'user_id'=>$assignment->user_id,
+                'package_id'=>$assignment->package_id,
+                'module_id'=>$next_module->id,
+                
+                ]);
+        }
+        
+         return redirect('/assigned/'.$assigned_module->id);    
      }
 }
