@@ -22,19 +22,25 @@ class AssignmentPolicy
     
     public function sendcoachAlert(User $user , assignment $assignment)
     {
-       if($assignment->package()->first()->status == 0)
+       /*if($assignment->package()->first()->status == 0)
             $clientReply=true;
         else
-            $clientReply=false;
+            $clientReply=false;*/
 //        var_dump; 
-       if(\Auth::user()->isCoach() || \Auth::user()->isAdmin())
-           if($clientReply && ($assignment->coach->id == \Auth::user()->id)) 
+       if(\Auth::user()->isCoach() || \Auth::user()->isAdmin()){
+           //if($clientReply) //&& ($assignment->coach->id == \Auth::user()->id) 
                return true;
+       }
     }
     
     public function sendclientAlert(User $user , assignment $assignment)
     {
-       if((\Auth::user()->id == $assignment->user->id ) )
+       /*if($assignment->package()->first()->status == 0)
+            $clientReply=true;
+        else
+            $clientReply=false;*/
+
+       if((\Auth::user()->id == $assignment->user->id ) ) //$clientReply && 
            return true;
     }
 }
