@@ -26,7 +26,7 @@
                         <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required>
 
                             @if ($errors->has('email'))
                             <span class="help-block">
@@ -108,7 +108,7 @@
     $(document).ready(function () {
         $('#frmClient').bootstrapValidator({
             message: 'This value is not valid',
-            trigger: 'blur',
+            trigger: 'keyup',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -119,11 +119,11 @@
                     validators: {
                         notEmpty: {
                             message: 'Name is required'
-                        },
-                        regexp: {
-                            regexp: /^[a-zA-Z ]+$/,
-                            message: 'Name cannot have numbers or symbols'
-                        }
+                        }//,
+                        //regexp: {
+                        //    regexp: /^[a-zA-Z ]+$/,
+                        //    message: 'Name cannot have numbers or symbols'
+                        //}
                     }
                 },
                 email: {
@@ -131,7 +131,8 @@
                         notEmpty: {
                             message: 'The email is required'
                         },
-                        emailAddress: {
+                        regexp: {
+                            regexp: /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4},?){1,6}$/,
                             message: 'The input is not a valid email address'
                         }
                     }
@@ -143,7 +144,7 @@
                         },
                         stringLength: {
                             min: 6,
-                            message: 'The password must have at least 8 characters'
+                            message: 'The password must have at least 6 characters'
                         }
                     }
                 }
@@ -196,7 +197,7 @@
 
         $('#frmAddClient').bootstrapValidator({
             message: 'This value is not valid',
-            trigger: 'blur',
+            trigger: 'keyup',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
