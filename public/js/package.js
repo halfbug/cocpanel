@@ -139,7 +139,8 @@ $(document).on('click', '.new_client', function (e) {
     $('#password').val('');
     $('#newClientModal').modal('show');
 });
-$(document).on('click', '#btn-save-client', function (e) {
+$(document).on('click', '#btn-save-client1', function (e) {
+  
     var $btn = $(this);
     $btn.button('loading');
     setTimeout(function () {
@@ -186,7 +187,7 @@ $(document).on('click', '.add_client', function (e) {
     $('#emails').val('');
     $('#addClientModal').modal('show');
 });
-$(document).on('click', '#btn-save-addclient', function (e) {
+$(document).on('click', '#btn-save-addclient1', function (e) {
 
     var $btn = $(this);
     $btn.button('loading');
