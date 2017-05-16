@@ -77,14 +77,15 @@ class AssignmentController extends Controller {
     }
 
     public function updateStatus(Request $request) {
-        echo $request->assignment_id;
+//        echo $request->assignment_id;
         if ($request->assignment_id == 0) {
             $assign = \App\assignment::create([
                         'role_id' => \App\role::client(),
                         'user_id' => $request->user_id,
                         'package_id' => $request->package_id,
                         'module_id' => $request->module_id,
-                        'status' => $request->status
+                        'status' => $request->status,
+                        'coache_id' => $request->coache_id
             ]);
         } else {
             $assign = \App\assignment::find($request->assignment_id);
