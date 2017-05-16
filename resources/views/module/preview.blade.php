@@ -269,7 +269,7 @@ $(document).on('click', '#sendtocoach', function (e) {
     console.log("clicked");
     var delbtn = $(this);
     bootbox.confirm({
-        title: "Send to Coach?",
+        title: " Confirm Submit to Coach",
         message: "Are you sure to send changes to coach?",
         buttons: {
             cancel: {

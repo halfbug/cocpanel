@@ -108,7 +108,7 @@
     $(document).ready(function () {
         $('#frmClient').bootstrapValidator({
             message: 'This value is not valid',
-            trigger: 'blur',
+            trigger: 'keyup',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -196,7 +196,7 @@
 
         $('#frmAddClient').bootstrapValidator({
             message: 'This value is not valid',
-            trigger: 'blur',
+            trigger: 'keyup',
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',

@@ -45,14 +45,15 @@
     <script>
 tinymce.init({
     selector: 'textarea',
-    height: 500,
+    height: 300,
     menubar: false,
     plugins: [
         'advlist autolink lists link image charmap print preview anchor',
         'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste code'
+        'insertdatetime media table contextmenu paste code',
+        'textcolor'
     ],
-    toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+    toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | forecolor | backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ',
     content_css: '//www.tinymce.com/css/codepen.min.css'
 });
     </script>
