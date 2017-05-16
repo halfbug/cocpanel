@@ -1,6 +1,9 @@
 .mce-notification {
     display: none;
 }
+.mce-branding-powered-by {
+    display: none;
+}
 .navbar-fixed-top .navbar-collapse {
     min-height: 100px;
     background: #fff;
