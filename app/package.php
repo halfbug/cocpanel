@@ -8,7 +8,7 @@ class package extends Model {
 
     public $fillable = ['id', 'title', 'description', 'price', 'currency', 'paymnent_frequency', 'facebook_group', 'release_schedule','status'];
     protected $payment_frequencies = ['One Off', 'monthly', 'weekly', 'yearly'];
-    protected $release_schedule = ['delivere immediately', 'rolling launch', 'one off launch', 'on completion of previous'];
+    protected $release_schedule = ['deliver immediately', 'rolling launch', 'one off launch', 'on completion of previous'];
     protected $appends = array('selected_modules', 'linked_clients');
 
 //    protected $clients;
