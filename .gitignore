@@ -8,3 +8,6 @@ Homestead.json
 Homestead.yaml
 .env
 /.env.example
+public/js/config.js
+nbproject/private/private.xml
+*.lock
