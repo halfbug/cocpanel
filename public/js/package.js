@@ -12,11 +12,13 @@ $(document).on('click', '#btn_add_package', function () {
     $('.available-modules li').show();
     $('.selected-modules').html("");
 //    });
-
-
+$('#addPackageModal').on('shown', function() {
+        $("#selected-modules, #available-modules").css('minHeight', $("#available-modules").height() + "px");
+    })
+ 
 
 });
-$(document).on('click', '#btn-save-package', function (e) {
+$(document).on('click', '#btn-save-package111', function (e) {
     var selected_modules = {};
     $('.selected-modules li').each(function (index) {
         selected_modules[index] = $(this).attr('value');
@@ -186,6 +188,7 @@ $(document).on('click', '.add_client', function (e) {
     $('#package_id').val(package_id);
     $('#emails').val('');
     $('#addClientModal').modal('show');
+    
 });
 $(document).on('click', '#btn-save-addclient1', function (e) {
 
