@@ -115,14 +115,14 @@ $(document).on('click', '.edit_package', function (e) {
         console.log(data);
         $('#package_id').val(data.id);
         $('#title').val(data.title);
-        tinymce.get('description').setContent(data.description);
+        tinymce.get('description').setContent((data.description == null)?"<p></p>":data.description);
         $('#price').val(data.price);
         $('#currency').val(data.currency);
         $('input[value="' + data.release_schedule + '"]').prop("checked", true);
         $('input[value="' + data.paymnent_frequency + '"]').prop("checked", true);
         $('#facebook_group').val(data.facebook_group);
         $('.selected-modules').html("");
-        group.sortable("refresh");
+        //group.sortable("refresh");
         $.each(data.selected_modules, function (index, module) {
 //            alert(index + ": " + value);
             $('.selected-modules').append('<li value="' + module.id + '" id="' + module.id + '" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>' + module.title + '</li>');
