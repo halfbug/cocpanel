@@ -2,5 +2,5 @@
 
 <p>You have been added as Coach.</p>
 
-Regards
+Regards<br/>
 Admin

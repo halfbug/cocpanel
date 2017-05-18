@@ -2,5 +2,5 @@
 
 <p>You have been added to the Package <a href="{{url("/home")}}">{{$package->title}}</a>.</p>
 
-Regards
+Regards<br/>
 Admin
