@@ -243,7 +243,7 @@
                                         <input type="hidden" name="package_id" value="{{$package->id }}" />
                                         <input type="hidden" name="module_id" value="{{$module->id }}" />
                                         <input type="hidden" name="user_id" value="{{$client->user_id }}" />
-                                        <input type="hidden" name="coache_id" value="{{$client->coache_id }}" />
+                                        <input type="hidden" name="coache_id" value="{{$client->getCoache($package->id)->id }}" />
                                     </form>
                                 </td>
                                 <td>
