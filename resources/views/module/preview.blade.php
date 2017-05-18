@@ -346,7 +346,7 @@ $(document).on('click', '#save-response', function (e) {
             console.log(data);
             var newrec = '<li class="comment green" >'
                     + ' <a class="pull-left" href="#">'
-                    + '<img class="avatar" src="{{asset("../storage/app/public/".$response->getAvatar(\Auth::user()->id))}}" alt="avatar">'
+                    + '<img class="avatar" src="{{asset("../storage/app/public/")}}/'+data.user.avatar+'" alt="avatar">'
                     + ' <BR>'
                     +'@if(\Auth::user()->id == session("coach")->id)'
                     +'<span class="small bg-primary">Coach</span>'
