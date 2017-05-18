@@ -26,7 +26,7 @@
                         <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                         <div class="col-md-6">
-                            <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required>
 
                             @if ($errors->has('email'))
                             <span class="help-block">
@@ -129,10 +129,11 @@
                 email: {
                     validators: {
                         notEmpty: {
-                            message: 'The email is required'
+                            message: 'The email address is required'
                         },
-                        emailAddress: {
-                            message: 'The input is not a valid email address'
+                        regexp: {
+                            regexp: /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,4},?){1,6}$/,
+                            message: 'Enter valid email address'
                         }
                     }
                 },
@@ -143,7 +144,7 @@
                         },
                         stringLength: {
                             min: 6,
-                            message: 'The password must have at least 8 characters'
+                            message: 'The password must have at least 6 characters'
                         }
                     }
                 }
