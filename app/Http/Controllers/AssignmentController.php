@@ -73,7 +73,12 @@ class AssignmentController extends Controller {
 //        // email to coach on client response
 
 
-        return back()->with('package_id', $package_id)->with('module_id', $module_id);
+//        return back()->with('package_id', $package_id)->with('module_id', $module_id);
+        return response()->json([
+            'response'=>$response,
+            'discussion'=>$discussion,
+            'user'=>$user,
+        ]);
     }
 
     public function updateStatus(Request $request) {

@@ -34,7 +34,7 @@
                 <div class="row post-footer">
                     <div class="answer-index">&nbsp;</div>
                     <div class="answer-content">
-                        <ul class="comments-list">
+                        <ul class="comments-list" id="comments-list_{{$question->id}}">
 
                             @if($assignment)
 
@@ -88,7 +88,7 @@
                                 <input type="hidden" name="question_id" value="{{$question->id}}">
                                 <input type="hidden" name="responseby" value="{{Auth::user()->id}}">                                
                                 <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-default  right" >SAVE</button>  
+                                    <button type="button" id="save-response"  value="{{$question->id}}"class="btn btn-default  right" >SAVE</button>  
                                 </span>
                             </form>
                         </div>
@@ -198,26 +198,26 @@
                 </div>
             </div>
             @endif
-            
-        <div align="right">
-          @can('sendcoachAlert', $assignment)
-          <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
-                {{ csrf_field() }}
 
-            <button type="button" class="btn btn-warning" id="sendtocoach" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > SAVE & SUBMIT TO COACH</i></button>
-        </form>
-      @endcan
-      <form en1ctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="saveandcontinue" action="{{ url('assigned/savecontinue/'.$assignment->id) }}">
-                                    {{ csrf_field() }}
-        <button type="button" class="btn btn-primary btn-delete copy_module" id="savecontinue" value="{{$assignment->id}}" title="Copy"><i class="fa fa-save" > SAVE AND CONTINUE</i></button>
-      </form>
-  </div>
-</div>
-    
-          </div>
+            <div align="right">
+                @can('sendcoachAlert', $assignment)
+                <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
+                    {{ csrf_field() }}
 
+                    <button type="button" class="btn btn-warning" id="sendtocoach" value="{{$assignment->id}}" title="Copy"><i class="fa fa-envelope" > SAVE & SUBMIT TO COACH</i></button>
+                </form>
+                @endcan
+                <form en1ctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="saveandcontinue" action="{{ url('assigned/savecontinue/'.$assignment->id) }}">
+                    {{ csrf_field() }}
+                    <button type="button" class="btn btn-primary btn-delete copy_module" id="savecontinue" value="{{$assignment->id}}" title="Copy"><i class="fa fa-save" > SAVE AND CONTINUE</i></button>
+                </form>
+            </div>
         </div>
+
     </div>
+
+</div>
+</div>
 </div>
 @endsection
 
@@ -317,6 +317,68 @@ $(document).on('click', '#savecontinue', function (e) {
         }
     });
 //    return result; //you can just return c because it will be true or false
+});
+
+$(document).on('click', '#save-response', function (e) {
+    var quid = $(this).val();
+    var $btn = $(this);
+    $btn.button('loading');
+    setTimeout(function () {
+        $btn.button('reset');
+    }, 10000);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+
+
+//    console.log(formData);
+    $.ajax({
+        type: "POST",
+        url: $("#responseBox_" + quid).attr('action'),
+        data: $("#responseBox_" + quid).serialize(),
+        dataType: 'json',
+        success: function (data) {
+
+            $.notify("Your response have been added successfully.");
+            console.log(data);
+            var newrec = '<li class="comment green" >'
+                    + ' <a class="pull-left" href="#">'
+                    + '<img class="avatar" src="{{asset("../storage/app/public/".$response->getAvatar(\Auth::user()->id))}}" alt="avatar">'
+                    + ' <BR>'
+                    +'@if(\Auth::user()->id == session("coach")->id)'
+                    +'<span class="small bg-primary">Coach</span>'
+                    + '@endif'
+                    + '</a>'
+                    + '<div class="comment-body">'
+                    + '<div class="comment-heading">'
+                    + '<h4 class="user">' + data.user.name + '</h4>'
+                    + '<h5 class="time"> ' + data.response.created_at + '</h5>'
+                    + '</div>'
+                    + '<p>' + data.response.content + '</p>  '
+                    + '</div>'
+                    + '</li>';
+
+            $('#comments-list_' + quid).append(newrec);
+            $("#responseBox_" + quid).trigger("reset");
+             $("#responseBox_"+quid).toggle();
+
+        },
+        error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//            alert(err.Message);
+//            $('#addClientModal').modal('hide');
+//             $(xhr.responseText).find('.exception_message').html();
+//             exception_message
+
+            $.notify({
+                message: "Error :" + $(xhr.responseText).find('.exception_message').html(),
+                type: 'danger'
+            });
+        }
+    });
 });
 </script>
 @endsection
