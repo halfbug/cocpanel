@@ -1,6 +1,6 @@
-<p> hi {{$user->name}},</p>
+<p>Hi {{$user->name}},</p>
 
-<p> You have been added as Coach.</p>
+<p>You have been added as Coach.</p>
 
 Regards
 Admin

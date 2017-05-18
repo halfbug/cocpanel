@@ -102,6 +102,7 @@
                 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">                    
+                        @if (!Auth::guest())
                         @if(Auth::user()->isCoach() )
                         <li class="{{ ($uri == 'home') ? 'active' : '' }}">
                             <a href="{{ url('/home') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
@@ -172,7 +173,8 @@
                                                 <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> Amin</a>
                                             </li>-->
                         
-                        @endif
+                      @endif
+                     @endif
                     </ul>
 
                 </div>
