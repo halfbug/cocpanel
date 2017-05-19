@@ -1,6 +1,6 @@
-<p> hi {{$user->name}},</p>
+<p>Hi {{$user->name}},</p>
 
-<p> You have been added to the Package <a href="{{url("/home")}}">{{$package->title}}</a>.</p>
+<p>You have been added to the Package <a href="{{url("/home")}}">{{$package->title}}</a>.</p>
 
-Regards
+Regards<br/>
 Admin

@@ -318,7 +318,7 @@ $(document).on('click', '[id^=delete_package_]',function (e) {
          if(this.checked) {
         bootbox.confirm({
             title: "Change Client Reply on Package?",
-            message: "Are you sure to make changes in client reply on package?  It will completly disable the client coach communication.",
+            message: "Are you sure to make changes in client reply on package?  It will completely disable the client coach communication.",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancel'
