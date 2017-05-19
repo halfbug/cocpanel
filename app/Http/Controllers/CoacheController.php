@@ -93,8 +93,8 @@ class CoacheController extends Controller {
 
             return response()->json([$user, $error]);
         } catch (\Exception $e) {
-            
-            abort(500, 'OOps!!Some thing went wrong. Please try again.'.$user);
+
+            abort(500, 'OOps!!Some thing went wrong. Please try again.' . $user);
         }
     }
 
@@ -139,18 +139,19 @@ class CoacheController extends Controller {
 //         $request->coache_id
         $this->authorize('destroyCoach', \App\User::class);
         $user = \App\User::find($coach_id);
-        $coachRec = $user->assignments()->coach()->get();
+        if (\App\assignment::where('user_id', $user->id)->count() > 0) {
+            $coachRec = $user->assignments()->coach()->get();
 
-        $umodules = \App\module::where('author_id', '=', $user->id)->delete();
-        $upack = \App\package::whereIn('id', $coachRec->pluck('package_id'))->delete();
-        $uclients = \App\assignment::whereIn('coache_id', $coachRec->pluck('id'))->delete();
+            $umodules = \App\module::where('author_id', '=', $user->id)->delete();
+            $upack = \App\package::whereIn('id', $coachRec->pluck('package_id'))->delete();
+            $uclients = \App\assignment::whereIn('coache_id', $coachRec->pluck('id'))->delete();
 
-        $udelcoach = \App\assignment::destroy($coachRec->pluck('id'));
-
+            $udelcoach = \App\assignment::destroy($coachRec->pluck('id'));
+        }
         if ($user->isClient()) {
             $user->status = 0;
             $user->save();
-        } elseif(!$user->isAdmin()) {
+        } elseif (!$user->isAdmin()) {
             $udel = \App\User::destroy($user->id);
         }
         return back()->with('user', $user)->with('success', $user->name . ' has been deleted successfully.');

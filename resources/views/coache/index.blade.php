@@ -105,7 +105,7 @@ Coaches
         var package_id = $(this).val();
         $('[id^=packmodule_'+package_id+']').toggle();
     });
-     $('[id^=delete_coach_]').click(function () {
+     $(document).on('click','[id^=delete_coach_]',function () {
         delbtn = $(this);
         bootbox.confirm({
             title: "Delete Coach?",
