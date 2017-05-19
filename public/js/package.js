@@ -123,11 +123,14 @@ $(document).on('click', '.edit_package', function (e) {
         $('#facebook_group').val(data.facebook_group);
         $('.selected-modules').html("");
         //group.sortable("refresh");
+        var modulez=0;
         $.each(data.selected_modules, function (index, module) {
 //            alert(index + ": " + value);
+            modulez+=module.id+',';
             $('.selected-modules').append('<li value="' + module.id + '" id="' + module.id + '" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>' + module.title + '</li>');
             $('.available-modules #' + module.id).hide();
         });
+        $('#modules').val(modulez);
         $('#btn-save-package').val("update");
 //         $('#frmPackage').trigger("reset");
         $('#addPackageModal').modal('show');
