@@ -12,11 +12,8 @@
         <h2 class="intro">Introduction and Guidelines</h2>
         <div class="panel panel-default module-desc">
             <div class="panel-body">
-                @php
-                $doc = new DOMDocument();
-                $doc->loadHTML($module->content);
-                echo $doc->saveHTML();
-                @endphp
+                {!! $module->content!!}
+               
             </div>
         </div>
         <h3>Questions</h3>
@@ -29,7 +26,7 @@
                     <!--<div class="pull-left image">
                         <img src="{{ url('/') }}/images/question.png" class="img-circle avatar" alt="q">
                     </div>-->
-                    <div class="question-content">{!!$question->content!!}</div>
+                    <div class="question-content">{!!($question->content)!!}</div>
                 </div>
                 <div class="row post-footer">
                     <div class="answer-index">&nbsp;</div>
