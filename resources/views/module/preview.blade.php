@@ -259,55 +259,58 @@
 $(document).on('click', '#sendtoclient', function (e) {
     console.log("clicked");
     var delbtn = $(this);
-    bootbox.confirm({
-        title: "Send to Client?",
-        message: "Are you sure to send changes to client?",
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                console.log(result);
-                console.log(delbtn.val());
-
-                delbtn.parents('form').submit();
-
-            }
-        }
-    });
+//    bootbox.confirm({
+//        title: "Send to Client?",
+//        message: "Are you sure to send changes to client?",
+//        buttons: {
+//            cancel: {
+//                label: '<i class="fa fa-times"></i> Cancel'
+//            },
+//            confirm: {
+//                label: '<i class="fa fa-check"></i> Confirm'
+//            }
+//        },
+//        callback: function (result) {
+//            if (result) {
+//                console.log(result);
+//                console.log(delbtn.val());
+//
+//                delbtn.parents('form').submit();
+//
+//            }
+//        }
+//    });
 //    return result; //you can just return c because it will be true or false
+delbtn.parents('form').submit();
 });
 
 $(document).on('click', '#sendtocoach', function (e) {
     console.log("clicked");
     var delbtn = $(this);
-    bootbox.confirm({
-        title: " Confirm Submit to Coach",
-        message: "Are you sure to send changes to coach?",
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                console.log(result);
-                console.log(delbtn.val());
-
-                delbtn.parents('form').submit();
-
-            }
-        }
-    });
+//    bootbox.confirm({
+//        title: " Confirm Submit to Coach",
+//        message: "Are you sure to send changes to coach?",
+//        buttons: {
+//            cancel: {
+//                label: '<i class="fa fa-times"></i> Cancel'
+//            },
+//            confirm: {
+//                label: '<i class="fa fa-check"></i> Confirm'
+//            }
+//        },
+//        callback: function (result) {
+//            if (result) {
+//                console.log(result);
+//                console.log(delbtn.val());
+//
+//                delbtn.parents('form').submit();
+//
+//            }
+//        }
+//    });
 //    return result; //you can just return c because it will be true or false
+
+delbtn.parents('form').submit();
 });
 
 $(document).on('click', '#savecontinue', function (e) {
