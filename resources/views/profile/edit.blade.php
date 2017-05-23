@@ -21,6 +21,11 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div class="tab-pane active" id="edit">
+                    @if ($message = Session::get('success'))
+                            <div class="success-notification" message="{{ $message }}">
+                            </div>
+
+                            @endif
                     
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('profile/update/'.$user->id)}}">
                         {{ csrf_field() }}
@@ -158,7 +163,13 @@ Profile edit
 
 @section('script')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<script>
+$( document ).ready(function() {
+    if ($('.success-notification').length){
+        $.notify($( '.success-notification' ).attr( "message" ));
+    }
+    });
+</script>
 
 @endsection
 
@@ -194,3 +205,4 @@ Profile edit
 }
 </style>
 @endsection
+

@@ -70,18 +70,21 @@ class ProfileController extends Controller {
         if ($request->type == 'detail') {
             $user->name = $request->name;
             $user->description = $request->description;
+            $msg = "Profile Information Updated";
         } elseif ($request->type == 'cpasword') {
             if ($request->password == $request->password_confirmation) {
                 $user->password = bcrypt($request->password);
+                $msg = "Password Updated";
             }
         } elseif ($request->type == 'dp') {
 //            return var_dump($request->file('avatar'));
             $path = $request->file('avatar')->store('avatar/'.$request->user()->id,'public'); 
 //            Storage::setVisibility($path, 'public');
             $user->avatar = $path;
+            $msg = 'Avatar Uploaded successfully.';
         }
         $user->save();
-        return back()->with('success', 'Avatar Uploaded successfully.');
+        return back()->with('success', $msg);
     }
 
     /**
