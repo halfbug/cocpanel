@@ -89,6 +89,7 @@ class PackageController extends Controller {
 //        $package->selected_modulels = $request->selected_modules;
         $package->save();
         $package->setSelectedModulesAttribute($request->selected_modules);
+        $assignment= \App\assignment::where('package_id',$package->id)->whereNotIn('module_id',$request->selected_modules)->delete();
         return response()->json($package);
     }
 

@@ -78,6 +78,7 @@
                                         @foreach ($live_modules as $module)
                                         <li value="{{ $module->id }}" id="{{ $module->id}}" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>{{ $module->title }}</li>
                                         @endforeach
+
                                     </ol>
 
 
@@ -120,15 +121,15 @@
 @section('css')
 @parent
 <style>
-.selected {
-    background:yellow !important;
-}
-.hidden {
-    display:none !important;
-}
-.ui-sortable-placeholder {
-     background:greenyellow !important;
-}
+    .selected {
+        background:yellow !important;
+    }
+    .hidden {
+        display:none !important;
+    }
+    .ui-sortable-placeholder {
+        background:greenyellow !important;
+    }
 </style>
 @endsection
 
@@ -156,8 +157,8 @@ tinymce.init({
 <script>
 
 $(document).ready(function () {
-     $("#selected-modules").css('minHeight', "200px");
-     
+    $("#selected-modules").css('minHeight', "200px");
+
     $('.droptrue').on('click', 'li', function () {
         $(this).toggleClass('selected');
     });
@@ -169,8 +170,8 @@ $(document).ready(function () {
         helper: function (e, item) {
             console.log('parent-helper');
             console.log(item);
-            if(!item.hasClass('selected'))
-               item.addClass('selected');
+            if (!item.hasClass('selected'))
+                item.addClass('selected');
             var elements = $('.selected').not('.ui-sortable-placeholder').clone();
             var helper = $('<ul/>');
             item.siblings('.selected').addClass('hidden');
@@ -182,31 +183,65 @@ $(document).ready(function () {
         },
         receive: function (e, ui) {
             ui.item.before(ui.item.data('items'));
+            console.log(ui.item.parent());
+            console.log(ui.item);
             console.log($(this).attr('id'));
+            if ($(this).attr('id') == "available-modules") {
+                bootbox.confirm({
+                    title: " Confirm Module Removal",
+                    message: "Are you sure, all the associations of these modules will be deleted for all the clients of this package?",
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> Cancel'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> Confirm'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            console.log(result);
+                            //ajax delete module;
+
+                        } else {
+//                            $("selected-modules").append(ui.item);
+                            ui.item.appendTo($("#selected-modules"));
+                            updatemodules();
+                            validatemodules();
+                        }
+                    }
+                });
+            }
         },
         stop: function (e, ui) {
             ui.item.siblings('.selected').removeClass('hidden');
             $('.selected').removeClass('selected');
-           // alert('done');
-           // console.log($(this).attr('id'));
-           var mval=$('#modules').val();
-           var isEmpty = $("#modules").val() == '';
-           $('#modules').bootstrapValidator('validateField', 'modules',!isEmpty);
-            $('#modules').val(mval).trigger('keyup');
+            // alert('done');
+            // console.log($(this).attr('id'));
+           validatemodules();
         },
         update: updatemodules
     });
 
     $("#selected-modules, #available-modules").disableSelection();
-function updatemodules() {
-    var arr = [];
-    $("#selected-modules li").each(function () {
-        arr.push($(this).attr('id'));
-    });
-    $('#modules').val(arr.join(','));
-}
-    
-    
+    function validatemodules(){
+     var mval = $('#modules').val();
+            var isEmpty = $("#modules").val() == '';
+            $('#modules').bootstrapValidator('validateField', 'modules', !isEmpty);
+            $('#modules').val(mval).trigger('keyup');
+    }
+    function updatemodules() {
+        if ($("#available-modules").height() < 200)
+            $("#available-modules").css('minHeight', "200px");
+
+        var arr = [];
+        $("#selected-modules li").each(function () {
+            arr.push($(this).attr('id'));
+        });
+        $('#modules').val(arr.join(','));
+    }
+
+
     $('#frmPackage').bootstrapValidator({
         message: 'This value is not valid',
         trigger: 'keyup',
@@ -243,10 +278,10 @@ function updatemodules() {
 //                            return count>0;
 //                        }
 //                    }
-            notEmpty: {
+                    notEmpty: {
                         message: 'Modules is required'
-                    },    
-            }
+                    },
+                }
             },
         }
     }).on('success.form.bv', function (e) {
