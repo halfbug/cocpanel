@@ -66,6 +66,7 @@ class ProfileController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $user_id) {
+        $msg = "Passwords do not matched.";
         $user = User::find($user_id);
         if ($request->type == 'detail') {
             $user->name = $request->name;
