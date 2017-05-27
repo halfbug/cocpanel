@@ -17,8 +17,9 @@ class PackageController extends Controller {
         $packages = package::owner()->get();
         $epackage = new package();
         $live_modules = module::where('is_live', true)->author()->get();
+        $coaches = \App\User::whereIn('status', [1, 2])->orderBy('name', 'asc')->get();
         return view('package.index')->with('packages', $packages)->with('epackage', $epackage)
-                        ->with('live_modules', $live_modules);
+                        ->with('live_modules', $live_modules)->with("coaches",$coaches);
     }
 
     /**
