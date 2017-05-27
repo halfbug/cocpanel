@@ -66,7 +66,7 @@ class ProfileController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $user_id) {
-        $msg = "Passwords do not matched.";
+        $msg = "Password and Confirm Password should be same.";
         $user = User::find($user_id);
         if ($request->type == 'detail') {
             $user->name = $request->name;
@@ -75,14 +75,14 @@ class ProfileController extends Controller {
         } elseif ($request->type == 'cpasword') {
             if ($request->password == $request->password_confirmation) {
                 $user->password = bcrypt($request->password);
-                $msg = "Password Updated";
+                $msg = "Password updated successfully.";
             }
         } elseif ($request->type == 'dp') {
 //            return var_dump($request->file('avatar'));
             $path = $request->file('avatar')->store('avatar/'.$request->user()->id,'public'); 
 //            Storage::setVisibility($path, 'public');
             $user->avatar = $path;
-            $msg = 'Avatar Uploaded successfully.';
+            $msg = 'Avatar updated successfully.';
         }
         $user->save();
         return back()->with('success', $msg);
