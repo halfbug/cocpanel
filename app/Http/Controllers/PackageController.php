@@ -28,6 +28,11 @@ class PackageController extends Controller {
      */
     public function create() {
         //
+         $epackage = new package();
+        $live_modules = module::where('is_live', true)->author()->get();
+    
+        return view('package.create')->with('epackage', $epackage)->with('state','add')
+                        ->with('live_modules', $live_modules);
     }
 
     /**
@@ -54,8 +59,14 @@ class PackageController extends Controller {
      */
     public function show($package_id) {
         $package = package::find($package_id);
+       
 //        $package->selected_modules ='["2","5"]';  //$package->modules()->get();
-        return response()->json($package);
+//        return response()->json($package);
+         $epackage = new package();
+        $live_modules = module::where('is_live', true)->author()->get();
+    
+        return view('package.create')->with('epackage', $epackage)->with('state','update')
+                        ->with('live_modules', $live_modules)->with("package",$package);
     }
 
     /**

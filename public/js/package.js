@@ -109,7 +109,8 @@ $(document).on('click', '#btn-save-package111', function (e) {
 });
 $(document).on('click', '.edit_package', function (e) {
     var package_id = $(this).val();
-    $('.available-modules li').show();
+    window.location=app.base_url + "/packages/"+package_id;
+   /* $('.available-modules li').show();
     $.get(pUrl + '/' + package_id, function (data) {
         //success data
         console.log(data);
@@ -134,7 +135,7 @@ $(document).on('click', '.edit_package', function (e) {
         $('#btn-save-package').val("update");
 //         $('#frmPackage').trigger("reset");
         $('#addPackageModal').modal('show');
-    });
+    });*/
 });
 $(document).on('click', '.new_client', function (e) {
     var package_id = $(this).data('value');
