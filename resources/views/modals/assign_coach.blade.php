@@ -7,28 +7,28 @@
             </div>
             <form id="frmClient" name="frmClient" class="form-horizontal" >
                 <div class="modal-body">
-<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                    <div class="col-xs-5">
-                        <label>Available Coaches</label>
-                        <select name="AllCoaches[]" class="multiselect form-control" size="8" multiple="multiple" data-right="#multiselect_to_1" data-right-all="#right_All_1" data-right-selected="#right_Selected_1" data-left-all="#left_All_1" data-left-selected="#left_Selected_1">
-                            @foreach ($coaches as $coach)
-                                    <option value="{{ $coach->id }}">{{ $coach->name }} [ {{ $coach->email}} ]</option>
-                                   @endforeach
-                        </select>
-                    </div>
+                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                        <div class="col-xs-5">
+                            <label>Available Coaches</label>
+                            <select name="AllCoaches[]" class="multiselect form-control" size="8" multiple="multiple" data-right="#multiselect_to_1" data-right-all="#right_All_1" data-right-selected="#right_Selected_1" data-left-all="#left_All_1" data-left-selected="#left_Selected_1">
+                                @foreach ($coaches as $coach)
+                                <option value="{{ $coach->id }}">{{ $coach->name }} [ {{ $coach->email}} ]</option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="col-xs-2">
-                        <br>
-                        <button type="button" id="right_All_1" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
-                        <button type="button" id="right_Selected_1" class="btn btn-default btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
-                        <button type="button" id="left_Selected_1" class="btn btn-default btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
-                        <button type="button" id="left_All_1" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+                        <div class="col-xs-2">
+                            <br>
+                            <button type="button" id="right_All_1" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
+                            <button type="button" id="right_Selected_1" class="btn btn-default btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                            <button type="button" id="left_Selected_1" class="btn btn-default btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                            <button type="button" id="left_All_1" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
+                        </div>
+                        <label>Assigned Coach(es)</label>
+                        <div class="col-xs-5">
+                            <select name="assignedCoaches[]" id="multiselect_to_1" class="form-control" size="8" multiple="multiple"></select>
+                        </div>
                     </div>
-                    <label>Assigned Coach(es)</label>
-                    <div class="col-xs-5">
-                        <select name="assignedCoaches[]" id="multiselect_to_1" class="form-control" size="8" multiple="multiple"></select>
-                    </div>
-</div>
                     <div class="frmModule-footer"></div>
                 </div>
                 <div class="modal-footer ">
@@ -46,7 +46,7 @@
 @parent
 <script type="text/javascript" src="{{ asset('js/multiselect.min.js') }}"></script>
 <script type="text/javascript">
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     $('.multiselect').multiselect();
 });
 </script>
