@@ -6,7 +6,7 @@
 <div class="">
     <div class="row">
         <div class="col-md-11 ">
-            <button id="btn_add_package" name="btn_add_package" class="btn btn-secondary pull-right" >New Package</button>
+            <a href="{{url('packages/add')}}"id="btn_add" name="btn_add" class="btn btn-default pull-right">New Package</a>
 
 
 
@@ -75,7 +75,7 @@
 
 
         </div>
-        @include('modals.add_package')
+       
         @include('modals.add_client')
         @include('modals.linked_clients')
     </div>

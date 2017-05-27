@@ -1,39 +1,43 @@
-<!-- Styles -->
-<link href="{{ asset('css/bootstrap-formhelpers.min.css') }}" rel="stylesheet">
-<div class="modal fade " id="addPackageModal" tabindex="-1" role="dialog" aria-labelledby="addPackageModalLabel" aria-hidden="true">
-    <div class="modal-dialog big-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="addPackageModalLabel"> Package</h4>
-            </div>
+@extends('layouts.app')
+
+@section('content')
+<div class="">
+    <div class="row">
+        <div class="col-md-11 ">
+            @php
+            if ($state == 'add')
+            {
+            $package = new \App\package();
+            
+            }
+            @endphp
             <form id="frmPackage" name="frmPackage" class="form-horizontal" method="POST" >
                 <div class="modal-body">
 
                     <div class="form-group error">
                         <label for="inputName" class="col-sm-3 control-label">Title</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control has-error" id="title" name="title" placeholder="Package title" value="">
+                            <input type="text" class="form-control has-error" id="title" name="title" placeholder="Package title" value="{{$package->title}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="description" name="description" ></textarea>
+                            <textarea class="form-control" id="description" name="description" >{!!$package->description!!}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Price</label>
                         <div class="col-sm-9">
-                            <input type="number" class="form-control has-error" id="price" name="price" placeholder="0.00" value="">
+                            <input type="number" class="form-control has-error" id="price" name="price" placeholder="0.00" value="{{$package->price}}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Payment Currency </label>
                         <div class="col-sm-9">
-                            <select class="form-control has-error input-medium bfh-currencies" id="currency" name="currency" placeholder="select"></select>
+                            <select class="form-control has-error input-medium bfh-currencies" id="currency" name="currency" placeholder="select" value="{{$package->currency}}"></select>
                         </div>
                     </div>
 
@@ -62,7 +66,7 @@
                     <div class="form-group error">
                         <label for="facebook_group" class="col-sm-3 control-label"><i class="fa fa-facebook-square"></i>Facebook Group</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control has-error" id="facebook_group" name="facebook_group" placeholder="" value="">
+                            <input type="text" class="form-control has-error" id="facebook_group" name="facebook_group" placeholder="" value="{{$package->facebook_group}}">
                         </div>
                     </div>
 
@@ -111,8 +115,8 @@
                     <div class="frmModule-footer"></div>
                 </div>
                 <div class="modal-footer ">
-                    <button type="submit" class="btn btn-primary" id="btn-save-package" value="add">Save changes</button>
-                    <input type="hidden" id="package_id" name="package_id" value="0">
+                    <button type="submit" class="btn btn-primary" id="btn-save-package" value="{{$state}}">Save changes</button>
+                    <input type="hidden" id="package_id" name="package_id" value="{{$package->id}}">
                 </div>
             </form>
         </div>
@@ -137,6 +141,9 @@
 @section('script')
 @parent
 <script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+
 <script>
 tinymce.init({
     selector: 'textarea',
@@ -152,12 +159,30 @@ tinymce.init({
     content_css: '//www.tinymce.com/css/codepen.min.css'
 });
 </script>
-<script src="js/bootstrap-formhelpers.js"></script>
-<script src="js/bootstrap-formhelpers-currencies.js"></script>
+<script src="../js/bootstrap-formhelpers.js"></script>
+<script src="../js/bootstrap-formhelpers-currencies.js"></script>
 <script src="{{ asset('js/jquery-ui.js') }}"></script>
 <script>
 
 $(document).ready(function () {
+    var state="{{$state}}";
+    if(state == "update")
+    {
+         $('#currency').val("{{$package->currency}}");
+        $('input[value="{{$package->release_schedule}}"]').prop("checked", true);
+        $('input[value="{{$package->paymnent_frequency}}"]').prop("checked", true);
+        $('.selected-modules').html("");
+        //group.sortable("refresh");
+        var modulez=0;
+        var selectedmodules={!!$package->selected_modules!!};
+        $.each(selectedmodules, function (index, module) {
+//            alert(index + ": " + value);
+            modulez+=module.id+',';
+            $('.selected-modules').append('<li value="' + module.id + '" id="' + module.id + '" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>' + module.title + '</li>');
+            $('.available-modules #' + module.id).hide();
+        });
+        $('#modules').val(modulez);
+    }
     $("#selected-modules").css('minHeight', "200px");
 
     $('.droptrue').on('click', 'li', function () {
@@ -219,17 +244,17 @@ $(document).ready(function () {
             $('.selected').removeClass('selected');
             // alert('done');
             // console.log($(this).attr('id'));
-           validatemodules();
+            validatemodules();
         },
         update: updatemodules
     });
 
     $("#selected-modules, #available-modules").disableSelection();
-    function validatemodules(){
-     var mval = $('#modules').val();
-            var isEmpty = $("#modules").val() == '';
-            $('#modules').bootstrapValidator('validateField', 'modules', !isEmpty);
-            $('#modules').val(mval).trigger('keyup');
+    function validatemodules() {
+        var mval = $('#modules').val();
+        var isEmpty = $("#modules").val() == '';
+        $('#modules').bootstrapValidator('validateField', 'modules', !isEmpty);
+        $('#modules').val(mval).trigger('keyup');
     }
     function updatemodules() {
         if ($("#available-modules").height() < 200)
@@ -314,11 +339,12 @@ $(document).ready(function () {
         var state = $('#btn-save-package').val();
         var type = "POST"; //for creating new resource
         var package_id = $('#package_id').val();
-        var my_url = pUrl;
+        var my_url = app.base_url + "/packages";
         if (state == "update") {
             type = "PUT"; //for updating existing resource
             my_url += '/' + package_id;
         }
+
         console.log(formData);
         $.ajax({
             type: type,
@@ -327,50 +353,17 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (package) {
                 console.log(package);
-                var packagerow = '<tr id="package_' + package.id + '">'
-                        + '<td>' + package.title + '</td>'
-                        + '<td>' + package.price + '</td >'
-                        + '<td id="clients_' + package.id + '"> 0 </td>'
-                        + ' <td>'
-                        + ' <div class="dropup">'
-                        + ' <button class="btn btn-danger btn-detail dropdown-toggle pull-left dropdownMenu1" value="' + package.id + '"  type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Add Client"><i class="fa fa-user" ></i>'
-                        + ' <span class="caret"></span>'
-                        + ' </button>'
-                        + '<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">'
-                        + '    <li ><a class="add_client" data-value="' + package.id + '" href="#">Add Existing Client</a></li>'
-                        + '    <li role="separator" class="divider"></li>'
-                        + '    <li><a class="new_client" data-value="' + package.id + '" href="#">Add New Client</a></li>'
-                        + '</ul>'
-                        + '</div>&nbsp;'
-                        + ' <button class="btn btn-secondary btn-detail edit_package" value="' + package.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
-                        + ' <button class="btn btn-warning linked_client" value="' + package.id + '"  title="Linked Client"><i class="fa fa-group"></i></button>'
-                        + ' <form enctype="multipart/form-data" class="form-inline" role="form" method="POST" style="display: inline;"  id="copyPackage_' + package.id + '" action="' + app.base_url + '/packages/make_copy/' + package.id + '">'
-                        + '<input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">'
-                        + ' <button class="btn btn-primary btn-delete copy_package" id="copy_package_' + package.id + '" value="' + package.id + '" title="Copy"><i class="fa fa-copy" ></i></button>'
-                        + '</form>&nbsp;'
-                        + '<form enctype="multipart/form-data" class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm_' + package.id + '" action="' + app.base_url + '/packages/' + package.id + '">'
-                        + '<input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">'
-                        + '<input type="hidden" name="_method" value="DELETE">'
-                        + '<button type="button" class="btn btn-danger btn-delete delete-package " value="' + package.id + '" id="delete_package_' + package.id + '"  title="Delete">'
-                        + '<i class="fa fa-remove" ></i></button>'
-                        + '<input type="hidden" name="package_id" value="' + package.id + '" />'
-                        + '</form>'
-
-                        //+ ' <button class="btn btn-success preview_package" value="' + package.id + '" title="Preview"><i class="fa fa-search" ></i></button>'
-                        //+ ' <button class="btn btn-primary btn-delete copy_package" value="' + package.id + '" title="Copy"><i class="fa fa-copy" ></i></button>'
-                        + '</td>'
-                        + '</tr>'
 
                 if (state == "add") { //if user added a new record
-                    $('#package-list').append(packagerow);
+//                    $('#package-list').append(packagerow);
                     $.notify("Package has been added successfully.");
                 } else { //if user updated an existing record
-                    $("#package_" + package_id).replaceWith(packagerow);
+//                    $("#package_" + package_id).replaceWith(packagerow);
                     $.notify("Package has been updated successfully.");
                 }
                 $('#frmPackage').trigger("reset");
                 $('#addPackageModal').modal('hide');
-                window.location.reload();
+                window.location = app.base_url + "/packages";
             },
             error: function (data) {
                 console.log('Error:', data);
@@ -380,6 +373,7 @@ $(document).ready(function () {
 //       
     });
 });
+
 </script>
 
 <!--<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
@@ -390,4 +384,16 @@ $('.sortable').sortable({
   }
 });
 </script>-->
+@endsection
+
+@section('heading')
+Package <small>New</small>
+@endsection
+
+@section('title')
+Packages
+@endsection
+
+@section('breadcrumbs')
+New Package
 @endsection

@@ -52,6 +52,7 @@ Route::group(['prefix' => 'questions','middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
+    Route::get('/add', 'PackageController@create');
     Route::get('/', 'PackageController@index');
     Route::post('/','PackageController@store');
     Route::put('{package_id}','PackageController@update');
@@ -60,6 +61,8 @@ Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
     Route::get('/linked_clients/{package_id}','PackageController@showLinkedClients');
     Route::post('/make_copy/{package_id}','PackageController@makeCopy');
     Route::post('/status/{package_id}','PackageController@updateStatus');
+    
+
 });
 
 Route::group(['prefix' => 'clients','middleware' => 'auth'], function () {
