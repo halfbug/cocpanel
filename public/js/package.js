@@ -12,10 +12,10 @@ $(document).on('click', '#btn_add_package', function () {
     $('.available-modules li').show();
     $('.selected-modules').html("");
 //    });
-$('#addPackageModal').on('shown', function() {
+    $('#addPackageModal').on('shown', function () {
         $("#selected-modules, #available-modules").css('minHeight', $("#available-modules").height() + "px");
     })
- 
+
 
 });
 $(document).on('click', '#btn-save-package111', function (e) {
@@ -74,16 +74,16 @@ $(document).on('click', '#btn-save-package111', function (e) {
                     + '</div>&nbsp;'
                     + ' <button class="btn btn-secondary btn-detail edit_package" value="' + package.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
                     + ' <button class="btn btn-warning linked_client" value="' + package.id + '"  title="Linked Client"><i class="fa fa-group"></i></button>'
-                    + ' <form enctype="multipart/form-data" class="form-inline" role="form" method="POST" style="display: inline;"  id="copyPackage_' + package.id + '" action="' + app.base_url + '/packages/make_copy/' + package.id +'">'
-                    + '<input type="hidden" name="_token" value="'+$('meta[name="csrf-token"]').attr('content')+'">'
+                    + ' <form enctype="multipart/form-data" class="form-inline" role="form" method="POST" style="display: inline;"  id="copyPackage_' + package.id + '" action="' + app.base_url + '/packages/make_copy/' + package.id + '">'
+                    + '<input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">'
                     + ' <button class="btn btn-primary btn-delete copy_package" id="copy_package_' + package.id + '" value="' + package.id + '" title="Copy"><i class="fa fa-copy" ></i></button>'
                     + '</form>&nbsp;'
-                    + '<form enctype="multipart/form-data" class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm_' + package.id +'" action="'+ app.base_url + '/packages/' + package.id + '">'
-                    + '<input type="hidden" name="_token" value="'+$('meta[name="csrf-token"]').attr('content')+'">'
+                    + '<form enctype="multipart/form-data" class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm_' + package.id + '" action="' + app.base_url + '/packages/' + package.id + '">'
+                    + '<input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">'
                     + '<input type="hidden" name="_method" value="DELETE">'
-                    + '<button type="button" class="btn btn-danger btn-delete delete-package " value="' + package.id + '" id="delete_package_' + package.id +'"  title="Delete">'
-                    +   '<i class="fa fa-remove" ></i></button>'
-                    +   '<input type="hidden" name="package_id" value="' + package.id + '" />'
+                    + '<button type="button" class="btn btn-danger btn-delete delete-package " value="' + package.id + '" id="delete_package_' + package.id + '"  title="Delete">'
+                    + '<i class="fa fa-remove" ></i></button>'
+                    + '<input type="hidden" name="package_id" value="' + package.id + '" />'
                     + '</form>'
 
                     //+ ' <button class="btn btn-success preview_package" value="' + package.id + '" title="Preview"><i class="fa fa-search" ></i></button>'
@@ -109,33 +109,33 @@ $(document).on('click', '#btn-save-package111', function (e) {
 });
 $(document).on('click', '.edit_package', function (e) {
     var package_id = $(this).val();
-    window.location=app.base_url + "/packages/"+package_id;
-   /* $('.available-modules li').show();
-    $.get(pUrl + '/' + package_id, function (data) {
-        //success data
-        console.log(data);
-        $('#package_id').val(data.id);
-        $('#title').val(data.title);
-        tinymce.get('description').setContent((data.description == null)?"<p></p>":data.description);
-        $('#price').val(data.price);
-        $('#currency').val(data.currency);
-        $('input[value="' + data.release_schedule + '"]').prop("checked", true);
-        $('input[value="' + data.paymnent_frequency + '"]').prop("checked", true);
-        $('#facebook_group').val(data.facebook_group);
-        $('.selected-modules').html("");
-        //group.sortable("refresh");
-        var modulez=0;
-        $.each(data.selected_modules, function (index, module) {
-//            alert(index + ": " + value);
-            modulez+=module.id+',';
-            $('.selected-modules').append('<li value="' + module.id + '" id="' + module.id + '" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>' + module.title + '</li>');
-            $('.available-modules #' + module.id).hide();
-        });
-        $('#modules').val(modulez);
-        $('#btn-save-package').val("update");
-//         $('#frmPackage').trigger("reset");
-        $('#addPackageModal').modal('show');
-    });*/
+    window.location = app.base_url + "/packages/" + package_id;
+    /* $('.available-modules li').show();
+     $.get(pUrl + '/' + package_id, function (data) {
+     //success data
+     console.log(data);
+     $('#package_id').val(data.id);
+     $('#title').val(data.title);
+     tinymce.get('description').setContent((data.description == null)?"<p></p>":data.description);
+     $('#price').val(data.price);
+     $('#currency').val(data.currency);
+     $('input[value="' + data.release_schedule + '"]').prop("checked", true);
+     $('input[value="' + data.paymnent_frequency + '"]').prop("checked", true);
+     $('#facebook_group').val(data.facebook_group);
+     $('.selected-modules').html("");
+     //group.sortable("refresh");
+     var modulez=0;
+     $.each(data.selected_modules, function (index, module) {
+     //            alert(index + ": " + value);
+     modulez+=module.id+',';
+     $('.selected-modules').append('<li value="' + module.id + '" id="' + module.id + '" style="cursor:move" ><i class="fa fa-fw fa-folder"></i>' + module.title + '</li>');
+     $('.available-modules #' + module.id).hide();
+     });
+     $('#modules').val(modulez);
+     $('#btn-save-package').val("update");
+     //         $('#frmPackage').trigger("reset");
+     $('#addPackageModal').modal('show');
+     });*/
 });
 $(document).on('click', '.new_client', function (e) {
     var package_id = $(this).data('value');
@@ -146,7 +146,7 @@ $(document).on('click', '.new_client', function (e) {
     $('#newClientModal').modal('show');
 });
 $(document).on('click', '#btn-save-client1', function (e) {
-  
+
     var $btn = $(this);
     $btn.button('loading');
     setTimeout(function () {
@@ -192,7 +192,7 @@ $(document).on('click', '.add_client', function (e) {
     $('#package_id').val(package_id);
     $('#emails').val('');
     $('#addClientModal').modal('show');
-    
+
 });
 $(document).on('click', '#btn-save-addclient1', function (e) {
 
@@ -288,35 +288,35 @@ $(document).on('click', '[id^=delete_client_]', function (e) {
 //    return result; //you can just return c because it will be true or false
 });
 
-$(document).on('click', '[id^=delete_package_]',function (e) {
-        delbtn = $(this);
-        bootbox.confirm({
-            title: "Delete Package?",
-            message: "Are you sure to delete this package? It will be completely deleted.",
-            buttons: {
-                cancel: {
-                    label: '<i class="fa fa-times"></i> Cancel'
-                },
-                confirm: {
-                    label: '<i class="fa fa-check"></i> Confirm'
-                }
+$(document).on('click', '[id^=delete_package_]', function (e) {
+    delbtn = $(this);
+    bootbox.confirm({
+        title: "Delete Package?",
+        message: "Are you sure to delete this package? It will be completely deleted.",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
             },
-            callback: function (result) {
-                if (result) {
-                    console.log(result);
-                    console.log(delbtn.val());
-
-                    delbtn.parents('form').submit();
-
-                }
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
             }
-        });
-//    return result; //you can just return c because it will be true or false
+        },
+        callback: function (result) {
+            if (result) {
+                console.log(result);
+                console.log(delbtn.val());
+
+                delbtn.parents('form').submit();
+
+            }
+        }
     });
-    
-    $(document).on('click', '[id^=status_package_]',function (e) {
-        delbtn = $(this);
-         if(this.checked) {
+//    return result; //you can just return c because it will be true or false
+});
+
+$(document).on('click', '[id^=status_package_]', function (e) {
+    delbtn = $(this);
+    if (this.checked) {
         bootbox.confirm({
             title: "Change Client Reply on Package?",
             message: "Are you sure to make changes in client reply on package?  It will completely disable the client coach communication.",
@@ -335,12 +335,19 @@ $(document).on('click', '[id^=delete_package_]',function (e) {
 
                     delbtn.parents('form').submit();
 
-                }
-                else{
+                } else {
                     delbtn.prop('checked', false);
                 }
             }
         });
 //    return result; //you can just return c because it will be true or false+
-         }
-    });
+    }
+});
+
+$(document).on('click', '.assign_coach', function (e) {
+    var package_id = $(this).data('value');
+    $('#package_id').val(package_id);
+    console.log('coach-assignment');
+    $('#assigncoachmodal').modal('show');
+
+});

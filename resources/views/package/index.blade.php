@@ -49,6 +49,7 @@
                                         <li><a class="new_client" data-value="{{$package->id}}" href="#">Add New Client</a></li>
                                     </ul>
                                 </div>&nbsp;
+                                <button class="btn btn-success btn-detail assign_coach" value="{{$package->id}}" title="Assign Coach"><i class="fa fa-user-md" ></i></button>
                                 <button class="btn btn-secondary btn-detail edit_package" value="{{$package->id}}" title="Edit"><i class="fa fa-edit" ></i></button>
                                 <button class="btn btn-warning linked_client" value="{{$package->id}}"  title="Linked Client"><i class="fa fa-group"></i></button>
                                 <!--<button class="btn btn-success preview_package" value="{{$package->id}}" title="Preview"><i class="fa fa-search" ></i></button>-->
@@ -78,6 +79,7 @@
        
         @include('modals.add_client')
         @include('modals.linked_clients')
+        @include('modals.assign_coach')
     </div>
 
 
