@@ -171,7 +171,7 @@ class PackageController extends Controller {
         }
 
 
-        return back()->with('success', 'Coach(es) assigned successfully.');
+        return redirect("packages/")->with('success', 'Coach(es) assigned successfully.');
     }
     
     public function view($package_id) {
