@@ -58,7 +58,7 @@
                                             <td>&nbsp;&nbsp;&nbsp; <strong>[Package]</strong> &nbsp;&nbsp; <i class="fa fa-arrow-right" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;{{$package->title}}
                                                 <div class="pull-right">  
                                                     @php
-                                                    $checked = ($package->status == 1)? 'checked':'';
+                                                    $checked = ($collection->where('role_id', \App\role::coache())->where('user_id',$coach->id)->where("package_id",$package->id)->first()->status == 5)? 'checked':'';
                                                     @endphp
                                                     <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="statusPackage_{{$package->id}}" action="{{ url('coaches/status') }}">
                                                         {{ csrf_field() }}
