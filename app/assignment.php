@@ -29,7 +29,9 @@ class assignment extends assign {
     protected $moduleStatus = [
         1 => 'Completed',
         2 => 'Pending',
-        3 => 'Active'
+        3 => 'Active',
+        4 => 'Package not editable'
+        
     ];
 
     public function getAllStatus() {

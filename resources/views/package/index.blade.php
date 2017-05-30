@@ -49,14 +49,22 @@
                                         <li><a class="new_client" data-value="{{$package->id}}" href="#">Add New Client</a></li>
                                     </ul>
                                 </div>&nbsp;
-                                <button class="btn btn-success btn-detail assign_coach" value="{{$package->id}}" title="Assign Coach"><i class="fa fa-user-md" ></i></button>
+                                @can('assignCoach', $package)
+                                <a href="{{url("/packages/assign_coach/".$package->id)}}" class="btn btn-success btn-detail assign_coach" value="{{$package->id}}" title="Assign Coach"><i class="fa fa-user-md" ></i></a>
+                                @endcan
+                                @can('edit', $package)
                                 <button class="btn btn-secondary btn-detail edit_package" value="{{$package->id}}" title="Edit"><i class="fa fa-edit" ></i></button>
+                                @elsecan('view', $package)
+                                <button class="btn btn-secondary btn-detail view_package" value="{{$package->id}}" title="View"><i class="fa fa-video-camera" ></i></button>
+                                @endcan
                                 <button class="btn btn-warning linked_client" value="{{$package->id}}"  title="Linked Client"><i class="fa fa-group"></i></button>
                                 <!--<button class="btn btn-success preview_package" value="{{$package->id}}" title="Preview"><i class="fa fa-search" ></i></button>-->
+                                @can('edit', $package)
                                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="copyPackage_{{$package->id}}" action="{{ url('packages/make_copy/'.$package->id) }}">
                                     {{ csrf_field() }}
                                     <button class="btn btn-primary btn-delete copy_package" id="copy_package_{{$package->id}}" value="{{$package->id}}" title="Copy"><i class="fa fa-copy" ></i></button>
                                 </form>
+                                
                                 <form enctype='multipart/form-data' class="form-inline" style="display:inline" role="form" method="POST"  id="deleteForm_{{$package->id}}" action="{{ url("packages/".$package->id) }}">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
@@ -65,6 +73,7 @@
                                     <input type="hidden" name="package_id" value="{{$package->id}}" />
 
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach
@@ -79,7 +88,7 @@
        
         @include('modals.add_client')
         @include('modals.linked_clients')
-        @include('modals.assign_coach')
+        
     </div>
 
 

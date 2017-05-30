@@ -61,6 +61,9 @@ Route::group(['prefix' => 'packages','middleware' => 'auth'], function () {
     Route::get('/linked_clients/{package_id}','PackageController@showLinkedClients');
     Route::post('/make_copy/{package_id}','PackageController@makeCopy');
     Route::post('/status/{package_id}','PackageController@updateStatus');
+    Route::get('/assign_coach/{package_id}','PackageController@assignCoachForm');
+    Route::post('/assign_coach','PackageController@assignCoach');
+    Route::get('/view/{package_id}','PackageController@view');
     
 
 });

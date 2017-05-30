@@ -32,13 +32,13 @@ class assign extends Model {
         return \App\package::where('id',$package_id)->first();
     }
 
-    public function coache($auser_id, $apackage_id) {
+    public function coache($auser_id, $apackage_id, $status=3) {
 
         $this->role_id = \App\role::coache();
         $this->user_id = $auser_id;
         $this->package_id = $apackage_id;
         $this->module_id = $this->getPackage($apackage_id)->selected_modules->first()->id;
-            
+        $this->status = $status;    
         $this->save();
 
         return $this;

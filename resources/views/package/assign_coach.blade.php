@@ -1,12 +1,20 @@
-<div class="modal fade " id="assigncoachmodal" tabindex="-1" role="dialog" aria-labelledby="assignCoachModalLabel" aria-hidden="true">
-    <div class="modal-dialog big-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="clientModalLabel"> Assign Coach </h4>
-            </div>
-            <form id="frmClient" name="frmClient" class="form-horizontal" >
-                <div class="modal-body">
+@extends('layouts.app')
+
+@section('content')
+<div class="">
+    <div class="row">
+        <div class="col-md-11 ">
+            <br>
+            <form id="frmCoachAssign" name="frmClient" class="form-horizontal" method="POST" action="{{url("/packages/assign_coach")}}">
+                 {{ csrf_field() }}
+                    <div class="form-group">
+                       
+                            <label class="col-sm-1 control-label">Package</label>
+                             <div class="col-xs-11">
+                            <input type="text" class="form-control has-error" value="{{$package->title}}" disabled="true" id="package_name"/>
+                            <input type="hidden"  value="{{$package->id}}" id="package_id" name="package_id"/>
+                        </div>
+                    </div>
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                         <div class="col-xs-5">
                             <label>Available Coaches</label>
@@ -33,14 +41,14 @@
                 </div>
                 <div class="modal-footer ">
                     <button type="submit" class="btn btn-primary" id="btn-save-client" value="add">Save changes</button>
-                    <input type="hidden" id="package_id" name="client_id" value="0">
+                   
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-
+@endsection
 
 @section('script')
 @parent
@@ -211,4 +219,16 @@ jQuery(document).ready(function ($) {
 
 
 
+@endsection
+
+@section('heading')
+Assign Coach <small>New</small>
+@endsection
+
+@section('title')
+Assign Coach on Package
+@endsection
+
+@section('breadcrumbs')
+Assign Coach
 @endsection

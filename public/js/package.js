@@ -137,6 +137,10 @@ $(document).on('click', '.edit_package', function (e) {
      $('#addPackageModal').modal('show');
      });*/
 });
+$(document).on('click', '.view_package', function (e) {
+    var package_id = $(this).val();
+    window.location = app.base_url + "/packages/view/" + package_id;
+    });
 $(document).on('click', '.new_client', function (e) {
     var package_id = $(this).data('value');
     $('#package_id').val(package_id);

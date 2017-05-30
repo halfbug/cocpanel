@@ -17,9 +17,9 @@ class PackageController extends Controller {
         $packages = package::owner()->get();
         $epackage = new package();
         $live_modules = module::where('is_live', true)->author()->get();
-        $coaches = \App\User::whereIn('status', [1, 2])->orderBy('name', 'asc')->get();
+
         return view('package.index')->with('packages', $packages)->with('epackage', $epackage)
-                        ->with('live_modules', $live_modules)->with("coaches",$coaches);
+                        ->with('live_modules', $live_modules);
     }
 
     /**
@@ -29,10 +29,10 @@ class PackageController extends Controller {
      */
     public function create() {
         //
-         $epackage = new package();
+        $epackage = new package();
         $live_modules = module::where('is_live', true)->author()->get();
-    
-        return view('package.create')->with('epackage', $epackage)->with('state','add')
+
+        return view('package.create')->with('epackage', $epackage)->with('state', 'add')
                         ->with('live_modules', $live_modules);
     }
 
@@ -60,14 +60,14 @@ class PackageController extends Controller {
      */
     public function show($package_id) {
         $package = package::find($package_id);
-       
+
 //        $package->selected_modules ='["2","5"]';  //$package->modules()->get();
 //        return response()->json($package);
-         $epackage = new package();
+        $epackage = new package();
         $live_modules = module::where('is_live', true)->author()->get();
-    
-        return view('package.create')->with('epackage', $epackage)->with('state','update')
-                        ->with('live_modules', $live_modules)->with("package",$package);
+
+        return view('package.create')->with('epackage', $epackage)->with('state', 'update')
+                        ->with('live_modules', $live_modules)->with("package", $package);
     }
 
     /**
@@ -101,7 +101,7 @@ class PackageController extends Controller {
 //        $package->selected_modulels = $request->selected_modules;
         $package->save();
         $package->setSelectedModulesAttribute($request->selected_modules);
-        $assignment= \App\assignment::where('package_id',$package->id)->whereNotIn('module_id',$request->selected_modules)->delete();
+        $assignment = \App\assignment::where('package_id', $package->id)->whereNotIn('module_id', $request->selected_modules)->delete();
         return response()->json($package);
     }
 
@@ -136,18 +136,52 @@ class PackageController extends Controller {
         $copy_of_package->save();
 //        
         $copy_of_package->modules()->saveMany($package->modules()->get());
-         // auto set coache
+        // auto set coache
         $assign = new \App\assign();
         $assign->coache(auth()->user()->id, $copy_of_package->id);
-        
+
         return back();
     }
 
     public function updateStatus(Request $request, $package_id) {
         $package = package::find($package_id);
-        
+
         $package->status = 1;
         $package->save();
-        return back()->with('success',' The status of "'. $package->title.' " has been updated successfully.');
+        return back()->with('success', ' The status of "' . $package->title . ' " has been updated successfully.');
     }
+
+    public function assignCoachForm(Request $request, $package_id) {
+        $package = package::find($package_id);
+        $coaches = \App\User::whereIn('status', [1, 2])->orderBy('name', 'asc')->get();
+
+
+        return view('package.assign_coach')->with('package', $package)->with('coaches', $coaches);
+    }
+
+    public function assignCoach(Request $request) {
+        $package = package::find($request->package_id);
+        $assign = new \App\assign();
+        $alreadyAssigned = \App\assignment::whereIn('user_id',$request->assignedCoaches)->where('package_id',$package->id)->where("role_id",\App\role::coache())->get();
+        foreach ($request->assignedCoaches as $coachid) {
+            if($alreadyAssigned->where('user_id',$coachid)->count()<1)
+            $assign->coache($coachid, $package->id,4);
+        }
+
+
+//        return view('package.assign_coach')->with('package', $package)->with('coaches', $coaches);
+    }
+    
+    public function view($package_id) {
+        //
+       $package = package::find($package_id);
+
+//        
+        $epackage = new package();
+        $live_modules = module::where('is_live', true)->author()->get();
+
+        return view('package.view')->with('epackage', $epackage)->with('state', 'update')
+                        ->with('live_modules', $live_modules)->with("package", $package);
+    }
+
 }

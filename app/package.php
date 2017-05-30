@@ -75,7 +75,7 @@ class package extends Model {
             return $query->join('assignments', 'packages.id', '=', 'assignments.package_id')
                             ->where('assignments.role_id', '=', \App\role::coache())
                             ->where('assignments.user_id', \Auth::user()->id)
-                            ->select("packages.*", "assignments.*", "assignments.id as assignment_id", "packages.id as id","packages.status as status");
+                                    ->select("packages.*", "assignments.*", "assignments.id as assignment_id", "packages.id as id","packages.status as status","assignments.status as assign_status");
         }
 //          App\package::join('assignments', 'packages.id', '=', 'assignments.package_id')->where('assignments.role_id', '=',3)->where('assignments.user_id', 1)->select("packages.*","assignments.*","assignments.id as assignment_id", "packages.id as id")->get();
         else {
