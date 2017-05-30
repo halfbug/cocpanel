@@ -192,7 +192,7 @@ class ClientController extends Controller {
         if (\Auth::user()->isAdmin())
             $collection = \App\assignment::where('role_id', \App\role::client())->get();
         else
-            $collection = \App\assignment::where('role_id', \App\role::client())->where("user_id", \Auth::user()->id)->get();
+            $collection = \App\assignment::where('role_id', \App\role::client())->where("user_id", \Auth::user()->id)->active()->get();
 
         return view('client.activepack')->with('assignments', $collection->unique("package_id"))->with('collection', $collection);
     }

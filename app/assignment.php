@@ -30,8 +30,8 @@ class assignment extends assign {
         1 => 'Completed',
         2 => 'Pending',
         3 => 'Active',
-        4 => 'Package not editable'
-        
+        4 => 'Package not editable',
+        5 => 'Package disabled'
     ];
 
     public function getAllStatus() {
@@ -97,6 +97,13 @@ class assignment extends assign {
             return $query->where('role_id', \App\role::coache())->where('user_id', \Auth::user()->id);
         else
             return $query->where('role_id', \App\role::coache());
+    }
+
+    public function scopeActive($query) {
+        if (\Auth::user()->status != 1)
+            return $query->where('status', '!=', 5);
+        else
+            return $query;
     }
 
 }

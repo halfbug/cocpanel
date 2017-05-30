@@ -85,6 +85,7 @@ Route::group(['prefix' => 'coaches','middleware' => 'auth'], function () {
     Route::post('/','CoacheController@store');
     Route::get('/active_packages','CoacheController@activePackages');
     Route::delete('/{coach_id}','CoacheController@destroy');
+    Route::post('/status','CoacheController@updateStatus');
 });
 
 Route::group(['prefix' => 'assigned','middleware' => 'auth'], function () {

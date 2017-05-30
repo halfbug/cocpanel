@@ -348,7 +348,7 @@ $(document).on('click', '[id^=status_package_]', function (e) {
     }
 });
 
-$(document).on('click', '.assign_coach', function (e) {
+$(document).on('click', '.assign_coach22', function (e) {
     var package_id = $(this).data('value');
     $('#package_id').val(package_id);
     console.log('coach-assignment');

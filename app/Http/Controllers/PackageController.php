@@ -154,9 +154,11 @@ class PackageController extends Controller {
     public function assignCoachForm(Request $request, $package_id) {
         $package = package::find($package_id);
         $coaches = \App\User::whereIn('status', [1, 2])->orderBy('name', 'asc')->get();
-
-
-        return view('package.assign_coach')->with('package', $package)->with('coaches', $coaches);
+        $alreadyAssigned = \App\assignment::where('package_id',$package->id)
+                ->where("role_id",\App\role::coache())->pluck("user_id");
+        $assignedCoaches = \App\User::whereIn("id",$alreadyAssigned)->get();
+        return view('package.assign_coach')->with('package', $package)->with('coaches', $coaches)
+                ->with('assignedCoaches',$assignedCoaches);
     }
 
     public function assignCoach(Request $request) {
@@ -169,7 +171,7 @@ class PackageController extends Controller {
         }
 
 
-//        return view('package.assign_coach')->with('package', $package)->with('coaches', $coaches);
+        return redirect("packages/")->with('success', 'Coach(es) assigned successfully.');
     }
     
     public function view($package_id) {

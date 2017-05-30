@@ -40,7 +40,7 @@ class CoacheController extends Controller {
         if (\Auth::user()->isAdmin())
             $assignments = \App\assignment::where('role_id', \App\role::coache())->get();
         else
-            $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();
+            $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->active()->get();
 
         $collection = \App\assignment::all();
         $users = \App\User::all();
@@ -155,6 +155,14 @@ class CoacheController extends Controller {
             $udel = \App\User::destroy($user->id);
         }
         return back()->with('user', $user)->with('success', $user->name . ' has been deleted successfully.');
+    }
+    
+    public function updateStatus(Request $request) {
+        $assgnment = \App\assignment::where('role_id',\App\role::coache())->where('package_id',$request->package_id)->where('user_id',$request->coach_id)->first();
+
+        $assgnment->status = 5;
+        $assgnment->save();
+        return back()->with('success', ' The package has been disabled successfully.');
     }
 
 }
