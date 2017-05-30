@@ -40,7 +40,7 @@ class CoacheController extends Controller {
         if (\Auth::user()->isAdmin())
             $assignments = \App\assignment::where('role_id', \App\role::coache())->get();
         else
-            $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->get();
+            $assignments = \App\assignment::where('role_id', \App\role::coache())->where("user_id", \Auth::user()->id)->active()->get();
 
         $collection = \App\assignment::all();
         $users = \App\User::all();
