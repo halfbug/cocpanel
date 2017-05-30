@@ -113,7 +113,7 @@
                         <li class="{{ ($uri == 'modules' || $uri_part[0] == 'modules') ? 'active' : '' }}">
                             <a href="{{ url('/modules') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Modules</a>
                         </li>
-                        <li class="{{ ($uri == 'packages') ? 'active' : '' }}">
+                        <li class="{{ ($uri == 'packages' || $uri_part[0] == 'packages') ? 'active' : '' }}">
                             <a href="{{ url('/packages') }}"><i class="fa fa-fw fa-table"></i> Packages</a>
                         </li>
                         <li class="{{ ($uri == 'clients') ? 'active' : '' }}">
@@ -155,7 +155,7 @@
                         <li class="{{ ($uri == 'modules' || $uri_part[0] == 'modules') ? 'active' : '' }}">
                             <a href="{{ url('/modules') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Modules</a>
                         </li>
-                        <li class="{{ ($uri == 'packages') ? 'active' : '' }}">
+                        <li class="{{ ($uri == 'packages' || $uri_part[0] == 'packages') ? 'active' : '' }}">
                             <a href="{{ url('/packages') }}"><i class="fa fa-fw fa-table"></i> Packages</a>
                         </li>
                          <li class="{{ ($uri == 'clients') ? 'active' : '' }}">
