@@ -30,7 +30,8 @@ class assignment extends assign {
         1 => 'Completed',
         2 => 'Pending',
         3 => 'Active',
-        4 => 'Package not editable'
+        4 => 'Package not editable',
+        5 => 'Package disabled'
         
     ];
 

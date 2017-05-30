@@ -156,5 +156,13 @@ class CoacheController extends Controller {
         }
         return back()->with('user', $user)->with('success', $user->name . ' has been deleted successfully.');
     }
+    
+    public function updateStatus(Request $request) {
+        $assgnment = \App\assignment::where('role_id',\App\role::coache())->where('package_id',$request->package_id)->where('user_id',$request->coach_id)->first();
+
+        $assgnment->status = 5;
+        $assgnment->save();
+        return back()->with('success', ' The package has been disabled successfully.');
+    }
 
 }

@@ -34,7 +34,11 @@
                         </div>
                         <label>Assigned Coach(es)</label>
                         <div class="col-xs-5">
-                            <select name="assignedCoaches[]" id="multiselect_to_1" class="form-control" size="8" multiple="multiple"></select>
+                            <select name="assignedCoaches[]" id="multiselect_to_1" class="form-control" size="8" multiple="multiple">
+                                  @foreach ($assignedCoaches as $coach)
+                                <option value="{{ $coach->id }}">{{ $coach->name }} [ {{ $coach->email}} ]</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="frmModule-footer"></div>
