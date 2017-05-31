@@ -14,7 +14,7 @@ class PackageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $packages = package::owner()->get();
+        $packages = package::owner()->active()->get();
         $epackage = new package();
         $live_modules = module::where('is_live', true)->author()->get();
 
@@ -47,7 +47,11 @@ class PackageController extends Controller {
         $package->modules()->attach($request->selected_modules);
         // auto set coache
         $assign = new \App\assign();
-        $assign->coache(auth()->user()->id, $package->id);
+
+//        if (auth()->user()->status == 2)
+            $assign->coache(auth()->user()->id, $package->id);
+//        else
+//            $assign->coache($request->coach, $package->id);
 
         return response()->json($package);
     }
@@ -59,7 +63,8 @@ class PackageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($package_id) {
-        $package = package::find($package_id);
+        $package = package::owner()->find($package_id);
+        $this->authorize('edit', $package);
 
 //        $package->selected_modules ='["2","5"]';  //$package->modules()->get();
 //        return response()->json($package);
@@ -90,7 +95,7 @@ class PackageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $package_id) {
-        $package = package::find($package_id);
+        $package = package::owner()->find($package_id);
         $package->title = $request->title;
         $package->description = $request->description;
         $package->price = $request->price;
@@ -154,29 +159,29 @@ class PackageController extends Controller {
     public function assignCoachForm(Request $request, $package_id) {
         $package = package::find($package_id);
         $coaches = \App\User::whereIn('status', [1, 2])->orderBy('name', 'asc')->get();
-        $alreadyAssigned = \App\assignment::where('package_id',$package->id)
-                ->where("role_id",\App\role::coache())->pluck("user_id");
-        $assignedCoaches = \App\User::whereIn("id",$alreadyAssigned)->get();
+        $alreadyAssigned = \App\assignment::where('package_id', $package->id)
+                        ->where("role_id", \App\role::coache())->pluck("user_id");
+        $assignedCoaches = \App\User::whereIn("id", $alreadyAssigned)->get();
         return view('package.assign_coach')->with('package', $package)->with('coaches', $coaches)
-                ->with('assignedCoaches',$assignedCoaches);
+                        ->with('assignedCoaches', $assignedCoaches);
     }
 
     public function assignCoach(Request $request) {
         $package = package::find($request->package_id);
         $assign = new \App\assign();
-        $alreadyAssigned = \App\assignment::whereIn('user_id',$request->assignedCoaches)->where('package_id',$package->id)->where("role_id",\App\role::coache())->get();
+        $alreadyAssigned = \App\assignment::whereIn('user_id', $request->assignedCoaches)->where('package_id', $package->id)->where("role_id", \App\role::coache())->get();
         foreach ($request->assignedCoaches as $coachid) {
-            if($alreadyAssigned->where('user_id',$coachid)->count()<1)
-            $assign->coache($coachid, $package->id,4);
+            if ($alreadyAssigned->where('user_id', $coachid)->count() < 1)
+                $assign->coache($coachid, $package->id, 4);
         }
 
 
         return redirect("packages/")->with('success', 'Coach(es) assigned successfully.');
     }
-    
+
     public function view($package_id) {
         //
-       $package = package::find($package_id);
+        $package = package::find($package_id);
 
 //        
         $epackage = new package();

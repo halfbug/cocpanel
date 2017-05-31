@@ -13,7 +13,7 @@ class PackagePolicy {
     public function edit(User $user, Package $package) {
 
         if (isset($package->assign_status)) {
-            if ($package->assign_status == 4)
+            if ($package->assign_status == 4 || $package->assign_status == 5)
                 return false;
             else
                 return true;
@@ -59,7 +59,8 @@ class PackagePolicy {
      * @return mixed
      */
     public function update(User $user, Package $package) {
-        //
+//        $package->assignments()
+//        $package
     }
 
     /**

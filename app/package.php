@@ -82,6 +82,13 @@ class package extends Model {
             return $query;
         }
     }
+    
+    public function scopeActive($query) {
+        if (\Auth::user()->status != 1)
+            return $query->where('assignments.status', '!=', 5);
+        else
+            return $query;
+    }
 
     
 }
