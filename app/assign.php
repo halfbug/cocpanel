@@ -83,9 +83,12 @@ class assign extends Model {
     }
     
     public function getCoache($package_id){
-//       return \App\assignment::where("role_id",\App\role::coache())->where('package_id',$package_id)->first();
-        return \App\assignment::where("role_id",\App\role::coache())->where('package_id',$package_id)
-                ->where('user_id',\Auth::user()->id)->first();
+        if(\Auth::user()->isAdmin()){
+       return \App\assignment::where("role_id",\App\role::coache())->where('package_id',$package_id)->first();            
+        } else {
+        return \App\assignment::where("role_id",\App\role::coache())->where('package_id',$package_id)->where('user_id',\Auth::user()->id)->first();
+            
+        }
     }
 
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="">
     <div class="row">
-        <div class="col-md-11 ">
+        <div class="col-md-12 ">
             <button id="btn_add_coach" name="btn_add_coach" class="btn btn-secondary pull-right" >New Coach</button>
             @if ($message = Session::get('success'))
             <div class="success-notification" message="{{ $message }}">

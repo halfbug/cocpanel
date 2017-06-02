@@ -5,7 +5,7 @@
 @section('content')
 <div class="">
     <div class="row">
-        <div class="col-md-11 ">
+        <div class="col-md-12 ">
             <!--<button id="btn_add_package" name="btn_add_package" class="btn btn-secondary pull-right" >New Package</button>-->
             @if ($message = Session::get('success'))
             <div class="success-notification" message="{{ $message }}">

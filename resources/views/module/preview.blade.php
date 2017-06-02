@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="">
     <!--<div class="row">
         <div class="col-sm-11">
             <div class="panel-body module_desc">{{$module->description}}</div>
         </div>
     </div>-->
 
-    <div class="col-sm-11">
+    <div class="col-sm-12">
         <h2 class="intro">Introduction and Guidelines</h2>
         <div class="panel panel-default module-desc">
             <div class="panel-body">

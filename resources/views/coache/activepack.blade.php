@@ -5,7 +5,7 @@
 @section('content')
 <div class="">
     <div class="row">
-        <div class="col-md-11 ">
+        <div class="col-md-12 ">
             <!--<button id="btn_add_package" name="btn_add_package" class="btn btn-secondary pull-right" >New Package</button>-->
 
             <div class="order btn-group btn-group-justified" role="group" aria-label="Order By">

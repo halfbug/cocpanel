@@ -5,7 +5,7 @@
 @section('content')
 <div class="">
     <div class="row">
-        <div class="col-md-11 ">
+        <div class="col-md-12 ">
             <a href="{{url('packages/add')}}"id="btn_add" name="btn_add" class="btn btn-default pull-right">New Package</a>
 
 
