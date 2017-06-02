@@ -77,7 +77,7 @@
 @endsection
 
 @section('heading')
-Modules <small>management</small>
+Modules <!--<small>management</small>-->
 @endsection
 
 @section('title')

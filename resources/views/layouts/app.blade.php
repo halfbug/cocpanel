@@ -187,33 +187,39 @@
 
                     <!-- Page Heading -->
                     <div class="row">
-                        <div class="col-lg-12">
+                            @if (!Auth::guest())                                
+
                             <h1 class="page-header">
                                 @yield('heading')
+                                <span style="float:right; font-size:16px;  margin-top: 25px;">Welcome <strong>{{ Auth::user()->name }},</strong></span>
                             </h1>
-                            <ol class="breadcrumb">
+
+                            
+                            {{-- <ol class="breadcrumb">
                                 <li>
                                     <i class="fa fa-dashboard"></i>  <a href="{{ url('/home') }}">Dashboard</a>
                                 </li>
                                 <li class="active">
                                     <i class="fa fa-file"></i> @yield('breadcrumbs')
                                 </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-
-                    <div class="row">
-                        <div class="col-lg-12"> 
-
-                            @yield('content')
-                        </div>
+                            </ol> --}}
+                            
+                            @endif
                     </div>
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.row -->
 
+                <div class="row">
+                    <div class="col-lg-12"> 
+
+                        @yield('content')
+                    </div>
+                </div>
             </div>
-            <!-- /#page-wrapper -->
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
 
         </div>
         <!-- /#wrapper -->

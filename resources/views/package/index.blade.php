@@ -104,7 +104,7 @@
 @endsection
 
 @section('heading')
-Packages <small>management</small>
+Packages <!--<small>management</small>-->
 @endsection
 
 @section('title')

@@ -77,7 +77,7 @@
 @endsection
 
 @section('heading')
-Clients <small>management</small>
+Clients <!--<small>management</small>-->
 @endsection
 
 @section('title')

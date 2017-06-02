@@ -101,7 +101,7 @@
 @endsection
 
 @section('heading')
-Coaches <small>management</small>
+Coaches <!--<small>management</small>-->
 @endsection
 
 @section('title')

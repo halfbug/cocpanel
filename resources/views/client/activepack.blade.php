@@ -5,7 +5,7 @@
 @section('content')
 <div class="">
     <div class="row">
-        <div class="col-md-11 ">
+        <div class="col-md-12">
             <!--<button id="btn_add_package" name="btn_add_package" class="btn btn-secondary pull-right" >New Package</button>-->
 
 
@@ -104,7 +104,7 @@
 @endsection
 
 @section('heading')
-Client <small>management</small>
+&nbsp;<!--Client <small>management</small>-->
 @endsection
 
 @section('title')
