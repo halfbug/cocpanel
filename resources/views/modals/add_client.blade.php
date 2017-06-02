@@ -153,8 +153,8 @@
             // Prevent form submission
             e.preventDefault();
             $('#frmClient').data('bootstrapValidator').resetForm();
-//        var $btn = $(this);
-//    $btn.button('loading');
+//            var $btn = $("#btn-save-client");
+//            $btn.button('loading');
 //    setTimeout(function () {
 //        $btn.button('reset');
 //    }, 10000);
@@ -177,6 +177,7 @@
                 data: formData,
                 dataType: 'json',
                 success: function (data) {
+//                    $btn.button('reset');
                     $.notify("Client have been added successfully.");
                     console.log(data);
                     $('#clients_' + $('#package_id').val()).html(data.totalclients);
@@ -186,6 +187,7 @@
                 error: function (xhr, status, error) {
 //            var err = eval("(" + xhr.responseText + ")");
 //            alert(err.Message);
+$('#frmClient').trigger("reset");
                     $('#newClientModal').modal('hide');
 //             $(xhr.responseText).find('.exception_message').html();
 //             exception_message
@@ -219,6 +221,8 @@
         }).on('success.form.bv', function (e) {
             e.preventDefault();
             $('#frmAddClient').data('bootstrapValidator').resetForm();
+//            var $btn = $("#btn-save-addclient");
+//            $btn.button('loading');
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -236,7 +240,11 @@
                 data: formData,
                 dataType: 'json',
                 success: function (data) {
+                    
+//                    $btn.button('reset');
+                    if(data.clients == " ")
                     $.notify(data.clients + " Clients have been added successfully.");
+                
                     console.log(data);
                     $('#clients_' + $('#package_id').val()).html(data.totalclients);
                     $('#frmAddClient').trigger("reset");
@@ -246,6 +254,7 @@
 //            var err = eval("(" + xhr.responseText + ")");
 //            alert(err.Message);
                     $('#addClientModal').modal('hide');
+                    $('#frmAddClient').trigger("reset");
 //             $(xhr.responseText).find('.exception_message').html();
 //             exception_message
 
@@ -257,6 +266,14 @@
             });
         });
     });
+    
+    $('#btn-save-addclient, #btn-save-client').click(function () {
+     var $btn = $(this);
+            $btn.button('loading');
+    setTimeout(function () {
+        $btn.button('reset');
+    }, 10000);
+});
 </script>
 @endsection
 

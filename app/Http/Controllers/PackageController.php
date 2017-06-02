@@ -172,7 +172,11 @@ class PackageController extends Controller {
         $alreadyAssigned = \App\assignment::whereIn('user_id', $request->assignedCoaches)->where('package_id', $package->id)->where("role_id", \App\role::coache())->get();
         foreach ($request->assignedCoaches as $coachid) {
             if ($alreadyAssigned->where('user_id', $coachid)->count() < 1)
+            {
                 $assign->coache($coachid, $package->id, 4);
+                $user=\App\User::find($coachid);
+                \Mail::to($user->email)->send(new NewCoachAdded($user));
+            }
         }
 
 
