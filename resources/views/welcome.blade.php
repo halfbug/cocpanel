@@ -50,9 +50,9 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #116bfe;
                 padding: 0 25px;
-                font-size: 12px;
+                font-size: 20px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -71,7 +71,7 @@
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/login') }}">Click here to login</a>
                         <!--<a href="{{ url('/register') }}">Register</a>-->
                     @endif
                 </div>
