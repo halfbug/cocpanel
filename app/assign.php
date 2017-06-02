@@ -19,11 +19,11 @@ class assign extends Model {
        
         $pack= $this->getPackage($apackage_id);
         $coache = $this->getCoache($apackage_id);
-         $module = $pack->selected_modules->first();
-//        foreach($pack->selected_modules->first() as $module)
-//        {
+//         $module = $pack->selected_modules->first();
+        foreach($pack->selected_modules as $module)
+        {
              \App\assignment::create(['role_id' => $role_id, 'user_id' => $auser_id, 'package_id' => $apackage_id, 'module_id' => $module->id, 'status' => 3, 'coache_id' => $coache->id]);
-//             }
+             }
 
         return $this;
     }
