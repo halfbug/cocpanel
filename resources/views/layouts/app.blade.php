@@ -61,6 +61,11 @@
                         <!--{{ config('app.name', 'Laravel') }}-->
                 </div>
 
+                
+                @if (!Auth::guest())                                
+                    <div class="welcome_user">Welcome <strong>{{ Auth::user()->name }},</strong></div>
+                @endif
+                
                 <?php
                 $request = request();
                 $uri = $request->path();
@@ -191,7 +196,6 @@
 
                             <h1 class="page-header">
                                 @yield('heading')
-                                <span style="float:right; font-size:16px;  margin-top: 25px;">Welcome <strong>{{ Auth::user()->name }},</strong></span>
                             </h1>
 
                             
