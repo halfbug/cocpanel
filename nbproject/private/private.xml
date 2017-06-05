@@ -3,20 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/routes/web.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/resources/views/package/index.blade.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/app/assign.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/resources/views/module/preview.blade.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/app/package.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/public/js/package.js</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/public/js/config.js</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/app/Policies/AssignmentPolicy.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/app/Http/Controllers/AssignmentController.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/public/.htaccess</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/.env</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/resources/views/modals/add_client.blade.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/app/User.php</file>
-            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/bulleye/cocpanel/app/Http/Controllers/QuestionController.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/public/js/package.js</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/app/Http/Controllers/ClientController.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/routes/web.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/app/module.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/app/role.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/resources/views/package/index.blade.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/app/assign.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/app/Http/Controllers/HomeController.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/resources/views/module/preview.blade.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/resources/views/layouts/app.blade.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/app/package.php</file>
+            <file>file:/C:/dev-zone/xampp5.6/htdocs/laravel5.3/cocpanel/resources/views/client/index.blade.php</file>
         </group>
     </open-files>
 </project-private>

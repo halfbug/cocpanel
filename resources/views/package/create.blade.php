@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-<!--                    <div class="form-group">
+                    <div class="form-group">
                         <label for="input-payment_frequency" class="col-sm-3 control-label">Module Release Schedule </label>
                         <div class="col-sm-9">
                             @foreach ($epackage->getReleaseSchedule() as $rsch)
@@ -61,7 +61,7 @@
                             </div>
                             @endforeach
                         </div>
-                    </div>-->
+                    </div>
 
                     <div class="form-group error">
                         <label for="facebook_group" class="col-sm-3 control-label"><i class="fa fa-facebook-square"></i>Facebook Group</label>
