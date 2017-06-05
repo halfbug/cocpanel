@@ -361,8 +361,8 @@ $(document).ready(function () {
 //                    $("#package_" + package_id).replaceWith(packagerow);
                     $.notify("Package has been updated successfully.");
                 }
-                $('#frmPackage').trigger("reset");
-                $('#addPackageModal').modal('hide');
+//                $('#frmPackage').trigger("reset");
+//                $('#addPackageModal').modal('hide');
                 window.location = app.base_url + "/packages";
             },
             error: function (data) {
