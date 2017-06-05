@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\package;
 use Illuminate\Http\Request;
 use App\module;
+use App\Mail\NewPackageAdded;
 
 class PackageController extends Controller {
 
@@ -175,7 +176,7 @@ class PackageController extends Controller {
             {
                 $assign->coache($coachid, $package->id, 4);
                 $user=\App\User::find($coachid);
-                \Mail::to($user->email)->send(new NewCoachAdded($user));
+                \Mail::to($user->email)->send(new NewPackageAdded($user));
             }
         }
 

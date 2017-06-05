@@ -226,7 +226,7 @@ jQuery(document).ready(function ($) {
 @endsection
 
 @section('heading')
-Assign Coach <small>New</small>
+Assign Package
 @endsection
 
 @section('title')

@@ -61,6 +61,11 @@
                         <!--{{ config('app.name', 'Laravel') }}-->
                 </div>
 
+                
+                @if (!Auth::guest())                                
+                    <div class="welcome_user">Welcome <strong>{{ Auth::user()->name }},</strong></div>
+                @endif
+                
                 <?php
                 $request = request();
                 $uri = $request->path();
@@ -187,33 +192,38 @@
 
                     <!-- Page Heading -->
                     <div class="row">
-                        <div class="col-lg-12">
+                            @if (!Auth::guest())                                
+
                             <h1 class="page-header">
                                 @yield('heading')
                             </h1>
-                            <ol class="breadcrumb">
+
+                            
+                            {{-- <ol class="breadcrumb">
                                 <li>
                                     <i class="fa fa-dashboard"></i>  <a href="{{ url('/home') }}">Dashboard</a>
                                 </li>
                                 <li class="active">
                                     <i class="fa fa-file"></i> @yield('breadcrumbs')
                                 </li>
-                            </ol>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-
-                    <div class="row">
-                        <div class="col-lg-12"> 
-
-                            @yield('content')
-                        </div>
+                            </ol> --}}
+                            
+                            @endif
                     </div>
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.row -->
 
+                <div class="row">
+                    <div class="col-lg-12"> 
+
+                        @yield('content')
+                    </div>
+                </div>
             </div>
-            <!-- /#page-wrapper -->
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
 
         </div>
         <!-- /#wrapper -->

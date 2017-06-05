@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('heading')
+&nbsp;<!-- col-md-11 Admin User - <small>Add</small>-->
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">

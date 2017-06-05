@@ -5,15 +5,15 @@
 @section('content')
 <div class="">
     <div class="row">
-        <div class="col-md-11 ">
+        <div class="col-md-12 ">
             <!--<button id="btn_add_package" name="btn_add_package" class="btn btn-secondary pull-right" >New Package</button>-->
 
             <div class="order btn-group btn-group-justified" role="group" aria-label="Order By">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" value='by_client'>Order by Clients</button>
+                    <button type="button" class="btn btn-default" value='by_client'>Clients</button>
                 </div>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default" value="by_package">Order by Packages</button>
+                    <button type="button" class="btn btn-default" value="by_package">Packages</button>
                 </div>
 
             </div>
@@ -299,7 +299,7 @@
 @endsection
 
 @section('heading')
-Coach <small>management</small>
+&nbsp;<!--Coach <small>management</small>-->
 @endsection
 
 @section('title')

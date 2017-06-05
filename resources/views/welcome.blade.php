@@ -37,8 +37,8 @@
 
             .top-right {
                 position: absolute;
-                right: 10px;
-                top: 18px;
+                right: 50px;
+                top: 60px;
             }
 
             .content {
@@ -50,9 +50,9 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #116bfe;
                 padding: 0 25px;
-                font-size: 12px;
+                font-size: 20px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -62,16 +62,24 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .bg_banner{
+                background-image: url(images/bg.jpg);
+                background-repeat: no-repeat;
+                background-size: 100%;
+                margin: 0 auto;
+                text-align: center;
+                max-width: 1150px;
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref full-height bg_banner">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/login') }}">Click here to login</a>
                         <!--<a href="{{ url('/register') }}">Register</a>-->
                     @endif
                 </div>
@@ -79,7 +87,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    <img src="{{ url('/') }}/images/logo.png" />
+                    <!--<img src="{{ url('/') }}/images/logo.png" />-->
                     <!--<b>Co</b>ach and <b>C</b>lient Panel-->
                 </div>
 
