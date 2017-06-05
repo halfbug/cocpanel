@@ -50,13 +50,17 @@
             }
 
             .links > a {
-                color: #116bfe;
-                padding: 0 25px;
+                /*color: #116bfe;*/
+                padding: 10px 10px;
                 font-size: 20px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
                 text-transform: uppercase;
+                color: #FFF;
+                background-color: #3097d1;
+                border-radius: 5px;
+                margin-right: 13px;
             }
 
             .m-b-md {
