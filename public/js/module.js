@@ -53,7 +53,7 @@ function getModuleType(id) {
 
 
 //display modal form for module editing
-$(document).on('click', '.open_modal2', function () {
+$(document).on('click', '.open_modal2e', function () {
     var module_id = $(this).val();
 
     $.get(url + '/' + module_id, function (data) {
@@ -73,7 +73,7 @@ $(document).on('click', '.open_modal2', function () {
     });
 });
 //display modal form for creating new module
-$('#btn_add').click(function () {
+$('#btn_add11').click(function () {
     $('#btn-save').val("add");
     $('#frmModules').trigger("reset");
     $('.frmModule-footer').html("");
