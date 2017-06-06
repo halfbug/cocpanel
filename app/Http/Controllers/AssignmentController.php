@@ -117,27 +117,45 @@ class AssignmentController extends Controller {
 
     public function savecontinue($assigned_id) {
         $assignment = \App\assignment::find($assigned_id);
-        $next_module = $assignment->package()->first()->modules()->where('modules.id', '!=', $assignment->module_id)->first();
-        if ($next_module) {
-            $acount = \App\assignment::where('package_id', $assignment->package_id)->where('module_id', $next_module->id)->where('user_id', $assignment->user_id)->count();
-            if ($acount > 0) {
-                $assigned_module = \App\assignment::where('package_id', $assignment->package_id)->where('module_id', $next_module->id)->where('user_id', $assignment->user_id)->first();
-            } elseif ($acount > 1) {
-                $assigned_module = \App\assignment::create([
-                            'role_id' => \App\role::client(),
-                            'user_id' => $assignment->user_id,
-                            'package_id' => $assignment->package_id,
-                            'module_id' => $next_module->id,
-                            'coache_id' => $assignment->coache_id
-                ]);
-            } else {
-                $assigned_module = $assignment;
+//        $next_module = $assignment->package()->first()->modules()->where('modules.id', '!=', $assignment->module_id)->first();
+        $modules =$assignment->package()->first()->modules()->orderby("module_id")->pluck("module_id")->toArray();
+        
+        if(count($modules)>0)
+        {
+            $next_module = array_search($assignment->module_id,$modules) + 1;
+            if(array_key_exists($next_module, $modules))
+            {
+                $nm=\App\assignment::where('package_id', $assignment->package_id)->where('module_id', $modules[$next_module])->where('user_id', $assignment->user_id)->first();
+                return redirect('/assigned/' . $nm->id);
             }
-
-            return redirect('/assigned/' . $assigned_module->id);
+            else
+                 return redirect('/assigned/' . $assignment->id)->with('success',"Last module of the package.");
+                    
         }
-        else
-            return back()->with('success',"There is only one module in package.");
+         else
+            return redirect('/assigned/' . $assignment->id)->with('success',"There is only one module in package.");
+        
+        
+//        if ($next_module) {
+//            $acount = \App\assignment::where('package_id', $assignment->package_id)->where('module_id', $next_module)->where('user_id', $assignment->user_id)->count();
+//            if ($acount > 0) {
+//                $assigned_module = \App\assignment::where('package_id', $assignment->package_id)->where('module_id', $next_module->id)->where('user_id', $assignment->user_id)->first();
+//            } elseif ($acount > 1) {
+//                $assigned_module = \App\assignment::create([
+//                            'role_id' => \App\role::client(),
+//                            'user_id' => $assignment->user_id,
+//                            'package_id' => $assignment->package_id,
+//                            'module_id' => $next_module,
+//                            'coache_id' => $assignment->coache_id
+//                ]);
+//            } else {
+//                $assigned_module = $assignment;
+//            }
+//
+//            return redirect('/assigned/' . $assigned_module->id);
+//        }
+//        else
+//            return back()->with('success',"There is only one module in package.");
     }
 
 }
