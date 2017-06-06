@@ -194,7 +194,7 @@ class PackageController extends Controller {
             if ($alreadyAssigned->where('user_id', $coachid)->count() < 1) {
                 $assign->coache($coachid, $package->id, 4);
                 $user = \App\User::find($coachid);
-                \Mail::to($user->email)->send(new NewPackageAdded($user));
+                \Mail::to($user->email)->send(new NewPackageAdded($user,$package));
             }
         }
 
