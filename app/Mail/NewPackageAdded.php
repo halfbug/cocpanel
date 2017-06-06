@@ -17,9 +17,11 @@ class NewPackageAdded extends Mailable
      * @return void
      */
     protected $user;
-    public function __construct($user)
+    protected $package;
+    public function __construct($user,$package)
     {
         $this->user=$user;
+         $this->package=$package;
     }
 
     /**
@@ -32,6 +34,6 @@ class NewPackageAdded extends Mailable
         return $this->view('emails.new_package_added')
                 ->from("demo@appsgenre.com", "Business BullsEye Admin")
                 ->subject("Business BullsEye - Assigned a New Package by Admin")
-                ->with('user',  $this->user);
+                ->with('user',  $this->user)->with('package',  $this->package);;
     }
 }
