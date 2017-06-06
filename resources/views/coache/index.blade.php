@@ -109,6 +109,7 @@ Coaches
 @endsection
 
 @section('script')
+@parent
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="{{asset('js/coaches.js')}}"></script>
 <script>

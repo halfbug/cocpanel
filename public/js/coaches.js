@@ -8,7 +8,7 @@ $(document).on('click', '#btn_add_coach', function () {
 
 });
 
-$("#btn-save-coach").click(function (e) {
+$("#btn-save-coachww11").click(function (e) {
     // alert($('meta[name="_token"]').attr('content'));
     $.ajaxSetup({
         headers: {
