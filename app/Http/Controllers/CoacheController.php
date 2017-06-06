@@ -151,14 +151,14 @@ class CoacheController extends Controller {
         if ($user->isClient()) {
             $user->status = 0;
             $user->save();
-        } elseif (!$user->isAdmin()) {
+        } else {  //if (!$user->isAdmin()) 
             $udel = \App\User::destroy($user->id);
         }
         return back()->with('user', $user)->with('success', $user->name . ' has been deleted successfully.');
     }
-    
+
     public function updateStatus(Request $request) {
-        $assgnment = \App\assignment::where('role_id',\App\role::coache())->where('package_id',$request->package_id)->where('user_id',$request->coach_id)->first();
+        $assgnment = \App\assignment::where('role_id', \App\role::coache())->where('package_id', $request->package_id)->where('user_id', $request->coach_id)->first();
 
         $assgnment->status = 5;
         $assgnment->save();
