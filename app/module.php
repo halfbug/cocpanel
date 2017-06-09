@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class module extends Model {
@@ -16,18 +16,20 @@ class module extends Model {
         static::creating(function($table) {
             $table->author_id = \Auth::user()->id;
         });
-    }
-    
-     public function scopeAuthor($query)
-    {
 
-          if(\Auth::user()->status == 2)
+        //order by id asc
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderby('id', 'asc');
+        });
+    }
+
+    public function scopeAuthor($query) {
+
+        if (\Auth::user()->status == 2)
             return $query->where('author_id', '=', \Auth::user()->id);
         else
             return $query;
-        
     }
-
 
     /**
      * Get the associated documents

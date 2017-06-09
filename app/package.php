@@ -14,7 +14,7 @@ class package extends Model {
 //    protected $clients;
 
     public function getSelectedModulesAttribute() {
-        return $this->modules()->orderby("id")->get();
+        return $this->modules()->orderby("id","asc")->get();
     }
 
     public function getLinkedClientsAttribute() {
