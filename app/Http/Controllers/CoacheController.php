@@ -159,10 +159,13 @@ class CoacheController extends Controller {
 
     public function updateStatus(Request $request) {
         $assgnment = \App\assignment::where('role_id', \App\role::coache())->where('package_id', $request->package_id)->where('user_id', $request->coach_id)->first();
-
-        $assgnment->status = 5;
+        echo "status : " . $request->status;
+        if ($request->status)
+            $assgnment->status = 5;
+        else
+            $assgnment->status = 0;
         $assgnment->save();
-        return back()->with('success', ' The package has been disabled successfully.');
+//        return back()->with('success', ' The package has been disabled successfully.');
     }
 
 }

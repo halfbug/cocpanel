@@ -175,6 +175,10 @@ $(document).on('click', '[id^=status_package_]', function (e) {
         });
 //    return result; //you can just return c because it will be true or false+
     }
+    else
+    {
+     delbtn.parents('form').submit();
+    }
 });
 </script>
 @endsection
