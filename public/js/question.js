@@ -12,7 +12,8 @@ $(document).on('click', '.open_ques', function () {
                 $('#que-list').append(
                         '<tr id="que_' + que.id + '">'
                         + '  <td class="s_no">' + que.sno + '</td>'
-                        + '  <td class="ques_content">' + $($.parseHTML(que.content)).text().substring(0, 120) + '</td>'
+                        + '  <td class="ques_content">' + que.content + '</td>'
+                        //$($.parseHTML(que.content)).text().substring(0, 120)
                         + '  <td class="ques_actions">'
                         + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
                         + '     <button class="btn btn-danger que_delete" value="' + que.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
