@@ -10,6 +10,10 @@
 .panel-body {
     padding: 10px !important;
 }
+#advancetonext{
+    font-size: 14px;
+    text-transform: uppercase;
+}
 .mce-notification {
     display: none;
 }
