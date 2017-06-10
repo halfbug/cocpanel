@@ -13,7 +13,7 @@
         <div class="panel panel-default module-desc">
             <div class="panel-body">
                 {!! $module->content!!}
-               
+
             </div>
         </div>
         <h3>Questions</h3>
@@ -212,23 +212,23 @@
 
             <div align="right">
                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="saveandcontinue" action="{{ url('assigned/savecontinue/'.$assignment->id) }}">
-                                            {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-primary" id="advancetonext" value="{{$assignment->id}}" title=""><i class="fa fa-arrow-circle-right" > Advances to Next Module</i></button>
-              </form>
-              @can('sendcoachAlert', $assignment)
-              <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
                     {{ csrf_field() }}
-                <button type="button" class="btn btn-warning" id="sendtoclient" value="{{$assignment->id}}" title=""><i class="fa fa-envelope" > SAVE & SUBMIT TO CLIENT</i></button>
-              </form>
-              @endcan
-              @can('sendclientAlert', $assignment)
+                    <button type="button" class="btn btn-primary" id="savecontinue" value="{{$assignment->id}}" title=""><i class="fa fa-arrow-circle-right" > Save and Continue </i></button>
+                </form>
+                @can('sendcoachAlert', $assignment)
+                <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
+                    {{ csrf_field() }}
+                    <button type="button" class="btn btn-warning" id="sendtoclient" value="{{$assignment->id}}" title=""><i class="fa fa-envelope" > SAVE & SUBMIT TO CLIENT</i></button>
+                </form>
+                @endcan
+                @can('sendclientAlert', $assignment)
                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtocoach/'.$assignment->id) }}">
-                        {{ csrf_field() }}
+                    {{ csrf_field() }}
                     <button type="button" class="btn btn-warning" id="sendtocoach" value="{{$assignment->id}}" title=""><i class="fa fa-envelope" > SAVE & SUBMIT TO COACH</i></button>
                 </form>
-              @endcan
-        
-              
+                @endcan
+
+
             </div>
 
         </div>
@@ -260,6 +260,47 @@
 $(document).on('click', '#sendtoclient', function (e) {
     console.log("clicked");
     var delbtn = $(this);
+     $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+    
+     $('[id^=responseBox_]').each(function () {
+                    if ($(this).find("textarea").val()) {
+                        $('#savecontinue').button('loading');
+                        var thisform = $(this);
+//                        setTimeout(function () {
+//                            $btn.button('reset');
+//                        }, 10000);
+
+
+
+//    console.log(formData);
+                        $.ajax({
+                            type: "POST",
+                            url: thisform.attr('action'),
+                            data: thisform.serialize(),
+                            dataType: 'json',
+                            success: function (data) {
+
+                            },
+                            error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//            alert(err.Message);
+//            $('#addClientModal').modal('hide');
+//             $(xhr.responseText).find('.exception_message').html();
+//             exception_message
+
+                                $.notify({
+                                    message: "Error :" + $(xhr.responseText).find('.exception_message').html(),
+                                    type: 'danger'
+                                });
+                            }
+                        });
+                    }
+                });
 //    bootbox.confirm({
 //        title: "Send to Client?",
 //        message: "Are you sure to send changes to client?",
@@ -282,12 +323,53 @@ $(document).on('click', '#sendtoclient', function (e) {
 //        }
 //    });
 //    return result; //you can just return c because it will be true or false
-delbtn.parents('form').submit();
+    delbtn.parents('form').submit();
 });
 
 $(document).on('click', '#sendtocoach', function (e) {
     console.log("clicked");
     var delbtn = $(this);
+     $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    e.preventDefault();
+    
+     $('[id^=responseBox_]').each(function () {
+                    if ($(this).find("textarea").val()) {
+                        $('#savecontinue').button('loading');
+                        var thisform = $(this);
+//                        setTimeout(function () {
+//                            $btn.button('reset');
+//                        }, 10000);
+
+
+
+//    console.log(formData);
+                        $.ajax({
+                            type: "POST",
+                            url: thisform.attr('action'),
+                            data: thisform.serialize(),
+                            dataType: 'json',
+                            success: function (data) {
+
+                            },
+                            error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//            alert(err.Message);
+//            $('#addClientModal').modal('hide');
+//             $(xhr.responseText).find('.exception_message').html();
+//             exception_message
+
+                                $.notify({
+                                    message: "Error :" + $(xhr.responseText).find('.exception_message').html(),
+                                    type: 'danger'
+                                });
+                            }
+                        });
+                    }
+                });
 //    bootbox.confirm({
 //        title: " Confirm Submit to Coach",
 //        message: "Are you sure to send changes to coach?",
@@ -311,12 +393,18 @@ $(document).on('click', '#sendtocoach', function (e) {
 //    });
 //    return result; //you can just return c because it will be true or false
 
-delbtn.parents('form').submit();
+    delbtn.parents('form').submit();
 });
 
 $(document).on('click', '#savecontinue', function (e) {
     console.log("clicked");
     var delbtn = $(this);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    e.preventDefault();
     bootbox.confirm({
         title: "Continue to next module?",
         message: "Are you sure to save changes?",
@@ -333,6 +421,40 @@ $(document).on('click', '#savecontinue', function (e) {
                 console.log(result);
                 console.log(delbtn.val());
 
+                $('[id^=responseBox_]').each(function () {
+                    if ($(this).find("textarea").val()) {
+                        $('#savecontinue').button('loading');
+                        var thisform = $(this);
+//                        setTimeout(function () {
+//                            $btn.button('reset');
+//                        }, 10000);
+
+
+
+//    console.log(formData);
+                        $.ajax({
+                            type: "POST",
+                            url: thisform.attr('action'),
+                            data: thisform.serialize(),
+                            dataType: 'json',
+                            success: function (data) {
+
+                            },
+                            error: function (xhr, status, error) {
+//            var err = eval("(" + xhr.responseText + ")");
+//            alert(err.Message);
+//            $('#addClientModal').modal('hide');
+//             $(xhr.responseText).find('.exception_message').html();
+//             exception_message
+
+                                $.notify({
+                                    message: "Error :" + $(xhr.responseText).find('.exception_message').html(),
+                                    type: 'danger'
+                                });
+                            }
+                        });
+                    }
+                });
                 delbtn.parents('form').submit();
 
             }
@@ -368,10 +490,10 @@ $(document).on('click', '#save-response', function (e) {
             console.log(data);
             var newrec = '<li class="comment green" >'
                     + ' <a class="pull-left" href="#">'
-                    + '<img class="avatar" src="{{asset("../storage/app/public/")}}/'+data.user.avatar+'" alt="avatar">'
+                    + '<img class="avatar" src="{{asset("../storage/app/public/")}}/' + data.user.avatar + '" alt="avatar">'
                     + ' <BR>'
-                    +'@if(\Auth::user()->id == session("coach")->id)'
-                    +'<span class="small bg-primary">Coach</span>'
+                    + '@if(\Auth::user()->id == session("coach")->id)'
+                    + '<span class="small bg-primary">Coach</span>'
                     + '@endif'
                     + '</a>'
                     + '<div class="comment-body">'
@@ -385,7 +507,7 @@ $(document).on('click', '#save-response', function (e) {
 
             $('#comments-list_' + quid).append(newrec);
             $("#responseBox_" + quid).trigger("reset");
-             $("#responseBox_"+quid).toggle();
+            $("#responseBox_" + quid).toggle();
 
         },
         error: function (xhr, status, error) {
@@ -402,6 +524,8 @@ $(document).on('click', '#save-response', function (e) {
         }
     });
 });
+
+
 </script>
 @endsection
 
