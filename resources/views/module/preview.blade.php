@@ -213,7 +213,7 @@
             <div align="right">
                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="saveandcontinue" action="{{ url('assigned/savecontinue/'.$assignment->id) }}">
                     {{ csrf_field() }}
-                    <button type="button" class="btn btn-primary" id="savecontinue" value="{{$assignment->id}}" title=""><i class="fa fa-arrow-circle-right" > Save and Continue </i></button>
+                    <button type="button" class="btn btn-primary" id="savecontinue" value="{{$assignment->id}}" title=""><i class="fa fa-arrow-circle-right" > SAVE AND CONTINUE </i></button>
                 </form>
                 @can('sendcoachAlert', $assignment)
                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
