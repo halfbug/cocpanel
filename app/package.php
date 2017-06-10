@@ -14,7 +14,7 @@ class package extends Model {
 //    protected $clients;
 
     public function getSelectedModulesAttribute() {
-        return $this->modules()->orderby("id","asc")->get();
+        return $this->modules()->orderby("pivot_id","asc")->get();
     }
 
     public function getLinkedClientsAttribute() {
@@ -40,7 +40,8 @@ class package extends Model {
      * The modules that belong to the package.
      */
     public function modules() {
-        return $this->belongsToMany('App\module', 'package_module');
+        return $this->belongsToMany('App\module', 'package_module')->withPivot('id')
+    	->withTimestamps();;
     }
 
     /**
