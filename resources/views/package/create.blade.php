@@ -156,7 +156,7 @@ tinymce.init({
         'textcolor'
     ],
     toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | forecolor | backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ',
-    content_css: '//www.tinymce.com/css/codepen.min.css'
+   // content_css: '//www.tinymce.com/css/codepen.min.css'
 });
 </script>
 <script src="../js/bootstrap-formhelpers.js"></script>
