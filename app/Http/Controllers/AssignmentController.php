@@ -101,24 +101,33 @@ class AssignmentController extends Controller {
         return back();
     }
 
-    public function sendtoclient($assigned_id) {
+    public function sendtoclient(Request $request,$assigned_id) {
+        if($assigned_id == "" || $assigned_id == " " )
+            $assigned_id = $request->assignment_id;
         $assignment = \App\assignment::find($assigned_id);
         \Mail::to($assignment->user->email)->send(new NewResponse(\Auth::user(), 'coach', $assignment->module()->first(), $assignment));
 
         return back();
     }
 
-    public function sendtocoach($assigned_id) {
+    public function sendtocoach(Request $request,$assigned_id) {
+         if($assigned_id == "" || $assigned_id == " " )
+            $assigned_id = $request->assignment_id;
+         
         $assignment = \App\assignment::find($assigned_id);
+//        var_dump($assignment->module()->first());
         \Mail::to($assignment->coach->email)->send(new NewResponse(\Auth::user(), 'client', $assignment->module()->first(), $assignment));
 
         return back();
     }
 
-    public function savecontinue($assigned_id) {
+    public function savecontinue(Request $request,$assigned_id) {
+         if($assigned_id == "" || $assigned_id == " " )
+            $assigned_id = $request->assignment_id;
+//     echo $assigned_id;    
         $assignment = \App\assignment::find($assigned_id);
 //        $next_module = $assignment->package()->first()->modules()->where('modules.id', '!=', $assignment->module_id)->first();
-        $modules =$assignment->package()->first()->selected_modules->pluck("module_id")->toArray();
+        $modules =$assignment->package()->first()->selected_modules->pluck("id")->toArray();
         
         if(count($modules)>0)
         {

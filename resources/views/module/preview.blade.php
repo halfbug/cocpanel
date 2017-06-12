@@ -213,17 +213,20 @@
             <div align="right">
                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="saveandcontinue" action="{{ url('assigned/savecontinue/'.$assignment->id) }}">
                     {{ csrf_field() }}
+                    <input type="hidden" name="assignment_id" value="{{$assignment->id}}"/>
                     <button type="button" class="btn btn-primary" id="savecontinue" value="{{$assignment->id}}" title=""><i class="fa fa-arrow-circle-right" > SAVE AND CONTINUE </i></button>
                 </form>
                 @can('sendcoachAlert', $assignment)
                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtoclient/'.$assignment->id) }}">
                     {{ csrf_field() }}
+                    <input type="hidden" name="assignment_id" value="{{$assignment->id}}"/>
                     <button type="button" class="btn btn-warning" id="sendtoclient" value="{{$assignment->id}}" title=""><i class="fa fa-envelope" > SAVE & SUBMIT TO CLIENT</i></button>
                 </form>
                 @endcan
                 @can('sendclientAlert', $assignment)
                 <form enctype='multipart/form-data' class="form-inline" role="form" method="POST" style="display: inline;"  id="send_to_client_{{$assignment->id}}" action="{{ url('assigned/sendtocoach/'.$assignment->id) }}">
                     {{ csrf_field() }}
+                    <input type="hidden" name="assignment_id" value="{{$assignment->id}}"/>
                     <button type="button" class="btn btn-warning" id="sendtocoach" value="{{$assignment->id}}" title=""><i class="fa fa-envelope" > SAVE & SUBMIT TO COACH</i></button>
                 </form>
                 @endcan

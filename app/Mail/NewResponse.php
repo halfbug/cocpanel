@@ -25,7 +25,7 @@ class NewResponse extends Mailable {
      *
      * @return void
      */
-    public function __construct($user,$role,$module,$assignment)
+    public function __construct($user,$role, $module,$assignment)
     {
         $this->user=$user;
         $this->assignment=$assignment;
@@ -49,7 +49,7 @@ class NewResponse extends Mailable {
                 ->from("demo@appsgenre.com", "Business BullsEye Admin")
                 ->subject("Business BullsEye - New response by your ".  $this->role)
                 ->with('user',  $this->user)
-                ->with('moduleUrl',  url('assigned/'.session("assignment_id")))
+                ->with('moduleUrl',  url('assigned/'.$this->assignment->id))
                 ->with('module',$this->module)
                 ->with('package',$this->assignment->package()->first())
                 ->with('recipient',($this->role == 'client') ? $this->assignment->coach->name :$this->assignment->user->name);
