@@ -118,7 +118,7 @@ class AssignmentController extends Controller {
     public function savecontinue($assigned_id) {
         $assignment = \App\assignment::find($assigned_id);
 //        $next_module = $assignment->package()->first()->modules()->where('modules.id', '!=', $assignment->module_id)->first();
-        $modules =$assignment->package()->first()->modules()->orderby("module_id")->pluck("module_id")->toArray();
+        $modules =$assignment->package()->first()->selected_modules->pluck("module_id")->toArray();
         
         if(count($modules)>0)
         {
