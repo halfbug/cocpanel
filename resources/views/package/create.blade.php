@@ -156,6 +156,7 @@ tinymce.init({
         'textcolor'
     ],
     toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | forecolor | backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ',
+
    // content_css: '//www.tinymce.com/css/codepen.min.css'
    // enable title field in the Image dialog
   image_title: true, 
@@ -198,7 +199,13 @@ tinymce.init({
     };
     
     input.click();
-  }
+  },
+
+    //content_css: '//www.tinymce.com/css/codepen.min.css'
+    content_css : "../css/custom_content.css",
+    theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
+    font_size_style_values : "10px,12px,13px,14px,16px,18px,20px"
+
 });
 </script>
 <script src="../js/bootstrap-formhelpers.js"></script>
