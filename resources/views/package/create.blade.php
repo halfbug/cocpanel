@@ -163,7 +163,7 @@ tinymce.init({
   // enable automatic uploads of images represented by blob or data URIs
   automatic_uploads: true,
   // URL of our upload handler (for more details check: https://www.tinymce.com/docs/configure/file-image-upload/#images_upload_url)
-  images_upload_url: 'http://localhost:82/laravel5.3/bulleye/cocpanel/public/postAcceptor.php',
+  images_upload_url: '{{ url('/postAcceptor.php') }}', //'http://localhost:82/laravel5.3/bulleye/cocpanel/public/postAcceptor.php',
   // here we add custom filepicker only to Image dialog
   file_picker_types: 'image | media | files', 
   images_upload_base_path: '../',
