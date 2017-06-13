@@ -10,6 +10,9 @@
 .panel-body {
     padding: 10px !important;
 }
+.panel-body img{
+    max-width: 100%;
+}
 #advancetonext{
     font-size: 14px;
     text-transform: uppercase;
@@ -83,6 +86,9 @@
     justify-content: flex-start;*/
     font-weight: bold;
     border-left: 2px solid #b8b8b8;
+}
+.question-content img{
+    max-width:100%;
 }
 .questions .row{
     margin-left: 0px;
