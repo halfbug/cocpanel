@@ -141,7 +141,8 @@ class ModuleController extends Controller {
 
         $documents_copy = [];
         foreach ($module->documents()->get() as $documentCopy) {
-            $fileName = rand(11111, 99999) . "." . explode('.', $documentCopy->filename)[1];
+            $orignalName =explode('.', $documentCopy->filename);
+            $fileName = $orignalName[0]."_1" . "." . $orignalName[1];
             copy(public_path('documents') . '/' . $documentCopy->filename, public_path('documents') . '/' . $fileName);
             $newCopy=$documentCopy->replicate();
             $newCopy->filename = $fileName;
