@@ -32,7 +32,7 @@ class NewPackageAdded extends Mailable
     public function build()
     {
         return $this->view('emails.new_package_added')
-                ->from("demo@appsgenre.com", "Business BullsEye Admin")
+                ->from("admin@business-bullseye.com", "Business BullsEye Admin")
                 ->subject("Business BullsEye - Assigned a New Package by Admin")
                 ->with('user',  $this->user)->with('package',  $this->package);;
     }
