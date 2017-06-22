@@ -126,8 +126,20 @@ class AssignmentController extends Controller {
             $assigned_id = $request->assignment_id;
 //     echo $assigned_id;    
         $assignment = \App\assignment::find($assigned_id);
+        $user = \Auth::user();
 //        $next_module = $assignment->package()->first()->modules()->where('modules.id', '!=', $assignment->module_id)->first();
         $modules =$assignment->package()->first()->selected_modules->pluck("id")->toArray();
+        // email sending
+        if ($user->can('sendclientAlert', $assignment)) {
+             \Mail::to($assignment->user->email)->send(new NewResponse(\Auth::user(), 'coach', $assignment->module()->first(), $assignment));
+
+        }
+        elseif($user->can('sendcoachAlert', $assignment)){
+             \Mail::to($assignment->coach->email)->send(new NewResponse(\Auth::user(), 'client', $assignment->module()->first(), $assignment));
+
+        }
+        
+        
         
         if(count($modules)>0)
         {
