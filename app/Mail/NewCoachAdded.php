@@ -30,7 +30,7 @@ class NewCoachAdded extends Mailable
     public function build()
     {
         return $this->view('emails.new_coach_added')
-                ->from("demo@appsgenre.com", "Business BullsEye Admin")
+                ->from("admin@business-bullseye.com", "Business BullsEye Admin")
                 ->subject("Business BullsEye - You are added as Coach")
                 ->with('user',  $this->user);
                 
