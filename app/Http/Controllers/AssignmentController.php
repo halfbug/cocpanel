@@ -131,11 +131,12 @@ class AssignmentController extends Controller {
         $modules =$assignment->package()->first()->selected_modules->pluck("id")->toArray();
         // email sending
         if ($user->can('sendclientAlert', $assignment)) {
-             \Mail::to($assignment->user->email)->send(new NewResponse(\Auth::user(), 'coach', $assignment->module()->first(), $assignment));
+             \Mail::to($assignment->coach->email)->send(new NewResponse(\Auth::user(), 'client', $assignment->module()->first(), $assignment));
+             
 
         }
         elseif($user->can('sendcoachAlert', $assignment)){
-             \Mail::to($assignment->coach->email)->send(new NewResponse(\Auth::user(), 'client', $assignment->module()->first(), $assignment));
+            \Mail::to($assignment->user->email)->send(new NewResponse(\Auth::user(), 'coach', $assignment->module()->first(), $assignment));
 
         }
         
