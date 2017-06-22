@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                            <div class="well well-lg">{!!$package->description!!}</div>
+                            <div class="well well-lg">{!!str_replace('../', '../../', $package->description)!!}</div>
 
                         </div>
                     </div>
