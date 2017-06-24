@@ -408,21 +408,21 @@ $(document).on('click', '#savecontinue', function (e) {
         }
     });
     e.preventDefault();
-    bootbox.confirm({
-        title: "Continue to next module?",
-        message: "Are you sure to save changes?",
-        buttons: {
-            cancel: {
-                label: '<i class="fa fa-times"></i> Cancel'
-            },
-            confirm: {
-                label: '<i class="fa fa-check"></i> Confirm'
-            }
-        },
-        callback: function (result) {
-            if (result) {
-                console.log(result);
-                console.log(delbtn.val());
+//    bootbox.confirm({
+//        title: "Continue to next module?",
+//        message: "Are you sure to save changes?",
+//        buttons: {
+//            cancel: {
+//                label: '<i class="fa fa-times"></i> Cancel'
+//            },
+//            confirm: {
+//                label: '<i class="fa fa-check"></i> Confirm'
+//            }
+//        },
+//        callback: function (result) {
+//            if (result) {
+//                console.log(result);
+//                console.log(delbtn.val());
 
                 $('[id^=responseBox_]').each(function () {
                     if ($(this).find("textarea").val()) {
@@ -460,9 +460,9 @@ $(document).on('click', '#savecontinue', function (e) {
                 });
                 delbtn.parents('form').submit();
 
-            }
-        }
-    });
+//            }
+//        }
+//    });
 //    return result; //you can just return c because it will be true or false
 });
 
