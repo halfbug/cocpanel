@@ -109,6 +109,9 @@ class ClientController extends Controller {
         $package = \App\package::find($request->package_id);
 
         $clients = [];
+        if($users->count() <1)
+            abort(500, 'User Not Exist.');
+        
         foreach ($users as $user) {
 
             if (\App\assignment::where('user_id', $user->id)->where('package_id', $request->package_id)->count() < 1) {
