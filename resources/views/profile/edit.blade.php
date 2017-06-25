@@ -49,9 +49,7 @@
                             <label for="description" class="col-md-4 control-label">About you</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" type="text" class="form-control" name="description"  >
-                                {{$user->description }}
-                                </textarea>
+                                <textarea id="description" type="text" class="form-control" name="description"  >{{$user->description }}</textarea>
 
                                 @if ($errors->has('description'))
                                     <span class="help-block">
