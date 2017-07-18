@@ -32,7 +32,7 @@ $(document).on('click', '#btn-save-package111', function (e) {
     e.preventDefault();
     var formData = {
         title: $('#title').val(),
-        description: tinymce.get('description').getContent(),
+        description:$('#description').val(),// tinymce.get('description').getContent(),
         price: $('#price').val(),
         currency: $('#currency').val(),
         paymnent_frequency: $('input[name=paymnent_frequency]:checked').val(),

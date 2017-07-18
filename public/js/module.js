@@ -62,8 +62,8 @@ $(document).on('click', '.open_modal2e', function () {
         $('#module_id').val(data.id);
         $('#title').val(data.title);
         $('#description').val(data.description);
-//        $('#content').val(data.content);
-        tinymce.get('content').setContent(data.content);
+       $('#content').val(data.content);
+//         tinymce.get('content').setContent(data.content);
         $('#btn-save').val("update");
         $('.frmModule-footer').html('').append('<div class="panel panel-success"> <div class="panel-heading">More with module</div>'
                 + ' <div class="panel-body">  <button class="btn btn-primary btn-detail left open_doc" value="' + module_id + '" title="Documents"><i class="fa fa-file-text-o" ></i> Documents</button>'
@@ -135,7 +135,7 @@ $("#btn-save").click(function (e) {
     var formData = {
         title: $('#title').val(),
         description: $('#description').val(),
-        content: tinymce.get('content').getContent() //$('textarea#content').val()
+        content:  $('#content').val(), //tinymce.get('content').getContent() //$('textarea#content').val()
     };
     //used to determine the http verb to use [add=POST], [update=PUT]
     var state = $('#btn-save').val();

@@ -12,7 +12,7 @@ $("#btn-save").click(function (e) {
     var formData = {
         title: $('#title').val(),
         description: $('#description').val(),
-        content: tinymce.get('content').getContent() //$('textarea#content').val()
+        content:  $('#content').val(),//tinymce.get('content').getContent() //$('textarea#content').val()
     };
     //used to determine the http verb to use [add=POST], [update=PUT]
     var state = $('#btn-save').val();

@@ -168,4 +168,19 @@ class CoacheController extends Controller {
 //        return back()->with('success', ' The package has been disabled successfully.');
     }
 
+    public function uploadEditor(Request $request) {
+        $name=pathinfo($request->photo->getClientOriginalName(), PATHINFO_FILENAME);
+        $fileName = $name."_".rand(11111, 99999) . "." . $request->photo->getClientOriginalExtension();
+//        $fileName = $name. "." . $request->file->getClientOriginalExtension();
+        $request->photo->move(public_path('images'), $fileName);
+
+        return url("/images/".$fileName);
+
+//        $sourcePath = $_FILES['file']['tmp_name'];       // Storing source path of the file in a variable
+//        $targetPath = "/images/".$_FILES['file']['name']; // Target path where file is to be stored
+//        move_uploaded_file($sourcePath,$targetPath) ;    // Moving Uploaded file
+
+//        return var_dump($request->photo);
+
+    }
 }

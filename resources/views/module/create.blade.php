@@ -36,6 +36,7 @@
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Introduction and Guidelines</label>
                         <div class="col-sm-9">
+                            <progress></progress>
                             <textarea class="form-control" id="content" name="content" >{{$module->content}}</textarea>
                         </div>
                     </div>
@@ -171,6 +172,7 @@
 
                             @endif
 
+
                             @if (count($errors) > 0)
                             <div class="alert alert-danger upload-error">
                                 <input type="hidden" value="{{session('module_id_doc')}}" id="upmodule_id">
@@ -185,6 +187,7 @@
                             <div class="row">
 
                                 <div class="form-group">
+
                                     <label for="inputDetail" class="col-sm-3 control-label">Description</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="description" name="description" placeholder="description" value="" required >
@@ -233,6 +236,18 @@ Modules <small>New</small>
 Modules
 @endsection
 
+@section('css')
+    @parent
+
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.1/summernote.css" rel="stylesheet">
+
+    <!-- include summernote css/js-->
+    <link href="{{asset('css/summernote.css')}}">
+    <!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
+@endsection
+
 @section('script')
 @parent
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -240,132 +255,95 @@ Modules
 <script src="{{asset('js/modules.js')}}"></script>
 <script src="{{asset('js/question.js')}}"></script>
 <script src="{{asset('js/document.js')}}"></script>
-<script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>
+{{--<script src="//cloud.tinymce.com/stable/tinymce.min.js"></script>--}}
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
+<script src="{{asset('js/summernote.min.js')}}"></script>
 <script>
-tinymce.init({
-    selector: '#content',
-    height: 300,
-    menubar: false,
-    plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste code',
-        'textcolor'
-    ],
-    toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | forecolor | backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | media | image ',
-  //  content_css: '//www.tinymce.com/css/codepen.min.css'
+    $(document).ready(function() {
+        $('progress').hide();
+    $('#content').summernote({
+        height: 300,   //set editable area's height
+        callbacks: {
+            onImageUpload: function(file,editor, welEditable) {
+                // upload image to server and create imgNode...
+                console.log(file);
+                sendFile(file, this, welEditable);
+//                   console.log(imgNode);
+//                    $(this).summernote('insertNode', imgNode);
+            }
+        }
 
-  // enable title field in the Image dialog
-  image_title: true, 
-  // enable automatic uploads of images represented by blob or data URIs
-  automatic_uploads: true,
-  // URL of our upload handler (for more details check: https://www.tinymce.com/docs/configure/file-image-upload/#images_upload_url)
-  images_upload_url: '{{ url('/postAcceptor.php') }}', //'http://localhost:82/laravel5.3/bulleye/cocpanel/public/postAcceptor.php',
-  // here we add custom filepicker only to Image dialog
-  file_picker_types: 'image | media | files', 
-  images_upload_base_path: '../',
-  // and here's our custom image picker
-  file_picker_callback: function(cb, value, meta) {
-    var input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'files/*');
-    
-    // Note: In modern browsers input[type="file"] is functional without 
-    // even adding it to the DOM, but that might not be the case in some older
-    // or quirky browsers like IE, so you might want to add it to the DOM
-    // just in case, and visually hide it. And do not forget do remove it
-    // once you do not need it anymore.
+    });
+        $('#question').summernote({
+            height: 300,   //set editable area's height
+            callbacks: {
+                onImageUpload: function(file,editor, welEditable) {
+                    // upload image to server and create imgNode...
+//                    console.log(editor);
+                    sendFile(file,this, welEditable);
+//                   console.log(imgNode);
+//                    $(this).summernote('insertNode', imgNode);
+                }
+            }
 
-    input.onchange = function() {
-      var file = this.files[0];
-      
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function () {
-        // Note: Now we need to register the blob in TinyMCEs image blob
-        // registry. In the next release this part hopefully won't be
-        // necessary, as we are looking to handle it internally.
-        var id = 'blobid' + (new Date()).getTime();
-        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-        var blobInfo = blobCache.create(id, file, reader.result);
-        blobCache.add(blobInfo);
+        });
 
-        // call the callback and populate the Title field with the file name
-        cb(blobInfo.blobUri(), { title: file.name });
-      };
-    };
-    
-    input.click();
-  },
+    });
 
-    content_css : "../css/custom_content.css",
-    theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
-    font_size_style_values : "10px,12px,13px,14px,16px,18px,20px"
+    // send the file
 
-});
+    function sendFile(file, editor, welEditable) {
+        data = new FormData();
+//        console.log(editor);
+        data.append("photo", file[0]);
+//        console.log(data.photo);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('progress').show();
+        $.ajax({
+            data: data,
+            type: 'POST',
+            xhr: function() {
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
+                return myXhr;
+            },
+            url:"{{url("coaches/upload")}}",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(url) {
+//                editor.insertImage(welEditable, url);
+                imgNode = document.createElement('img');
+                $(imgNode).attr("src",url);
+                editorid=$(editor).attr('id');
+                console.log($(editor).attr('id'));
+                $("#"+editorid).summernote('insertNode', imgNode);
+//                $summernote.summernote('insertNode', imgNode);
+                $('progress').hide();
 
-setTimeout(function(){
-tinymce.init({
-    selector: '#question',
-    height: 100,
-    menubar: false,
-    plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste code',
-        'textcolor'
-    ],
-    toolbar: 'undo redo | insert | styleselect | fontsizeselect | bold italic | forecolor | backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ',
+            }
+        });
+    }
 
-   // content_css: '//www.tinymce.com/css/codepen.min.css'
-   // enable title field in the Image dialog
-  image_title: true, 
-  // enable automatic uploads of images represented by blob or data URIs
-  automatic_uploads: true,
-  // URL of our upload handler (for more details check: https://www.tinymce.com/docs/configure/file-image-upload/#images_upload_url)
-  images_upload_url: '{{ url('/postAcceptor.php') }}', //'http://localhost:82/laravel5.3/bulleye/cocpanel/public/postAcceptor.php',
-  // here we add custom filepicker only to Image dialog
-  file_picker_types: 'image | media | files', 
-  images_upload_base_path: '../',
-  // and here's our custom image picker
-  file_picker_callback: function(cb, value, meta) {
-    var input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'files/*');
-    
-    // Note: In modern browsers input[type="file"] is functional without 
-    // even adding it to the DOM, but that might not be the case in some older
-    // or quirky browsers like IE, so you might want to add it to the DOM
-    // just in case, and visually hide it. And do not forget do remove it
-    // once you do not need it anymore.
+    // update progress bar
 
-    input.onchange = function() {
-      var file = this.files[0];
-      
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function () {
-        // Note: Now we need to register the blob in TinyMCEs image blob
-        // registry. In the next release this part hopefully won't be
-        // necessary, as we are looking to handle it internally.
-        var id = 'blobid' + (new Date()).getTime();
-        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-        var blobInfo = blobCache.create(id, file, reader.result);
-        blobCache.add(blobInfo);
+    function progressHandlingFunction(e){
+        if(e.lengthComputable){
+            $('progress').attr({value:e.loaded, max:e.total});
+            // reset progress on complete
+            if (e.loaded == e.total) {
+                $('progress').attr('value','0.0');
+            }
+        }
+    }
 
-        // call the callback and populate the Title field with the file name
-        cb(blobInfo.blobUri(), { title: file.name });
-      };
-    };
-    
-    input.click();
-  },
-    //content_css: '//www.tinymce.com/css/codepen.min.css'
-    content_css : "../css/custom_content.css",
-    theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
-    font_size_style_values : "10px,12px,13px,14px,16px,18px,20px"
 
-});
-},0);
 </script>
 @endsection

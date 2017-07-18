@@ -62,7 +62,7 @@ $("#btn-save-question").click(function (e) {
     var formData = {
         sno: $('#questiontbl tr').length,
         module_id: $('#que_module_id').val(),
-        content: tinymce.get('question').getContent() //$('textarea#content').val()
+        content: $('#question').val() //$('textarea#content').val()
     };
     //used to determine the http verb to use [add=POST], [update=PUT]
     var state = ($('#que_id').val() == 0)? 'add':'update';
@@ -118,7 +118,9 @@ $(document).on('click', '.que_edit', function () {
         $('#que_module_id').val(data.module_id);
         $('#que_id').val(data.id);
         $('#question').val(data.content);
-        tinymce.get('question').setContent(data.content);
+        // content: $('#question').val()
+        // tinymce.get('question').setContent(data.content);
+        $('#question').summernote('code',data.content);
         $('#btn-save-question').val("update");
         $('#addQuestionsModel').modal('show');
     });
