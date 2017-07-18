@@ -23,13 +23,13 @@
                     <div class="form-group error">
                         <label for="inputName" class="col-sm-3 control-label">Title</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control has-error" id="title" name="title" placeholder="Module title" value="{{$module->title}}">
+                            <input type="text" class="form-control has-error" id="title" name="title" placeholder="Module title" value="{{$module->title}}" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputDetail" class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="description" name="description" placeholder="description" value="{{$module->description}}">
+                            <input type="text" class="form-control" id="description" name="description" placeholder="description" value="{{$module->description}}" required>
                         </div>
                     </div>
 
@@ -98,6 +98,7 @@
                                 <div class="form-group">
                                     <label for="inputDetail" class="col-sm-3 control-label">Question</label>
                                     <div class="col-sm-9">
+                                        <progress></progress>
                                         <textarea class="form-control" id="question" name="question" ></textarea>
                                     </div>
                                 </div>

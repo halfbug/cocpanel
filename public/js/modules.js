@@ -9,6 +9,13 @@ $("#btn-save").click(function (e) {
         }
     });
     e.preventDefault();
+    if(!$('#title').val())
+    {
+        // alert('title is medatory');
+        $('#title').closest('.form-group').addClass('has-error');
+        $('#title').after("<label class=\"control-label\">Title is required</label>");
+        return false;
+    }
     var formData = {
         title: $('#title').val(),
         description: $('#description').val(),
