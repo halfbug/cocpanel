@@ -64,6 +64,6 @@ class discussion extends Model {
     
     public function getTime($response_id){
         $response_detail= \App\response::find($response_id);
-        return date("D F j, Y, g:i a",  strtotime($response_detail->created_at));
+        return date("D F j, Y",  strtotime($response_detail->created_at));
     }
 }
