@@ -2,8 +2,8 @@
     font-size: 16px;
     position: absolute;
     right: 7px;
-    top: 63px;
-    font-size: 25px !important;
+    top: 76px;
+    font-size: 18px !important;
     color: #0f64fe;
     font-weight: bold;
 }
@@ -228,7 +228,7 @@ td.ques_content {
         padding:0px;
     }
     .navbar-brand > img {
-        margin-top: -64px;
+        margin-top: -23px;
     }
     .navbar-right li{
         float: right;

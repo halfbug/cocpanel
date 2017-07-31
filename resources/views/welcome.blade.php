@@ -74,6 +74,7 @@
                 text-align: center;
                 max-width: 1150px;
             }
+
         </style>
     </head>
     <body>
