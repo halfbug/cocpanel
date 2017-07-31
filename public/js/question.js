@@ -73,6 +73,17 @@ $("#btn-save-question").click(function (e) {
     if (state == "update") {
         type = "PUT"; //for updating existing resource
         my_url += '/' + question_id;
+        var formData = {
+            module_id: $('#que_module_id').val(),
+            content: $('#question').val() //$('textarea#content').val()
+        };
+        else {
+            var formData = {
+                sno: $('#questiontbl tr').length,
+                module_id: $('#que_module_id').val(),
+                content: $('#question').val() //$('textarea#content').val()
+            };
+        }
     }
     //console.log(formData);
     $.ajax({
