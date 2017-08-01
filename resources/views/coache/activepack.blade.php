@@ -27,7 +27,7 @@
                             <tr>
                                 <!--<th style="width: 40px;"></th>-->
                                 <th>Name </th>
-                                <th>Status </th>
+                                <!--<th>Status </th>-->
                                 <th>Action</th>
 
                             </tr>
@@ -37,7 +37,7 @@
                             @foreach ($assigned->package()->get() as $package)
                             <tr id="package_{{$package->id}}">
                                 <!--<td>+</td>-->
-                                <td colspan="2">{{$package->title}}</td>
+                                <td>{{$package->title}}</td>
 
                                 <td><button class="btn btn-success viewmodules" value="{{$package->id}}" title="Show Modules"><i class="fa fa-arrow-circle-o-down" ></i> Show Modules</button></td>
                             </tr>
@@ -146,7 +146,7 @@
                             <tr>
                                 <!--<th>ID</th>-->
                                 <th>Name</th>
-                                <th>Status</th>
+                                <!--<th>Status</th>-->
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -156,13 +156,13 @@
                             $pack_id = $package->id;
                             @endphp
                             <tr>
-                                <td colspan="2">{{$client->user->name}} </td>
+                                <td>{{$client->user->name}} </td>
                                 <td><button class="btn btn-success view_assigned_packages" value="{{$client->user->id.'_'.$pack_id}}" title="Show Packages"><i class="fa fa-caret-square-o-down" ></i> Assigned Packages</button></td> <!--$package->id-->
                             </tr>
 
                             @foreach($client->getPackages(null,$collection) as $package)
                             @if($loop->index == 0)
-                            <tr id="assignedpack_{{$client->user->id.'_'.$pack_id}}" class="active_package"><td colspan="3">
+                            <tr id="assignedpack_{{$client->user->id.'_'.$pack_id}}" class="active_package"><td colspan="2">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h3 class="panel-title">Selected Client Packages</h3>
@@ -175,7 +175,7 @@
                                                         <!--<th style="width: 40px;"></th>-->
                                                         <th>Name </th>
                                                         <th>Description</th>
-                                                        <th>Status</th>
+                                                        <!--<th>Status</th>-->
                                                         <th width="50">Action</th>                
                                                     </tr>
                                                 </thead>
@@ -186,7 +186,7 @@
                             <tr class="info">
                                 <td>{{$package->title}} </td>
                                 <td>{{strip_tags($package->description)}} </td>
-                                <td>&nbsp;</td>     
+                                <!--<td>&nbsp;</td>-->     
                                 <td><button class="btn btn-success viewpackagemodules" value="{{$client->user->id.'_'.$package->id}}" title="Show Packages"><i class="fa fa-caret-square-o-down" ></i> Assigned Modules</button></td>
                             </tr>   
                             @foreach($package->selected_modules as $module)

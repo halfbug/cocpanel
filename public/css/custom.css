@@ -188,6 +188,10 @@ td.ques_content {
 .dropdown.active, .dropdown-menu .active a{
     background: #fe8e28;
 }
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    word-break: break-word;
+}
+
 
 @media (min-width: 768px){
     body {
@@ -247,6 +251,14 @@ td.ques_content {
     }
     #page-wrapper{
         margin-top: 150px;
+    }
+    iframe {
+        max-width: 100%;
+        height: auto;
+    }
+    .panel-body img {
+        max-width: 100%;
+        height: auto;
     }
 }
 

@@ -74,6 +74,15 @@
                 text-align: center;
                 max-width: 1150px;
             }
+            @media screen and (max-width: 767px) {
+                .top-right {
+                    right: 6px;
+                    top: 25px;
+                }
+                .links > a{
+                    font-size: 10px;
+                }
+            }
 
         </style>
     </head>
