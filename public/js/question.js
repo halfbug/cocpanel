@@ -10,25 +10,24 @@ $(document).on('click', '.open_ques', function () {
             $.each(questions, function (i, que) {
 
                 $('#que-list').append(
-                        '<tr id="que_' + que.id + '">'
-                        + '  <td class="s_no">' + que.sno + '</td>'
-                        + '  <td class="ques_content">' + que.content + '</td>'
-                        //$($.parseHTML(que.content)).text().substring(0, 120)
-                        + '  <td class="ques_actions">'
-                        + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
-                        + '     <button class="btn btn-danger que_delete" value="' + que.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
-                        + '  </td>'
-                        + '</tr>'
-                        );
-            });
-        } else
-        {
-            $('#que-list').append(
-                    '<tr >'
-                    + '  <td colspan="3">No question found.</td>'
+                    '<tr id="que_' + que.id + '">'
+                    + '  <td class="s_no">' + que.sno + '</td>'
+                    + '  <td class="ques_content">' + que.content + '</td>'
+                    //$($.parseHTML(que.content)).text().substring(0, 120)
+                    + '  <td class="ques_actions">'
+                    + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
+                    + '     <button class="btn btn-danger que_delete" value="' + que.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
                     + '  </td>'
                     + '</tr>'
-                    );
+                );
+            });
+        } else {
+            $('#que-list').append(
+                '<tr >'
+                + '  <td colspan="3">No question found.</td>'
+                + '  </td>'
+                + '</tr>'
+            );
         }
 //        $('#doc-list').html(data);
 //        $('#doc-list').append(data);
@@ -54,18 +53,18 @@ $("#btn-save-question").click(function (e) {
     // alert($('meta[name="_token"]').attr('content'));
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') ,
-        contentType: "application/x-www-form-urlencoded"
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            contentType: "application/x-www-form-urlencoded"
         }
     });
     e.preventDefault();
-    var formData = {
-        sno: $('#questiontbl tr').length,
-        module_id: $('#que_module_id').val(),
-        content: $('#question').val() //$('textarea#content').val()
-    };
+    // var formData = {
+    //     sno: $('#questiontbl tr').length,
+    //     module_id: $('#que_module_id').val(),
+    //     content: $('#question').val() //$('textarea#content').val()
+    // };
     //used to determine the http verb to use [add=POST], [update=PUT]
-    var state = ($('#que_id').val() == 0)? 'add':'update';
+    var state = ($('#que_id').val() == 0) ? 'add' : 'update';
     var type = "POST"; //for creating new resource
     var question_id = $('#que_id').val();
 
@@ -74,17 +73,19 @@ $("#btn-save-question").click(function (e) {
         type = "PUT"; //for updating existing resource
         my_url += '/' + question_id;
         var formData = {
+            sno: $('#que_'+question_id+' .s_no').html(),
             module_id: $('#que_module_id').val(),
             content: $('#question').val() //$('textarea#content').val()
         };
-        else {
-            var formData = {
-                sno: $('#questiontbl tr').length,
-                module_id: $('#que_module_id').val(),
-                content: $('#question').val() //$('textarea#content').val()
-            };
-        }
     }
+    else {
+        var formData = {
+            sno: $('#questiontbl tr').length,
+            module_id: $('#que_module_id').val(),
+            content: $('#question').val() //$('textarea#content').val()
+        };
+    }
+
     //console.log(formData);
     $.ajax({
         type: type,
@@ -94,13 +95,13 @@ $("#btn-save-question").click(function (e) {
         success: function (que) {
             console.log(que);
             var question = '<tr id="que_' + que.id + '">'
-                    + '  <td class="s_no">' + que.sno + '</td>'
-                    + '  <td class="ques_content">' + que.content + '</td>'
-                    + '  <td class="ques_actions">'
-                    + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
-                    + '     <button class="btn btn-danger que_delete" value="' + que.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
-                    + '  </td>'
-                    + '</tr>'
+                + '  <td class="s_no">' + que.sno + '</td>'
+                + '  <td class="ques_content">' + que.content + '</td>'
+                + '  <td class="ques_actions">'
+                + '     <button class="btn btn-success que_edit" value="' + que.id + '" title="Edit"><i class="fa fa-edit" ></i></button>'
+                + '     <button class="btn btn-danger que_delete" value="' + que.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
+                + '  </td>'
+                + '</tr>'
 
             if (state == "add") { //if user added a new record
                 $('#que-list').append(question);
@@ -131,7 +132,7 @@ $(document).on('click', '.que_edit', function () {
         $('#question').val(data.content);
         // content: $('#question').val()
         // tinymce.get('question').setContent(data.content);
-        $('#question').summernote('code',data.content);
+        $('#question').summernote('code', data.content);
         $('#btn-save-question').val("update");
         $('#addQuestionsModel').modal('show');
     });
@@ -195,7 +196,7 @@ $("#que-list").sortable({
         });
         console.log(data);
         $.ajaxSetup({
-            
+
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -211,6 +212,7 @@ $("#que-list").sortable({
             success: function (data) {
                 console.log('SORTED');
                 //console.log(data);
-            }});
+            }
+        });
     }
 });
