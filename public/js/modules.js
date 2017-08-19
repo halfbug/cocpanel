@@ -106,7 +106,7 @@ function load_documents(){
         $('#doc-list').html("");
         $.each(documents, function (i, doc) {
             //console.log(doc.filename);
-            if(doc.uploaded_by == $("#user_id").val()){
+            //if(doc.uploaded_by == $("#user_id").val()){
                 $('#doc-list').append(
                         '<tr id="doc_' + doc.id + '">'
                         //+ '  <td>' + doc.description + '</td>'
@@ -117,7 +117,7 @@ function load_documents(){
                         + '  </td>'
                         + '</tr>'
                 );
-            }
+            //}
         });
 //        $('#doc-list').html(data);
 //        $('#doc-list').append(data);
