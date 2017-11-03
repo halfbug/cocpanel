@@ -107,12 +107,18 @@ function load_documents(){
         $.each(documents, function (i, doc) {
             //console.log(doc.filename);
             //if(doc.uploaded_by == $("#user_id").val()){
+            
+            fileExist = false;
+            if(fileExists(app.base_url + '/documents/' + doc.filename)){
+                fileExist = true;
+            }
+            
                 $('#doc-list').append(
                         '<tr id="doc_' + doc.id + '">'
                         //+ '  <td>' + doc.description + '</td>'
-                        + '  <td>' + doc.filename + '</td>'
+                        + '  <td>' + doc.filename + ((fileExist)?'':' <strong style="color:#f00; padding-left:50px;"> [This file does not exist, kindly delete this entry and reupload the file]</strong>') + '</td>'
                         + '  <td>'
-                        + '     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>'
+                        + ((fileExist)?'     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>':'')
                         + '     <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
                         + '  </td>'
                         + '</tr>'
@@ -125,6 +131,17 @@ function load_documents(){
     })
 
     $('#doc_module_id').val(module_id);
+}
+
+function fileExists(url) {
+    if(url){
+        var req = new XMLHttpRequest();
+        req.open('GET', url, false);
+        req.send();
+        return req.status==200;
+    } else {
+        return false;
+    }
 }
 
 $( document ).ready(function() {

@@ -142,7 +142,7 @@ class ModuleController extends Controller {
         $documents_copy = [];
         foreach ($module->documents()->get() as $documentCopy) {
             $orignalName =explode('.', $documentCopy->filename);
-            $fileName = $orignalName[0]."_1" . "." . $orignalName[1];
+            $fileName = $orignalName[0]."_" . $copy_of_module->id . "." . $orignalName[1];
             copy(public_path('documents') . '/' . $documentCopy->filename, public_path('documents') . '/' . $fileName);
             $newCopy=$documentCopy->replicate();
             $newCopy->filename = $fileName;

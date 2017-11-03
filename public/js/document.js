@@ -77,7 +77,7 @@ $( document ).ready(function() {
     var module_id = $('#upmodule_id').val();
     $.get(docUrl + '/list/' + module_id, function (documents) {
         //success data
-        console.log(documents);
+        //console.log(documents);
         $('#doc-list').html("");
         $.each(documents, function (i, doc) {
             console.log(doc.filename);
