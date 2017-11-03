@@ -27,6 +27,10 @@ class DocumentController extends Controller {
         $name=pathinfo($request->document->getClientOriginalName(), PATHINFO_FILENAME);
         //$fileName = $name."_".rand(11111, 99999) . "." . $request->document->getClientOriginalExtension();
         $fileName = $name. "." . $request->document->getClientOriginalExtension();
+
+        $orignalName =explode('.', $fileName);
+        $fileName = $orignalName[0]."_" . $request->doc_module_id . "." . $orignalName[1];                
+
         $request->document->move(public_path('documents'), $fileName);
 
         // insert to database
@@ -35,6 +39,8 @@ class DocumentController extends Controller {
         $doc->module_id = $request->doc_module_id;
         $doc->uploaded_by = \Auth::user()->id;
         $doc->filename = $fileName;
+
+
         $doc->save();
 
         return back()->with('success', 'Document uploaded successfully.')
