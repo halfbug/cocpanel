@@ -112,11 +112,20 @@ function load_documents(){
             if(fileExists(app.base_url + '/documents/' + doc.filename)){
                 fileExist = true;
             }
+                        
+            //Remove the _ and id from filename.
+            var fileName = doc.filename;
+            substring = "_";
+            if(fileName.indexOf(substring) !== -1){ // Get the last instace of underscore
+                var str = doc.filename;
+                var index = str.lastIndexOf("_");
+                fileName = str.substr(0,index) + str.substr(fileName.indexOf("."));
+            }
             
                 $('#doc-list').append(
                         '<tr id="doc_' + doc.id + '">'
                         //+ '  <td>' + doc.description + '</td>'
-                        + '  <td>' + doc.filename + ((fileExist)?'':' <strong style="color:#f00; padding-left:50px;"> [This file does not exist, kindly delete this entry and reupload the file]</strong>') + '</td>'
+                        + '  <td>' + fileName + ((fileExist)?'':' <strong style="color:#f00; padding-left:50px;"> [This file does not exist, kindly delete this entry and reupload the file]</strong>') + '</td>'
                         + '  <td>'
                         + ((fileExist)?'     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>':'')
                         + '     <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'

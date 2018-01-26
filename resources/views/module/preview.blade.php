@@ -491,7 +491,7 @@ $(document).on('click', '#save-response', function (e) {
         dataType: 'json',
         success: function (data) {
 
-            $.notify("Your response have been added successfully.");
+            $.notify("Your response has been added successfully.");
             console.log(data);
             var newrec = '<li class="comment green" >'
                     + ' <a class="pull-left" href="#">'
