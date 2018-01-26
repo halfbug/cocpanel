@@ -184,8 +184,8 @@
                         {{ csrf_field() }}
                         <div class="row">
 
-                            <div class="form-group">
-                                <label for="inputDetail" class="col-sm-3 control-label">Description</label>
+                            <div class="form-group doc_name">
+                                <label for="inputDetail" class="col-sm-3 control-label">Name of document <span class="req">(REQUIRED)</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="description" name="description" placeholder="description" value="">
                                 </div>
