@@ -160,7 +160,18 @@
                             @foreach ($module->documents()->where('uploaded_by',session('client')->id)->get() as $document)  
                             <tr>
                                 <!--<td>{{$document->description}}</td>-->
-                                <td>{{$document->filename}}</td>
+                                <td>
+                                <?php
+                                    $fileName = $document->filename;
+                                    $substring = "_";
+                                    if(strrpos($fileName,$substring) !== -1){ // Get the last instace of underscore
+                                        $str = $document->filename;
+                                        $index = strrpos($fileName,$substring);
+                                        $fileName = substr($str,0,$index).substr($fileName,strrpos($fileName,"."));
+                                    }
+                                ?>
+                                
+                                {{$fileName}}</td>
                                 <td>{{ date("D F j, Y, g:i a",  strtotime($document->uploaded_at))}}</td>
                                 <td>  <a href="{{url('/documents/'.$document->filename)}}" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a></td>
 <!--                        <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'</td>
