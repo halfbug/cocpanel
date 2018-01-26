@@ -10,10 +10,21 @@ $(document).on('click', '.open_doc', function () {
         $('#doc-list').html("");
         $.each(documents, function (i, doc) {
             console.log(doc.filename);
+
+            //Remove the _ and id from filename.
+            var fileName = doc.filename;
+            substring = "_";
+            if(fileName.indexOf(substring) !== -1){ // Get the last instace of underscore
+                var str = doc.filename;
+                var index = str.lastIndexOf("_");
+                fileName = str.substr(0,index) + str.substr(fileName.indexOf("."));
+            }
+
+
             $('#doc-list').append(
                     '<tr id="doc_' + doc.id + '">'
                     //+ '  <td>' + doc.description + '</td>'
-                    + '  <td>' + doc.filename + '</td>'
+                    + '  <td>' + fileName + '</td>'
                     + '  <td>'
                     + '     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>'
                     + '     <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
@@ -81,10 +92,20 @@ $( document ).ready(function() {
         $('#doc-list').html("");
         $.each(documents, function (i, doc) {
             console.log(doc.filename);
+
+            //Remove the _ and id from filename.
+            var fileName = doc.filename;
+            substring = "_";
+            if(fileName.indexOf(substring) !== -1){ // Get the last instace of underscore
+                var str = doc.filename;
+                var index = str.lastIndexOf("_");
+                fileName = str.substr(0,index) + str.substr(fileName.indexOf("."));
+            }
+
             $('#doc-list').append(
                     '<tr id="doc_' + doc.id + '">'
                     //+ '  <td>' + doc.description + '</td>'
-                    + '  <td>' + doc.filename + '</td>'
+                    + '  <td>' + fileName + '</td>'
                     + '  <td>'
                     + '     <a href="' + app.base_url + '/documents/' + doc.filename + '" class="btn btn-success btn-dowonload doc_download" title="Download" download><i class="fa fa-download" ></i></a>'
                     + '     <button class="btn btn-danger doc_delete" value="' + doc.id + '" title="Delete"><i class="fa fa-remove" ></i></button>'
