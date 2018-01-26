@@ -187,7 +187,7 @@
                             <div class="form-group doc_name">
                                 <label for="inputDetail" class="col-sm-3 control-label">Name of document <span class="req">(REQUIRED)</span></label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="description" name="description" placeholder="description" value="">
+                                    <input type="text" class="form-control" id="description" name="description" placeholder="Enter Name of Document" value="" required>
                                 </div>
                             </div>
 
